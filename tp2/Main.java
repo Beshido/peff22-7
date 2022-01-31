@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +14,7 @@ public class Main {
   public static void main(String[] args) {
     List<String> list = readFile("newprobA.in");
     // Map map = new HashMap();
-    Set<Ville> villes = new HashSet<Ville>();
+    HashMap<String,Ville> villes = new HashMap<String,Ville>();
     int i=0;
     int t[]=new int[4];
     // t[0] = nombre de ville
@@ -23,7 +25,8 @@ public class Main {
       if(i<4){
         t[i]=Integer.valueOf(s);
       }else if(i<4+t[0]){
-        villes.add(new Ville(s));
+        String tbis [] = s.split(" ");
+        villes.put(tbis[0],new Ville(s));
       }else{
         //create chemin
 
@@ -42,15 +45,19 @@ public class Main {
     // }
     System.out.println(l1);
   }
-  public static Ville choix1aVille(int busId, Set<Ville> villes){
+  public static Ville choix1aVille(int busId, Map<String, Ville> villes){
     Ville bestVille = null;
-    for (Ville v : villes) {
+    for (String nomVille : villes.keySet()) {
+      Ville v = villes.get(nomVille);
       if(bestVille==null || bestVille.getDistanceBus(busId)<v.getDistanceBus(busId)){
         bestVille=v;
       }
     }
     return bestVille;
   }
+  // public static traitement(){
+  //
+  // }
 
   //tools
   public static List<String> readFile(String nomDuFichier){
