@@ -27,20 +27,29 @@ public class Main {
       }else{
         //create chemin
 
-        System.out.println("chemin "+s);
+        // System.out.println("chemin "+s);
       }
       i++;
     }
     System.out.println(villes);
-    traitement();
-  }
-  public static void traitement(){
-    // Ville bestVille = null;
-    // for (Ville v : villes) {
-    //   if(villes.getDistanceBus(0)){
+    int busId=0;
+    List<Ville> l1 = new ArrayList<Ville>();
+    Ville v1 = choix1aVille(busId, villes);
+    l1.add(v1);
+    int c1 = v1.getDistanceBus(busId);
+    // while(){
     //
-    //   }
     // }
+    System.out.println(l1);
+  }
+  public static Ville choix1aVille(int busId, Set<Ville> villes){
+    Ville bestVille = null;
+    for (Ville v : villes) {
+      if(bestVille==null || bestVille.getDistanceBus(busId)<v.getDistanceBus(busId)){
+        bestVille=v;
+      }
+    }
+    return bestVille;
   }
 
   //tools
