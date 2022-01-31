@@ -14,6 +14,7 @@ public class Ville {
     for (int i=0; i<3; i++) {
       credit[i]=Integer.valueOf(t[i+1]);
     }
+      nextVille = new HashMap<String, Ville>();
   }
   public String toString(){
     String r =  nom;
