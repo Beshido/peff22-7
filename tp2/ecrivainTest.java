@@ -49,6 +49,7 @@ public class ecrivainTest {
         bw.write(tabB[i]);
         bw.newLine();
       }
+    }
 
       if(tabC.length != 0){
       bw.write("###");
