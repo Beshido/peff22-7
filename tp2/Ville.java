@@ -23,4 +23,7 @@ public class Ville {
     }
     return r;
   }
+  public int getDistanceBus(int id){
+    return credit[id];
+  }
 }
