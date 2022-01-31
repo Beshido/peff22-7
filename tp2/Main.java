@@ -10,9 +10,12 @@ public class Main {
   public static void main(String[] args) {
     List<String> list = readFile("newprobA.in");
     // System.out.println(list);
-    // int nbrVille = Integer.valueOf();
     int i=0;
     int t[]=new int[4];
+    // t[0] = nombre de ville
+    // t[1] = nombre de bus A
+    // t[2] = nombre de bus B
+    // t[3] = nombre de bus C
     for (String s : list) {
       if(i<4){
         t[i]=Integer.valueOf(s);
