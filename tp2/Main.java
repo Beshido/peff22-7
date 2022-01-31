@@ -9,7 +9,20 @@ import java.nio.charset.StandardCharsets;
 public class Main {
   public static void main(String[] args) {
     List<String> list = readFile("newprobA.in");
-    System.out.println(list);
+    // System.out.println(list);
+    // int nbrVille = Integer.valueOf();
+    int i=0;
+    int t[]=new int[4];
+    for (String s : list) {
+      if(i<4){
+        t[i]=Integer.valueOf(s);
+      }else if(i<4+t[0]){
+        System.out.println("ville "+s);
+      }else{
+        System.out.println("chemin "+s);
+      }
+      i++;
+    }
   }
 
   //tools
