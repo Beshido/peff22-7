@@ -35,10 +35,12 @@ public class Main {
     traitement();
   }
   public static void traitement(){
-    Ville bestVille = null;
-    for (Ville v : villes) {
-      if(villes.getDistanceBus(0))
-    }
+    // Ville bestVille = null;
+    // for (Ville v : villes) {
+    //   if(villes.getDistanceBus(0)){
+    //
+    //   }
+    // }
   }
 
   //tools
