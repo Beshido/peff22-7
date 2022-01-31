@@ -23,20 +23,23 @@ public class Main {
       if(i<4){
         t[i]=Integer.valueOf(s);
       }else if(i<4+t[0]){
-        // System.out.println("ville "+s);
         villes.add(new Ville(s));
       }else{
         //create chemin
+
         System.out.println("chemin "+s);
       }
       i++;
     }
     System.out.println(villes);
-    // traitement();
+    traitement();
   }
-  // public static traitement(){
-  //
-  // }
+  public static void traitement(){
+    Ville bestVille = null;
+    for (Ville v : villes) {
+      if(villes.getDistanceBus(0))
+    }
+  }
 
   //tools
   public static List<String> readFile(String nomDuFichier){
