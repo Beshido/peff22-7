@@ -5,7 +5,8 @@ import java.util.Map;
 public class Ville {
   private String nom;
   private int credit[];
-  public Map<Ville, Integer> nextVille;
+  private Map<Ville, Integer> nextVille;
+  public static int movingCost=0;
 
   public Ville(String in) {
     String t[] = in.split(" ");
@@ -22,6 +23,7 @@ public class Ville {
     for (int i : credit) {
       r += " " + i;
     }
+    r+=" nbrNextVille: "+nextVille.size();
     return r;
   }
 
@@ -29,15 +31,16 @@ public class Ville {
     return credit[id];
   }
 
-  public void setVilleVoisine(HashMap<String, Ville> villes, String s) {
+  public static void setVilleVoisine(HashMap<String, Ville> villes, String s) {
     String ligne[] = s.split(" ");
 
-    this.nextVille.put(villes.get(ligne[1]), Integer.parseInt(ligne[2]));
+    villes.get(ligne[0]).nextVille.put(villes.get(ligne[1]), Integer.parseInt(ligne[2]));
+    villes.get(ligne[1]).nextVille.put(villes.get(ligne[0]), Integer.parseInt(ligne[2]));
   }
 
   public Ville findBestCity() {
     int distanceMin = Integer.MAX_VALUE;
-    Ville res = new Ville("");
+    Ville res = null;
     for (Ville v : this.nextVille.keySet()) {
       int dist = this.nextVille.get(v);
       if (distanceMin > dist) {
@@ -45,6 +48,7 @@ public class Ville {
         res = v;
       }
     }
+    movingCost=distanceMin;
     return res;
   }
 }

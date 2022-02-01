@@ -29,16 +29,18 @@ public class Main {
         villes.put(tbis[0],new Ville(s));
       }else{
         //create chemin
-
+        Ville.setVilleVoisine(villes, s);
         // System.out.println("chemin "+s);
       }
       i++;
     }
     System.out.println(villes);
+    System.out.println();
     System.out.println(getChemin(0,villes));
+    System.out.println();
     System.out.println(getChemin(1,villes));
+    System.out.println();
     System.out.println(getChemin(2,villes));
-
   }
   public static List<Ville> getChemin(int busId, Map<String, Ville> villes){
     List<Ville> l1 = new ArrayList<Ville>();
@@ -50,8 +52,7 @@ public class Main {
       Ville vT = lastV.findBestCity();
       if(vT==null){return l1;}
       l1.add(vT);
-      // essence-=vT.getD //TODO
-      essence-=10;
+      essence-=Ville.movingCost;
       lastV=vT;
     }
     return l1;
