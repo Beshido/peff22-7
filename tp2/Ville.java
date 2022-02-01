@@ -26,6 +26,10 @@ public class Ville {
     r+=" nbrNextVille: "+nextVille.size();
     return r;
   }
+  public String toSol() {
+    String r = nom;
+    return r;
+  }
 
   public int getDistanceBus(int id) {
     return credit[id];

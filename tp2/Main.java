@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
 
 public class Main {
   public static void main(String[] args) {
@@ -45,6 +48,23 @@ public class Main {
     System.out.println(l1);
     System.out.println();
     System.out.println(l2);
+    String content = "";
+    content+="###\n";
+    content+="A\n";
+    for (Ville s : l0) {
+      content+=s.toSol()+"\n";
+    }
+    content+="###\n";
+    content+="B\n";
+    for (Ville s : l1) {
+      content+=s.toSol()+"\n";
+    }
+    content+="###\n";
+    content+="C\n";
+    for (Ville s : l2) {
+      content+=s.toSol()+"\n";
+    }
+    writeFile(content, "out");
   }
   public static List<Ville> getChemin(int busId, Map<String, Ville> villes){
     List<Ville> l1 = new ArrayList<Ville>();
@@ -101,5 +121,33 @@ public class Main {
       e.printStackTrace();
     }
     return gs;
+  }
+  public static boolean writeFile(String content, String nomDuFichier) {
+    // nomDuFichier = str.sToDirectoryName(nomDuFichier);
+    try {
+      BufferedWriter ecriteurAvecBuffer = null;
+      String ligne;
+      File f = new File(nomDuFichier);
+      f.createNewFile(); //it will be crate only if it haven't been yet.
+      try {
+        ecriteurAvecBuffer = new BufferedWriter(new FileWriter(nomDuFichier, StandardCharsets.UTF_8));
+      } catch(FileNotFoundException e) {
+        System.out.println("Le fichier n'as pas pu être créer. Le problème peut venir d'un caractère incorecte");
+        return false;
+      }
+
+      ecriteurAvecBuffer.write(content);
+      ecriteurAvecBuffer.close();
+    }catch (IOException e) {
+      return false;
+    }
+    return true;
+  }
+  public static boolean writeFile(List<String> list, String nomDuFichier){
+    String content = "";
+    for (String s : list) {
+      content+=s+"\n";
+    }
+    return writeFile(content, nomDuFichier);
   }
 }
