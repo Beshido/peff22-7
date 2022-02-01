@@ -25,4 +25,10 @@ public class Ville {
   public int getDistanceBus(int id){
     return credit[id];
   }
+  public Ville findBestCity(){
+    for (Ville v : nextVille.keySet()) {
+      return v;
+    }
+    return null;
+  }
 }

@@ -35,17 +35,27 @@ public class Main {
       i++;
     }
     System.out.println(villes);
-    int busId=0;
+    System.out.println(getChemin(0,villes));
+    System.out.println(getChemin(1,villes));
+    System.out.println(getChemin(2,villes));
+
+  }
+  public static List<Ville> getChemin(int busId, Map<String, Ville> villes){
     List<Ville> l1 = new ArrayList<Ville>();
     Ville v1 = choix1aVille(busId, villes);
+    Ville lastV = v1;
     l1.add(v1);
-    int c1 = v1.getDistanceBus(busId);
-    // while(){
-    //
-    // }
-    System.out.println(l1);
+    int essence = v1.getDistanceBus(busId);
+    while(essence>0){
+      Ville vT = lastV.findBestCity();
+      if(vT==null){return l1;}
+      l1.add(vT);
+      // essence-=vT.getD //TODO
+      essence-=10;
+      lastV=vT;
+    }
+    return l1;
   }
-  // public static List<Ville> getChemin(int )
   public static Ville choix1aVille(int busId, Map<String, Ville> villes){
     Ville bestVille = null;
     for (String nomVille : villes.keySet()) {
