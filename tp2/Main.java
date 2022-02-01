@@ -39,6 +39,7 @@ public class Main {
     List<Ville> l0 = getChemin(0,villes);
     List<Ville> l1 = getChemin(1,villes);
     List<Ville> l2 = getChemin(2,villes);
+    System.out.println();
     System.out.println(l0);
     System.out.println();
     System.out.println(l1);
@@ -53,9 +54,9 @@ public class Main {
     int essence = v1.getDistanceBus(busId);
     while(essence>0){
       Ville vT = lastV.findBestCity();
-      if(vT==null){return l1;}
       lastV.removeVilleVoisine();
-      villes.remove(lastV);
+      villes.remove(lastV.nom);
+      if(vT==null){return l1;}
       essence-=Ville.movingCost;
       if(essence>-1){
         l1.add(vT);
@@ -63,6 +64,8 @@ public class Main {
       lastV=vT;
       System.out.println(vT.nom+" -> "+essence+" voisin:"+vT.nextVille.size());
     }
+    lastV.removeVilleVoisine();
+    villes.remove(lastV.nom);
     return l1;
   }
   public static Ville choix1aVille(int busId, Map<String, Ville> villes){
