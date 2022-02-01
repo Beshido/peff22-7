@@ -39,6 +39,8 @@ public class Main {
     }
     System.out.println(villes);
     System.out.println();
+    //TODO utiliser plusieurs bus A si il y en a plusieurs.
+    //ca peut marcher avec une liste d'Object busName, path
     List<Ville> l0 = getChemin(0,villes);
     List<Ville> l1 = getChemin(1,villes);
     List<Ville> l2 = getChemin(2,villes);
