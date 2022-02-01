@@ -36,11 +36,14 @@ public class Main {
     }
     System.out.println(villes);
     System.out.println();
-    System.out.println(getChemin(0,villes));
+    List<Ville> l0 = getChemin(0,villes);
+    List<Ville> l1 = getChemin(1,villes);
+    List<Ville> l2 = getChemin(2,villes);
+    System.out.println(l0);
     System.out.println();
-    System.out.println(getChemin(1,villes));
+    System.out.println(l1);
     System.out.println();
-    System.out.println(getChemin(2,villes));
+    System.out.println(l2);
   }
   public static List<Ville> getChemin(int busId, Map<String, Ville> villes){
     List<Ville> l1 = new ArrayList<Ville>();
@@ -51,9 +54,14 @@ public class Main {
     while(essence>0){
       Ville vT = lastV.findBestCity();
       if(vT==null){return l1;}
-      l1.add(vT);
+      lastV.removeVilleVoisine();
+      villes.remove(lastV);
       essence-=Ville.movingCost;
+      if(essence>-1){
+        l1.add(vT);
+      }
       lastV=vT;
+      System.out.println(vT.nom+" -> "+essence+" voisin:"+vT.nextVille.size());
     }
     return l1;
   }

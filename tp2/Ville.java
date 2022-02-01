@@ -3,9 +3,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Ville {
-  private String nom;
+  public String nom;
   private int credit[];
-  private Map<Ville, Integer> nextVille;
+  public Map<Ville, Integer> nextVille;
   public static int movingCost=0;
 
   public Ville(String in) {
@@ -36,6 +36,12 @@ public class Ville {
 
     villes.get(ligne[0]).nextVille.put(villes.get(ligne[1]), Integer.parseInt(ligne[2]));
     villes.get(ligne[1]).nextVille.put(villes.get(ligne[0]), Integer.parseInt(ligne[2]));
+  }
+  public void removeVilleVoisine(){
+    for (Ville v : this.nextVille.keySet()) {
+      v.nextVille.remove(this);
+    }
+    this.nextVille = new HashMap<Ville, Integer>();
   }
 
   public Ville findBestCity() {
