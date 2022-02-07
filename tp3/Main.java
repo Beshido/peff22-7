@@ -10,9 +10,11 @@ public class Main {
     int nbMots = parseInt(list.get(0));
     String chaineLongue = list.get(nbMots+1);
     // System.out.println(chaineLongue);
-    System.out.println(reserch(chaineLongue, motsARechercher(list)));
+    // System.out.println(reserch(chaineLongue, motsARechercher(list)));
     String resString = "";
-
+    int t [] = positionChaine(reserch(chaineLongue, motsARechercher(list)));
+    System.out.println(t[0]);
+    System.out.println(t[1]);
     FilesOp.writeFile(resString,"out");
 
   }
@@ -51,24 +53,59 @@ public class Main {
 
 
 
-  public int[] positionChaine(List<List<Integer>>list){
-    int debut= list.get(0).get(0);
-    int fin= list.get(0).get(0);
+  public static int[] positionChaine(List<List<Integer>>list){
+    int nbrMot = list.size();
+    int listSize = Integer.MAX_VALUE;
+    int indiceDeb=0;
+    System.out.println(list);
+    // int debut= list.get(0).get(0);
+    // int fin= list.get(1).get(0);
 
-    for(int i=0; i<list.size(); i++){
-      for(int j=0; j<list.get(i).get(j);j++){
-        if ((fin - debut) < (fin - j)){
-          debut = list.get(i).get(j);
-        }
-        if((fin - debut) < (j - debut)){
-          fin = list.get(i).get(j);
+    int tTemp [] = new int [nbrMot];
+    for (int i=0; i<nbrMot; i++) {
+      tTemp[i]=list.get(i).get(0);
+      list.get(i).remove(0);
+    }
+    while(true){
+      int min = min(tTemp);
+      int listSizeTemp = max(tTemp) - min;
+      if(listSizeTemp<listSize){
+        indiceDeb=min;
+        listSize=listSizeTemp;
+      }
+      for (int i=0; i<nbrMot; i++) {
+        if(tTemp[i]==min){
+          try {
+            tTemp[i]=list.get(i).get(0);
+            list.get(i).remove(0);
+          }catch (Exception e) {
+            // return listSize;
+            // int listDernierMot=0;
+            int [] tab = {indiceDeb, indiceDeb+listSize};
+            // return {indiceDeb, indiceDeb+listSize};
+            return tab;
+          }
         }
       }
     }
-    int [] tab = {debut, fin};
-    return tab;
-
-
+  }
+  public static int max(int t[]){
+    int m=t[0];
+    for (int i : t) {
+      if(i>m){
+        m=i;
+      }
+    }
+    return m;
+  }
+  public static int min(int t[]){
+    int m=t[0];
+    for (int i : t) {
+      if(i<m){
+        m=i;
+      }
+    }
+    return m;
   }
 
 }
