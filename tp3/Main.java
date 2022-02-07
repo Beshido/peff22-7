@@ -11,6 +11,9 @@ public class Main {
     String chaineLongue = list.get(nbMots+1);
     // System.out.println(chaineLongue);
     System.out.println(reserch(chaineLongue, motsARechercher(list)));
+    String resString = "";
+    
+    FilesOp.writeFile(resString,"out");
 
   }
 
