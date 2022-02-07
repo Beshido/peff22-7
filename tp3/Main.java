@@ -34,5 +34,14 @@ public class Main {
     }
     return listOfList;
   }
-  public static List<Integer> makeIntList(String s, String s2){return new ArrayList<Integer>();}
+    public ArrayList<Integer> makeIntList(String texteSeul, String mot){
+        ArrayList<Integer> res = new ArrayList();
+        int a = texteSeul.indexOf(mot);
+        while(a < texteSeul.length()){
+            res.add(a);
+            a = texteSeul.indexOf(mot, a+ mot.length());
+        }
+        return res;
+    }
+
 }
