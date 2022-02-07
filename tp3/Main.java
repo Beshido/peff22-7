@@ -34,7 +34,7 @@ public class Main {
     }
     return listOfList;
   }
-    public ArrayList<Integer> makeIntList(String texteSeul, String mot){
+    public static ArrayList<Integer> makeIntList(String texteSeul, String mot){
         ArrayList<Integer> res = new ArrayList();
         int a = texteSeul.indexOf(mot);
         while(a < texteSeul.length()){
