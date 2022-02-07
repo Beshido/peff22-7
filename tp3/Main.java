@@ -56,10 +56,10 @@ public class Main {
     for(int i=0; i<list.size(); i++){
       for(int j=0; j<list.get(i).get(j);j++){
         if ((fin - debut) < (fin - j)){
-          debut = j;
+          debut = list.get(i).get(j);
         }
         if((fin - debut) < (j - debut)){
-          fin = j; 
+          fin = list.get(i).get(j);
         }  
       }
     }
