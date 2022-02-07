@@ -9,6 +9,8 @@ public class Main2 {
     // System.out.println(list);
     int nbMots = parseInt(list.get(0));
     System.out.println(list);
+    String res ="";
+    concatene(char[] chars, size, new char[size], 0 ,res);
 
   }
 
@@ -44,4 +46,16 @@ public class Main2 {
         return res;
     }
 
+    public static void concatene(char[] chars, int size, char[] build, int pos, String res){
+        if (pos == size) {
+            String word = new String (build);
+            res = res+word;
+            return;
+        }
+
+        for (char aChar : chars) {
+            build[pos] = aChar;
+            concatene(chars, size, build, pos + 1,res);
+        }
+    }
 }
