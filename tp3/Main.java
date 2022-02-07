@@ -9,7 +9,7 @@ public class Main {
 
   }
 
-  public String[] motARechercher (String[] texte){
+  public String[] motsARechercher (String[] texte){
      int n = parseInt(texte[0]);
      String[] res = new String [n];
      for(int i = 0; i < n; i++ ){
