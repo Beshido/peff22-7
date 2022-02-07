@@ -36,6 +36,7 @@ public class Main {
   }
     public static ArrayList<Integer> makeIntList(String texteSeul, String mot){
         ArrayList<Integer> res = new ArrayList();
+        if(mot==null){return res;}
         int a = texteSeul.indexOf(mot);
         while(a < texteSeul.length() && a != -1){
             res.add(a);
