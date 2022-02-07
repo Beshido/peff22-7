@@ -15,6 +15,15 @@ public class Main {
     int t [] = positionChaine(reserch(chaineLongue, motsARechercher(list)));
     System.out.println(t[0]);
     System.out.println(t[1]);
+    int k=0;
+    for (String s : motsARechercher(list)) {
+      if(chaineLongue.substring(t[1]-1).indexOf(s)==1){
+        k=s.length();
+      }
+    }
+    System.out.println(k);
+    resString = chaineLongue.substring(t[0],t[1]+k);
+    System.out.println(resString);
     FilesOp.writeFile(resString,"out");
 
   }
@@ -57,7 +66,7 @@ public class Main {
     int nbrMot = list.size();
     int listSize = Integer.MAX_VALUE;
     int indiceDeb=0;
-    System.out.println(list);
+    // System.out.println(list);
     // int debut= list.get(0).get(0);
     // int fin= list.get(1).get(0);
 
