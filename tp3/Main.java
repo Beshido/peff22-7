@@ -5,7 +5,10 @@ import static java.lang.Integer.parseInt;
 public class Main {
   public static void main(String[] args) {
     List<String> list = FilesOp.readFile(args[0]);
-    System.out.println(list);
+    //System.out.println(list);
+    int nbMots = parseInt(list.get(0));
+    String chaineLongue = list.get(nbMots+1);
+    System.out.println(chaineLongue);
 
   }
 
