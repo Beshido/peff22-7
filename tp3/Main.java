@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -16,5 +17,15 @@ public class Main {
        res[i] = texte[i+1];
      }
      return res;
+  }
+
+  public ArrayList<Integer> makeIntList(String texteSeul, String mot){
+      ArrayList<Integer> res = new ArrayList();
+      int a = texteSeul.indexOf(mot);
+      while(a < texteSeul.length()){
+            res.add(a);
+            a = texteSeul.indexOf(mot, a+ mot.length());
+      }
+      return res;
   }
 }
