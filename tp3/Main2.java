@@ -9,6 +9,8 @@ public class Main2 {
     // System.out.println(list);
     int nbMots = parseInt(list.get(0));
     System.out.println(list);
+    String res ="";
+    concatene(char[] chars, size, new char[size], 0 ,res);
 
   }
 
@@ -44,4 +46,36 @@ public class Main2 {
         return res;
     }
 
+    public static void concatene(char[] chars, int size, char[] build, int pos, String res){
+        if (pos == size) {
+            String word = new String (build);
+            res = res+word;
+            return;
+        }
+
+        for (char aChar : chars) {
+            build[pos] = aChar;
+            concatene(chars, size, build, pos + 1,res);
+        }
+    }
+
+    public char[] makeAlphabet (String[] WordsList){
+      List<char> listAlphabet = new ArrayList<char>();
+      
+      for(String word : WordsList){
+        for(int i = 0; i<word.length;i++){
+          if(!alphabet.contains(word.charAt(i))){
+            alphabet.add(word.charAt(i));
+          }
+
+      char[] tabAlphabet = new char[listAlphabet.size()];
+      for(int i = 0; i<tabAlphabet.length;i++){
+        tabAlphabet[i] = listAlphabet.get(i);
+      }
+
+          
+      }
+    }
+    return tabAlphabet;
+  }
 }
