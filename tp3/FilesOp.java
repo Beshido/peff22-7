@@ -20,13 +20,22 @@ public class FilesOp {
     try {
       BufferedReader lecteurAvecBuffer = null;
       String ligne;
+      String tmp = "";
       try {
         lecteurAvecBuffer = new BufferedReader(new FileReader(nomDuFichier, StandardCharsets.UTF_8));
       } catch(FileNotFoundException e) {
         System.out.println("Le chargement du fichier "+ nomDuFichier+" a échoué.");
       }
+      ligne = lecteurAvecBuffer.readLine();
+      gs.add(ligne);
       while ((ligne = lecteurAvecBuffer.readLine()) != null){
-        gs.add(ligne);
+        tmp = tmp + ligne;
+        if(ligne.charAt(ligne.length()-1) == '#'){
+          gs.add(tmp.substring(0,tmp.length()-1));
+          tmp = "";
+        }
+        else{
+        }
       }
       lecteurAvecBuffer.close();
     }catch (IOException e) {
