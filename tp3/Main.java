@@ -30,6 +30,7 @@ public class Main {
      }
      return res;
   }
+<<<<<<< Updated upstream
   public static List<List<Integer>> reserch(String chaineLongue, String mots[]){
     List<List<Integer>> listOfList = new ArrayList<List<Integer>>();
     for (String mot : mots) {
@@ -48,5 +49,27 @@ public class Main {
         }
         return res;
     }
+
+
+
+  public int[] positionChaine(List<List<Integer>>list){
+    int debut= list.get(0).get(0);
+    int fin= list.get(0).get(0);
+
+    for(int i=0; i<list.size(); i++){
+      for(int j=0; j<list.get(i).get(j);j++){
+        if ((fin - debut) < (fin - j)){
+          debut = list.get(i).get(j);
+        }
+        if((fin - debut) < (j - debut)){
+          fin = list.get(i).get(j);
+        }  
+      }
+    }
+    int [] tab = {debut, fin};
+    return tab;  
+    
+
+  }
 
 }
