@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 
+
 public class FilesOp {
   //tools
   public static List<String> readFile(String nomDuFichier){
@@ -43,7 +44,7 @@ public class FilesOp {
     }
     return gs;
   }
-  public static boolean writeFile(String content, String nomDuFichier) {
+  public static boolean writeFile(String content,int t0, String nomDuFichier) {
     // nomDuFichier = str.sToDirectoryName(nomDuFichier);
     try {
       BufferedWriter ecriteurAvecBuffer = null;
@@ -56,19 +57,28 @@ public class FilesOp {
         System.out.println("Le fichier n'as pas pu être créer. Le problème peut venir d'un caractère incorecte");
         return false;
       }
-
-      ecriteurAvecBuffer.write(content);
+      String a = content.length()+"\n";
+      ecriteurAvecBuffer.write(a);
+      String s = t0+"";
+      ecriteurAvecBuffer.write(s);
+      for(int i = 0 ; i<content.length();i++){
+        if(i%80 == 0){
+          ecriteurAvecBuffer.write("\n");
+        }
+        ecriteurAvecBuffer.write(content.charAt(i));
+      }
+      ecriteurAvecBuffer.write("#");
       ecriteurAvecBuffer.close();
     }catch (IOException e) {
       return false;
     }
     return true;
   }
-  public static boolean writeFile(List<String> list, String nomDuFichier){
+  /*public static boolean writeFile(List<String> list, String nomDuFichier){
     String content = "";
     for (String s : list) {
       content+=s+"\n";
     }
     return writeFile(content, nomDuFichier);
-  }
+  }*/
 }

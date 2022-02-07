@@ -24,9 +24,10 @@ public class Main {
     // System.out.println(k);
     t[1]+=k;
     resString = chaineLongue.substring(t[0],t[1]);
-    // System.out.println(resString);
-    resString = resString.length()+"\n"+t[0]+"\n"+resString+"\n";
-    FilesOp.writeFile(resString,"out");
+    //System.out.println(resString.length());
+    //System.out.println(t[0]);
+    //resString = resString.length()+"\n"+t[0]+"\n"+resString+"\n";
+    FilesOp.writeFile(resString,t[0],"out");
 
   }
 
