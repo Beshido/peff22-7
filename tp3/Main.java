@@ -20,7 +20,7 @@ public class Main {
      // for(int i = 0; i < n; i++ ){
      int i=0;
      for (String s : texte) {
-       if(i>0 && i<n){
+       if(i>0 && i<=n){
          res[i-1] = s;
        }
        i++;
@@ -36,6 +36,7 @@ public class Main {
   }
     public static ArrayList<Integer> makeIntList(String texteSeul, String mot){
         ArrayList<Integer> res = new ArrayList();
+        System.out.println(mot);
         if(mot==null){return res;}
         int a = texteSeul.indexOf(mot);
         while(a < texteSeul.length() && a != -1){
