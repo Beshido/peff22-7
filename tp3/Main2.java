@@ -58,4 +58,24 @@ public class Main2 {
             concatene(chars, size, build, pos + 1,res);
         }
     }
+
+    public char[] makeAlphabet (String[] WordsList){
+      List<char> listAlphabet = new ArrayList<char>();
+      
+      for(String word : WordsList){
+        for(int i = 0; i<word.length;i++){
+          if(!alphabet.contains(word.charAt(i))){
+            alphabet.add(word.charAt(i));
+          }
+
+      char[] tabAlphabet = new char[listAlphabet.size()];
+      for(int i = 0; i<tabAlphabet.length;i++){
+        tabAlphabet[i] = listAlphabet.get(i);
+      }
+
+          
+      }
+    }
+    return tabAlphabet;
+  }
 }
