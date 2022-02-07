@@ -12,7 +12,7 @@ public class Main {
     // System.out.println(chaineLongue);
     System.out.println(reserch(chaineLongue, motsARechercher(list)));
     String resString = "";
-    
+
     FilesOp.writeFile(resString,"out");
 
   }
@@ -30,7 +30,6 @@ public class Main {
      }
      return res;
   }
-<<<<<<< Updated upstream
   public static List<List<Integer>> reserch(String chaineLongue, String mots[]){
     List<List<Integer>> listOfList = new ArrayList<List<Integer>>();
     for (String mot : mots) {
@@ -63,12 +62,12 @@ public class Main {
         }
         if((fin - debut) < (j - debut)){
           fin = list.get(i).get(j);
-        }  
+        }
       }
     }
     int [] tab = {debut, fin};
-    return tab;  
-    
+    return tab;
+
 
   }
 
