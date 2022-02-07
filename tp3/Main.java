@@ -31,7 +31,7 @@ public class Main {
     public ArrayList<Integer> makeIntList(String texteSeul, String mot){
         ArrayList<Integer> res = new ArrayList();
         int a = texteSeul.indexOf(mot);
-        while(a < texteSeul.length()){
+        while(a < texteSeul.length() && a != -1){
             res.add(a);
             a = texteSeul.indexOf(mot, a+ mot.length());
         }
