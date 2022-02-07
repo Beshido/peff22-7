@@ -10,9 +10,11 @@ public class Main2 {
     int nbMots = parseInt(list.get(0));
     System.out.println(list);
     String res ="";
-    concatene(char[] chars, size, new char[size], 0 ,res);
+    char[] chars = makeAlphabet(motsARechercher(list));
+    concatene(chars, size, new char[size], 0 ,res);
 
   }
+
 
   public static String[] motsARechercher (List<String> texte){
      int n = parseInt(texte.get(0));
@@ -59,23 +61,21 @@ public class Main2 {
         }
     }
 
-    public char[] makeAlphabet (String[] WordsList){
-      List<char> listAlphabet = new ArrayList<char>();
+    public static char[] makeAlphabet (String[] WordsList){
+      List<Character> listAlphabet = new ArrayList<Character>();
       
-      for(String word : WordsList){
-        for(int i = 0; i<word.length;i++){
-          if(!alphabet.contains(word.charAt(i))){
-            alphabet.add(word.charAt(i));
+      for(String word : WordsList) {
+          for (int i = 0; i < word.length(); i++) {
+              if (!listAlphabet.contains(word.charAt(i))) {
+                  listAlphabet.add(word.charAt(i));
+              }
           }
+      }
 
       char[] tabAlphabet = new char[listAlphabet.size()];
       for(int i = 0; i<tabAlphabet.length;i++){
         tabAlphabet[i] = listAlphabet.get(i);
       }
-
-          
-      }
-    }
     return tabAlphabet;
   }
 }
