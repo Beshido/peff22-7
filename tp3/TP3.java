@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-public class Main {
+public class TP3 {
   public static void main(String[] args) {
     List<String> list = FilesOp.readFile(args[0]);
     // System.out.println(list);

@@ -3,15 +3,33 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-public class Main2 {
+public class TP3_bis {
+    static String res = "";
+
   public static void main(String[] args) {
     List<String> list = FilesOp2.readFile(args[0]);
     // System.out.println(list);
     int nbMots = parseInt(list.get(0));
-    System.out.println(list);
-    String res ="";
+    String resString = "";
+
     char[] chars = makeAlphabet(motsARechercher(list));
-    concatene(chars, size, new char[size], 0 ,res);
+    int size = sizeIs(motsARechercher(list));
+    for ( int  i = 1; i < size; i++) {
+        concatene(chars, i, new char[i], 0);
+    }
+      int t [] = TP3.positionChaine(reserch(res, motsARechercher(list)));
+      int k=0;
+      for (String s : motsARechercher(list)) {
+          if(res.substring(t[1]-1).indexOf(s)==1){
+              k=s.length();
+          }
+      }
+      // System.out.println(k);
+      t[1]+=k;
+      resString = res.substring(t[0],t[1]);
+    System.out.println(resString);
+      FilesOp2.writeFile(resString,t[0],"out2");
+    res = "";
 
   }
 
@@ -48,16 +66,16 @@ public class Main2 {
         return res;
     }
 
-    public static void concatene(char[] chars, int size, char[] build, int pos, String res){
+    public static void concatene(char[] chars, int size, char[] build, int pos){
         if (pos == size) {
             String word = new String (build);
-            res = res+word;
+            res = res + word;
             return;
         }
 
         for (char aChar : chars) {
             build[pos] = aChar;
-            concatene(chars, size, build, pos + 1,res);
+            concatene(chars, size, build, pos + 1);
         }
     }
 
@@ -77,5 +95,13 @@ public class Main2 {
         tabAlphabet[i] = listAlphabet.get(i);
       }
     return tabAlphabet;
+  }
+
+  public static int sizeIs(String[] WordsList){
+      int i = 0;
+      for(String word : WordsList){
+          i = i + word.length();
+      }
+      return i;
   }
 }
