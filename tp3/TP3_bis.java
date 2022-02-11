@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 import static java.lang.Integer.parseInt;
 
@@ -7,8 +9,42 @@ public class TP3_bis {
 
   public static void main(String[] args) {
     List<String> list = FilesOp2.readFile(args[0]);
-      String res = result(motsARechercher(list));
-      FilesOp2.writeFile(res,res.length(),"out2");
+    Set<String> set = new HashSet<String>();
+    list.remove(0);
+    for (String s : list) {
+      set.add(s);
+    }
+    while(set.size()>1){
+      System.out.println(set);
+      fuze2CloserString(set);
+    }
+    System.out.println(set);
+    // for (String s : motsARechercher(list)) {
+    //   System.out.print(s+", ");
+    // }
+    // System.out.println();
+    // String res = result(motsARechercher(list));
+    // System.out.println(res);
+    // FilesOp2.writeFile(res,res.length(),"out2");
+  }
+  public static void fuze2CloserString(Set<String> set){
+    String s1=null;
+    String s2=null;
+    for (String s : set) {
+      if(s1==null){
+        s1=s;
+      }else if(s2==null){
+        s2=s;
+      }else{
+        //TODO
+      }
+    }
+    String s3 = concatene(s1,s2);
+    String s4 = concatene(s2,s1);
+    if(s4.length()<s3.length()){s3=s4;}
+    set.remove(s1);
+    set.remove(s2);
+    set.add(s3);
   }
 
 
@@ -41,8 +77,13 @@ public class TP3_bis {
     }
 
   public static String concatene ( String mot1, String mot2) {
+      //return mot if it's an easy cas.
       if (mot1.contains(mot2)) {
           return mot1;
+      }else if (mot2.contains(mot1)) {
+          return mot2;
+      }else if (mot1.charAt(0)!=mot2.charAt(mot2.length()-1) && mot2.charAt(0)!=mot1.charAt(mot1.length()-1)) {
+        return mot1+mot2;
       }
       String fin_mot2 = "";
       for (int i = mot2.length()-1; i > 0; i--) {
