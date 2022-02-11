@@ -20,10 +20,10 @@ public class TP3_bis {
       set.add(s);
     }
     while(set.size()>1){
-      System.out.println(set);
+      // System.out.println(set);
       fuze2CloserString(set);
     }
-    System.out.println(set);
+    // System.out.println(set);
     // for (String s : motsARechercher(list)) {
     //   System.out.print(s+", ");
     // }
@@ -100,7 +100,7 @@ public class TP3_bis {
       }
     }
     //do the merge
-    System.out.println(communLetter+" between "+s1+" "+s2);
+    // System.out.println(communLetter+" between "+s1+" "+s2);
     String s3 = mergeString(s1, s2, communLetter);
     set.remove(s1);
     set.remove(s2);
