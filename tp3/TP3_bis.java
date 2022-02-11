@@ -47,11 +47,13 @@ public class TP3_bis {
       String fin_mot2 = "";
       for (int i = mot2.length()-1; i > 0; i--) {
           fin_mot2 += mot2.charAt(i);
-          String tmp = mot2.substring(0,i-1);
+          String tmp = mot2.substring(0,i);
           if (mot1.contains(tmp)) {
+              System.out.println(reverse(fin_mot2));
               return mot1+reverse(fin_mot2);
           }
       }
+      System.out.println("pas de concatenation possible");
         return mot1+mot2;
   }
 
