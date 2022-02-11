@@ -52,12 +52,16 @@ public class TP3_bis {
     return communChar;
   }
   private static int communLetterCpt(String s1, String s2){
+    if(s1.contains(s2)){return s2.length();}
+    else if(s2.contains(s1)){return s1.length();}
     int x = communLetterCpt1(s1,s2);
     int x2 = communLetterCpt1(s2,s1);
     if(x2>x){x=x2;}
     return x;
   }
   private static String mergeString(String s1, String s2, int communChar){
+    if(s1.contains(s2)){return s1;}
+    else if(s2.contains(s1)){return s2;}
     String s4=s1.substring(0,communChar);
     if(s2.contains(s4)){
       return s2+s1.substring(communChar);
