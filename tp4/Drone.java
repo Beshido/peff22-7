@@ -6,7 +6,7 @@ import java.lang.Math;
 public class Drone extends CarryingObjects {
     public int timeLeft;
     public int maxWeigth;
-    public List<Point> targetLocation;
+    public List<Point> targetLocation; //TODO plutot qu'une liste de point ou aller, il faudrait prendre les missions pour savoir a qui distribuer quoi.
     public Drone(int x, int y, int maxW, int timeLeft){
         super(x,y);
         maxWeigth=maxW;
@@ -31,12 +31,14 @@ public class Drone extends CarryingObjects {
         return getMoveTime()+2; //+ load & deliver
     }
     public void load(Warhouse warhouse){
-
+        //TODO trouver la meilleurs mission en fonction des stocks de l'entrepot.
+        //TODO charger les éléments en fonction de la mission choisi
     }
     public void deliver(Mission m){
         // TODO removeItemOf(m);
         if(targetLocation.length()==0){
-            targetLocation.add(getCloserWarhouse());
+            //TODO faire la fct getCloserWarhouse()
+            // targetLocation.add(getCloserWarhouse());
         }
     }
 
