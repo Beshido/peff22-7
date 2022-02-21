@@ -9,5 +9,5 @@ public class CarryingObjects{
         Point p = new Point(x,y);
         currentLocation = p;
         listOfObject = null;
-        }
+    }
 }
