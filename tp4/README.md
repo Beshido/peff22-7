@@ -4,8 +4,8 @@ CaryingObject {
 }
 Drone {
   maxWeigth;
-  Point targetLocation;
+  List<Point> targetLocation;
 }
 Warhouse {
-  
+
 }
