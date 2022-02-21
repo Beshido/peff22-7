@@ -11,7 +11,7 @@ public class Drone extends CarryingObjects {
     super(x,y);
     maxWeigth=maxW;
     this.timeLeft=timeLeft;
-    targetLocation = new ArrayList();
+    targetLocation = new ArrayList<Point>();
   }
   public void move(){
     //TODO update time
