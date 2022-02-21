@@ -1,14 +1,14 @@
-CaryingObject {
+CarryingObject {
   Point curentLocation;
   listOfObject;
 }
-Drone extends CaryingObject {
+Drone extends CarryingObject {
   maxWeigth;
   List<Point> targetLocation;
 }
-Warhouse extends CaryingObject {
+Warhouse extends CarryingObject {
 
 }
-Mission extends CaryingObject {
+Mission extends CarryingObject {
 
 }
