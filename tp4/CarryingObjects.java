@@ -10,4 +10,10 @@ public class CarryingObjects{
         currentLocation = p;
         listOfObject = null;
     }
+
+    public void initializedObjects(int[] tab){
+        for(int i = 0; i< tab.length; i++){
+            listOfObject.put(i,tab[i]);
+        }
+    }
 }
