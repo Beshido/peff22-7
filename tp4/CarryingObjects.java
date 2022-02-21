@@ -8,7 +8,7 @@ public class CarryingObjects{
     public CarryingObjects(int x, int y){
         Point p = new Point(x,y);
         currentLocation = p;
-        listOfObject = null;
+        listOfObject = new HashMap<>();
     }
 
     public void initializedObjects(int[] tab){
