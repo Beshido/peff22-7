@@ -37,8 +37,8 @@ public class Drone extends CarryingObjects {
         int distance = Integer.MAX_VALUE ;
         for(int i = 0; i < tab.length(); i++ ){
             int tmp = (int) Math.sqrt(
-                Math.pow(tab[i].currentLocation.get(0).getX()-currentLocation.getX(),2) +
-                Math.pow(tab[i].currentLocation.get(0).getY()-currentLocation.getY(),2));
+                Math.pow(tab[i].currentLocation.getX()-currentLocation.getX(),2) +
+                Math.pow(tab[i].currentLocation.getY()-currentLocation.getY(),2));
             if(tmp < distance ){
                 distance = tmp ;
                 nearest = i;
