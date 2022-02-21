@@ -4,7 +4,7 @@ import java.util.List;
 import java.lang.Math;
 
 public class Drone extends CarryingObjects {
-    public double timeLeft;
+    public int timeLeft;
     public int maxWeigth;
     public List<Point> targetLocation;
     public Drone(int x, int y, int maxW, int timeLeft){
@@ -15,13 +15,20 @@ public class Drone extends CarryingObjects {
     }
     // Function to move
     public void move(){
-        double dist = Math.sqrt(
-        Math.pow(targetLocation.get(0).getX()-currentLocation.getX(),2) +
-        Math.pow(targetLocation.get(0).getY()-currentLocation.getY(),2));
-        timeLeft-=dist;
+        timeLeft-=getMoveTime();
         if(timeLeft>=0){
             currentLocation = targetLocation.get(0);
             targetLocation.remove(0);
         }
     }
+    public int getMoveTime(){
+        double dist = Math.sqrt(
+                Math.pow(targetLocation.get(0).getX()-currentLocation.getX(),2) +
+                Math.pow(targetLocation.get(0).getY()-currentLocation.getY(),2));
+        return (int)(dist+1);
+    }
+    public int getMissionTime(){
+        return getMoveTime()+2; //+ load & deliver
+    }
+
 }
