@@ -8,7 +8,7 @@ public class Warehouse extends Carryingobjet{
 
 
     public Warehouse(int x, int y, Map <Integer, Integer> stock){
-        Point location = new point (super(x), super(y));
+        Point location = new Point (this.x, this.y);
         this.stock = stock;
     }
     
