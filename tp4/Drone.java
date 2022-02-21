@@ -6,8 +6,8 @@ public class Drone extends CarryingObject {
   public int maxWeigth;
   public List<Point> targetLocation;
   public Drone(int x, int y, int maxW){
-    super(x,y, new ArrayList());
+    super(x,y);
     maxWeigth=maxW;
-    List<Point> = new ArrayList();
+    targetLocation = new ArrayList();
   }
 }
