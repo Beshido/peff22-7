@@ -2,10 +2,13 @@ CaryingObject {
   Point curentLocation;
   listOfObject;
 }
-Drone {
+Drone extends CaryingObject {
   maxWeigth;
   List<Point> targetLocation;
 }
-Warhouse {
+Warhouse extends CaryingObject {
+
+}
+Mission extends CaryingObject {
 
 }
