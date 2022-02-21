@@ -1,15 +1,15 @@
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.*;
+import java.util.HashMap;
 
-public class Warehouse extends Carryingobjet{
-    public int x;
-    public int y;
+public class Warehouse extends CarryingObjects{
+        Point location;
+        HashMap<Integer, Integer> listOfObject;
 
-
-    public Warehouse(int x, int y, Map <Integer, Integer> stock){
-        Point location = new Point (this.x, this.y);
-        this.stock = stock;
+    public Warehouse(int x, int y){
+        super(x,y);
+        Point p = new Point (x,y);
+        currentLocation = p;
+        listOfObject = null;
     }
     
 }
