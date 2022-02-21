@@ -30,5 +30,14 @@ public class Drone extends CarryingObjects {
     public int getMissionTime(){
         return getMoveTime()+2; //+ load & deliver
     }
+    public void load(Warhouse warhouse){
+
+    }
+    public void deliver(Mission m){
+        // TODO removeItemOf(m);
+        if(targetLocation.length()==0){
+            targetLocation.add(getCloserWarhouse());
+        }
+    }
 
 }

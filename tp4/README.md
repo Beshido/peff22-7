@@ -12,3 +12,6 @@ Warhouse extends CarryingObject {
 Mission extends CarryingObject {
 
 }
+
+Score du prof:
+exemple.in 234
