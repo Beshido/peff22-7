@@ -4,35 +4,32 @@ import java.util.List;
 import java.lang.Math;
 
 public class Drone extends CarryingObjects {
-    public int timeLeft;
-    public int maxWeigth;
-    public List<Mission> currentsMissions; //TODO plutot qu'une liste de point ou aller, il faudrait prendre les missions pour savoir a qui distribuer quoi.
+    private int timeLeft;
+    private int maxWeigth;
+    private List<Mission> currentsMissions; //TODO plutot qu'une liste de point ou aller, il faudrait prendre les missions pour savoir a qui distribuer quoi.
     public Drone(int x, int y, int maxW, int timeLeft){
         super(x,y);
         maxWeigth=maxW;
         this.timeLeft=timeLeft;
         currentsMissions = new ArrayList<Mission>();
     }
-    // Function to move
-    public void move(){
-        timeLeft-=getMoveTime();
-        if(timeLeft>=0){
-            currentLocation = currentsMissions.get(0).currentLocation;
-            currentsMissions.remove(0);
-        }
-    }
-    public int getMoveTime(){
+
+    //Time fct -----------------------------------------------------------------
+    private int getMoveTime(){
         double dist = Math.sqrt(
                 Math.pow(currentsMissions.get(0).getX()-currentLocation.getX(),2) +
                 Math.pow(currentsMissions.get(0).getY()-currentLocation.getY(),2));
         return (int)(dist+1);
     }
-    public int getMissionTime(){
-        return getMoveTime()+2; //+ load & deliver
+    private static int getLoadTime(){return 1;}
+    private static int getDeliverTime(){return 1;}
+    private int getMissionTime(){
+      return getMoveTime()+getLoadTime()+getDeliverTime(); //+ load & deliver
     }
 
+    //Tools to choose what to do -----------------------------------------------
     //renvoie le numero de l'entrepot le plus proche
-    public int nearestWarehouse(Warehouse[] tab){
+    private int nearestWarehouse(Warehouse[] tab){
         int nearest =  -1;
         int distance = Integer.MAX_VALUE ;
         for(int i = 0; i < tab.length; i++ ){
@@ -48,20 +45,50 @@ public class Drone extends CarryingObjects {
 
         return nearest;
     }
-    public void load(Warehouse warehouse){
-        currentsMissions.add(getBestMission());
-        //TODO charger les éléments en fonction de la mission choisi
+    private Mission getBestMission(){
+        //TODO trouver la meilleurs mission
+        //meilleurs mission = celle avec le plus petit getMissionTime() & tout les éléments en stock dans l'entrepot.
+        return null;
     }
-    public void deliver(Mission m){
-        // TODO removeItemOf(m);
-        if(currentsMissions.size()==0){
-            //TODO faire la fct getCloserWarhouse()
-            // currentsMissions.add(getCloserWarhouse());
+    //Actions functions --------------------------------------------------------
+    //Do a mission, starting at the warehouse.
+    public void doAMission(){
+        currentsMissions.add(getBestMission()); //in the futur we can add severaly mission
+        while(currentsMissions.size()!=0){ //execute all mission without going back.
+            load();
+            move();
+            deliver();
+            currentsMissions.remove(0);
+        }
+        //TODO TP4.getWareHouseList() & TP4.getWareHouseLocation(warehouseId)
+        // int warehouseId = nearestWarehouse(TP4.getWareHouseList());
+        // currentsMissions.add(new Mission(TP4.getWareHouseLocation(warehouseId)));
+        move(); //return to the warehouse
+    }
+    // Function to load DOING
+    private void load(){
+        //TODO TP4.getWareHouseOnLocation(currentLocation)
+        // Warehouse warehouse=TP4.getWareHouseOnLocation(currentLocation);
+        timeLeft-=getMoveTime();
+        if(timeLeft>=0){
+            //TODO charger les éléments en fonction de la mission choisi
         }
     }
-    public Mission getBestMission(){
-      //TODO trouver la meilleurs mission en fonction des stocks de l'entrepot.
-      return null;
+    // Function to deliver OK
+    private void deliver(){
+        if(currentsMissions.size()==0){
+          timeLeft-=getDeliverTime();
+          if(timeLeft>=0){
+              currentLocation = currentsMissions.get(0).currentLocation;
+          }
+        }
+    }
+    // Function to move OK
+    private void move(){
+        timeLeft-=getMoveTime();
+        if(timeLeft>=0){
+            currentLocation = currentsMissions.get(0).currentLocation;
+        }
     }
 
 }
