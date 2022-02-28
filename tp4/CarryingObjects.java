@@ -8,9 +8,11 @@ public class CarryingObjects{
     public double getY(){return currentLocation.getY();}
 
     public CarryingObjects(int x, int y){
-        Point p = new Point(x,y);
-        currentLocation = p;
+        currentLocation = new Point(x,y);
         listOfObject = new HashMap<>();
+    }
+    public CarryingObjects(Point p){
+        this((int)p.getX(), (int)p.getY());
     }
 
     public void initializedObjects(int[] tab){

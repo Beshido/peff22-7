@@ -6,12 +6,14 @@ import java.lang.Math;
 public class Drone extends CarryingObjects {
     private int timeLeft;
     private int maxWeigth;
-    private List<Mission> currentsMissions; //TODO plutot qu'une liste de point ou aller, il faudrait prendre les missions pour savoir a qui distribuer quoi.
+    private List<Mission> currentsMissions;
+    private boolean over;
     public Drone(int x, int y, int maxW, int timeLeft){
         super(x,y);
         maxWeigth=maxW;
         this.timeLeft=timeLeft;
         currentsMissions = new ArrayList<Mission>();
+        isOver=false;
     }
 
     //Time fct -----------------------------------------------------------------
@@ -26,6 +28,7 @@ public class Drone extends CarryingObjects {
     private int getMissionTime(){
       return getMoveTime()+getLoadTime()+getDeliverTime(); //+ load & deliver
     }
+    private boolean isOver(){return over;}
 
     //Tools to choose what to do -----------------------------------------------
     //renvoie le numero de l'entrepot le plus proche
@@ -60,10 +63,14 @@ public class Drone extends CarryingObjects {
             deliver();
             currentsMissions.remove(0);
         }
-        //TODO TP4.getWareHouseList() & TP4.getWareHouseLocation(warehouseId)
-        // int warehouseId = nearestWarehouse(TP4.getWareHouseList());
-        // currentsMissions.add(new Mission(TP4.getWareHouseLocation(warehouseId)));
-        move(); //return to the warehouse
+        //TODO TP4.getWareHouseList()
+        Warehouse[] tab = TP4.getWareHouseList();
+        int warehouseId = nearestWarehouse(tab);
+        currentsMissions.add(new Mission(tab[warehouseId].currentLocation)); //new mission with no load & deliver
+        move(); //return to the warehouse by doing the mission move.
+        if(timeLeft<1){
+          over=true;
+        }
     }
     // Function to load DOING
     private void load(){

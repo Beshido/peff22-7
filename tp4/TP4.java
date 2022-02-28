@@ -39,6 +39,22 @@ class TP4{
            // System.out.println(list.get(i+2));
 
         }
-
+        runTheDrone();
+    }
+    public static Warehouse [] getWareHouseList(){
+        return null; //TODO
+    }
+    public static void runTheDrone(){
+        Set<Drone> listDrone = new ArraySet<Drone>();
+        //TODO create all the drone that we have
+        // TODO launch a mission for the drone that have the more time to use.
+        // while(listDrone.size()>0){
+        //     for (drone : listDrone) {
+        //         drone.doAMission();
+        //         if(drone.isOver()){
+        //           //TODO remove drone when it have not enoth time for an other mission.
+        //         }
+        //     }
+        // }
     }
 }
