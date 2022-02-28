@@ -31,11 +31,11 @@ public class Drone extends CarryingObjects {
         return getMoveTime()+2; //+ load & deliver
     }
 
-    //renvoie le numero de l'entrepot le plus proche 
+    //renvoie le numero de l'entrepot le plus proche
     public int nearestWarehouse(Warehouse[] tab){
         int nearest =  -1;
         int distance = Integer.MAX_VALUE ;
-        for(int i = 0; i < tab.length(); i++ ){
+        for(int i = 0; i < tab.length; i++ ){
             int tmp = (int) Math.sqrt(
                 Math.pow(tab[i].currentLocation.getX()-currentLocation.getX(),2) +
                 Math.pow(tab[i].currentLocation.getY()-currentLocation.getY(),2));
