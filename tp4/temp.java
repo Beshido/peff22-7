@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.List;
 
-class tp4{
+class TP4{
     public static void main(String[] args) {
         List<String> list = parsertp4.readFile(args[0]);
         int nbRow = Integer.parseInt((list.get(0).split(" "))[0]);
@@ -39,6 +39,6 @@ class tp4{
            // System.out.println(list.get(i+2));
 
         }
-        
+
     }
 }
