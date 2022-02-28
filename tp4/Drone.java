@@ -6,25 +6,25 @@ import java.lang.Math;
 public class Drone extends CarryingObjects {
     public int timeLeft;
     public int maxWeigth;
-    public List<Point> targetLocation; //TODO plutot qu'une liste de point ou aller, il faudrait prendre les missions pour savoir a qui distribuer quoi.
+    public List<Mission> targetsLocations; //TODO plutot qu'une liste de point ou aller, il faudrait prendre les missions pour savoir a qui distribuer quoi.
     public Drone(int x, int y, int maxW, int timeLeft){
         super(x,y);
         maxWeigth=maxW;
         this.timeLeft=timeLeft;
-        targetLocation = new ArrayList<Point>();
+        targetsLocations = new ArrayList<Mission>();
     }
     // Function to move
     public void move(){
         timeLeft-=getMoveTime();
         if(timeLeft>=0){
-            currentLocation = targetLocation.get(0);
-            targetLocation.remove(0);
+            currentLocation = targetsLocations.get(0).currentLocation;
+            targetsLocations.remove(0);
         }
     }
     public int getMoveTime(){
         double dist = Math.sqrt(
-                Math.pow(targetLocation.get(0).getX()-currentLocation.getX(),2) +
-                Math.pow(targetLocation.get(0).getY()-currentLocation.getY(),2));
+                Math.pow(targetsLocations.get(0).getX()-currentLocation.getX(),2) +
+                Math.pow(targetsLocations.get(0).getY()-currentLocation.getY(),2));
         return (int)(dist+1);
     }
     public int getMissionTime(){
@@ -54,9 +54,9 @@ public class Drone extends CarryingObjects {
     }
     public void deliver(Mission m){
         // TODO removeItemOf(m);
-        if(targetLocation.size()==0){
+        if(targetsLocations.size()==0){
             //TODO faire la fct getCloserWarhouse()
-            // targetLocation.add(getCloserWarhouse());
+            // targetsLocations.add(getCloserWarhouse());
         }
     }
 
