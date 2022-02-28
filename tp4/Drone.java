@@ -61,6 +61,7 @@ public class Drone extends CarryingObjects {
     }
     public Mission getBestMission(){
       //TODO trouver la meilleurs mission en fonction des stocks de l'entrepot.
+      return null;
     }
 
 }
