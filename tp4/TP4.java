@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 class TP4{
+    public static Warehouse[] entrepots;
     public static void main(String[] args) {
         List<String> list = parsertp4.readFile(args[0]);
         int nbRow = Integer.parseInt((list.get(0).split(" "))[0]);
@@ -14,14 +15,15 @@ class TP4{
         System.out.println("Drones : "+ nbDrones);
         int nbTurns = Integer.parseInt((list.get(0).split(" "))[3]);
         System.out.println("Turns : "+ nbTurns);
-        int MaxPayload = Integer.parseInt((list.get(0).split(" "))[4]);
-        System.out.println("Payload max : "+ MaxPayload);
+        int maxDroneWeigth = Integer.parseInt((list.get(0).split(" "))[4]);
+        System.out.println("Payload max : "+ maxDroneWeigth);
+        Drone.maxWeigth=maxDroneWeigth;
         int[] ObjectsW = new int[Integer.parseInt(list.get(1))];
         for(int i = 0;i< ObjectsW.length;i++){
                 ObjectsW[i] = Integer.parseInt((list.get(2).split(" "))[i]);
                 System.out.println("Object numero "+i+" poids : "+ObjectsW[i]+"u");
         }
-        Warehouse[] entrepots = new Warehouse[Integer.parseInt(list.get(3))+1];
+        entrepots = new Warehouse[Integer.parseInt(list.get(3))+1];
         int compteur = 0;
         for(int i = 4; i< Integer.parseInt(list.get(3))*2+3;i = i+2){
             entrepots[compteur] = new Warehouse(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
@@ -41,17 +43,19 @@ class TP4{
            // System.out.println(list.get(i+2));
 
         }
-        runTheDrone(nbDrones);
+        runTheDrone(nbDrones, nbTurns);
     }
     public static Warehouse [] getWareHouseList(){
-        return null; //TODO
+        return entrepots;
     }
-    public static void runTheDrone(int nbDrones){
+    public static void runTheDrone(int nbDrones, int nbTurns){
         Set<Drone> listDrone = new HashSet<Drone>();
         for (int i=0; i<nbDrones; i++) {
-          //TODO create all the drone that we have
-            // listDrone.add(new Drone());
+            int x = (int)entrepots[0].currentLocation.getX();
+            int y = (int)entrepots[0].currentLocation.getY();
+            listDrone.add(new Drone(x,y,nbTurns));
         }
+        System.out.println(listDrone);
         // TODO launch a mission for the drone that have the more time to use.
         // while(listDrone.size()>0){
         //     for (drone : listDrone) {

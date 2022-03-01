@@ -5,12 +5,11 @@ import java.lang.Math;
 
 public class Drone extends CarryingObjects {
     private int timeLeft;
-    private int maxWeigth;
+    public static int maxWeigth;
     private List<Mission> currentsMissions;
     private boolean over;
-    public Drone(int x, int y, int maxW, int timeLeft){
+    public Drone(int x, int y, int timeLeft){
         super(x,y);
-        maxWeigth=maxW;
         this.timeLeft=timeLeft;
         currentsMissions = new ArrayList<Mission>();
         over=false;
@@ -29,6 +28,10 @@ public class Drone extends CarryingObjects {
       return getMoveTime()+getLoadTime()+getDeliverTime(); //+ load & deliver
     }
     private boolean isOver(){return over;}
+
+    public String toString(){
+      return super.toString()+" timeLeft:"+timeLeft+" currentsMissions:"+currentsMissions+" over:"+over;
+    }
 
     //Tools to choose what to do -----------------------------------------------
     //renvoie le numero de l'entrepot le plus proche
