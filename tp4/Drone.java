@@ -13,7 +13,7 @@ public class Drone extends CarryingObjects {
         maxWeigth=maxW;
         this.timeLeft=timeLeft;
         currentsMissions = new ArrayList<Mission>();
-        isOver=false;
+        over=false;
     }
 
     //Time fct -----------------------------------------------------------------

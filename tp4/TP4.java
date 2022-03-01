@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class TP4{
     public static void main(String[] args) {
@@ -8,8 +10,8 @@ class TP4{
         System.out.println("Row : "+ nbRow);
         int nbColumns = Integer.parseInt((list.get(0).split(" "))[1]);
         System.out.println("Columns : "+ nbColumns);
-        int nbdrones = Integer.parseInt((list.get(0).split(" "))[2]);
-        System.out.println("Drones : "+ nbdrones);
+        int nbDrones = Integer.parseInt((list.get(0).split(" "))[2]);
+        System.out.println("Drones : "+ nbDrones);
         int nbTurns = Integer.parseInt((list.get(0).split(" "))[3]);
         System.out.println("Turns : "+ nbTurns);
         int MaxPayload = Integer.parseInt((list.get(0).split(" "))[4]);
@@ -39,14 +41,17 @@ class TP4{
            // System.out.println(list.get(i+2));
 
         }
-        runTheDrone();
+        runTheDrone(nbDrones);
     }
     public static Warehouse [] getWareHouseList(){
         return null; //TODO
     }
-    public static void runTheDrone(){
-        Set<Drone> listDrone = new ArraySet<Drone>();
-        //TODO create all the drone that we have
+    public static void runTheDrone(int nbDrones){
+        Set<Drone> listDrone = new HashSet<Drone>();
+        for (int i=0; i<nbDrones; i++) {
+          //TODO create all the drone that we have
+            // listDrone.add(new Drone());
+        }
         // TODO launch a mission for the drone that have the more time to use.
         // while(listDrone.size()>0){
         //     for (drone : listDrone) {
