@@ -22,6 +22,13 @@ public class Drone extends CarryingObjects {
                 Math.pow(currentsMissions.get(0).getY()-currentLocation.getY(),2));
         return (int)(dist+1);
     }
+
+    private int getMoveTime(Mission mission){
+        double dist = Math.sqrt(
+                Math.pow(mission.currentLocation.getX()-currentLocation.getX(),2) +
+                Math.pow(mission.currentLocation.getY()-currentLocation.getY(),2));
+        return (int)(dist+1);
+    }
     private static int getLoadTime(){return 1;}
     private static int getDeliverTime(){return 1;}
     private int getMissionTime(){
@@ -51,11 +58,26 @@ public class Drone extends CarryingObjects {
 
         return nearest;
     }
-    private Mission getBestMission(){
-        //TODO trouver la meilleurs mission
-        //meilleurs mission = celle avec le plus petit getMissionTime() & tout les éléments en stock dans l'entrepot.
-        return null;
-    }
+
+    //renvoie la mission la plus proche et dont l'entrepot contient tout les objets
+    private Mission getBestMission(){ 
+        Warehouse[] tab = TP4.getWareHouseList();
+        int currentWH = nearestWarehouse(tab);
+        List<Mission> allMissions = TP4.getMissions(); //en attendant
+        Mission best ;
+        int bestTime = Integer.MAX_VALUE ;
+     
+        for( Mission mission: allMissions){
+            int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
+            if(tmp <bestTime){
+                if(mission.ObjectsInWarehouse(currentWH,tab)){
+                    bestTime = tmp;
+                    best = mission;
+                }
+            }
+        }
+        return best;
+     }
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.
     public void doAMission(){
