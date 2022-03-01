@@ -41,7 +41,7 @@ public class Drone extends CarryingObjects {
     }
 
     //Tools to choose what to do -----------------------------------------------
-    //renvoie le numero de l'entrepot le plus proche
+    //returns the number of the nearest warehouse
     private int nearestWarehouse(Warehouse[] tab){
         int nearest =  -1;
         int distance = Integer.MAX_VALUE ;
@@ -59,17 +59,17 @@ public class Drone extends CarryingObjects {
         return nearest;
     }
 
-    //renvoie la mission la plus proche et dont l'entrepot contient tout les objets
+    //returns the nearest mission whose warehouse contains all the items
     private Mission getBestMission(){ 
         Warehouse[] tab = TP4.getWareHouseList();
         int currentWH = nearestWarehouse(tab);
-        List<Mission> allMissions = TP4.getMissions(); //en attendant
-        Mission best ;
-        int bestTime = Integer.MAX_VALUE ;
+        List<Mission> allMissions = TP4.getMissions(); //TODO
+        Mission best;
+        int bestTime = Integer.MAX_VALUE;
      
-        for( Mission mission: allMissions){
+        for(Mission mission: allMissions){
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
-            if(tmp <bestTime){
+            if(tmp < bestTime){
                 if(mission.objectsInWarehouse(currentWH,tab)){
                     bestTime = tmp;
                     best = mission;
