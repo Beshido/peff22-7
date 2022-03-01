@@ -70,7 +70,7 @@ public class Drone extends CarryingObjects {
         for( Mission mission: allMissions){
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
             if(tmp <bestTime){
-                if(mission.ObjectsInWarehouse(currentWH,tab)){
+                if(mission.objectsInWarehouse(currentWH,tab)){
                     bestTime = tmp;
                     best = mission;
                 }
