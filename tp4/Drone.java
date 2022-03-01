@@ -4,7 +4,7 @@ import java.util.List;
 import java.lang.Math;
 
 public class Drone extends CarryingObjects {
-    private int timeLeft;
+    public int timeLeft;
     public static int maxWeigth;
     private List<Mission> currentsMissions;
     private boolean over;
@@ -27,7 +27,7 @@ public class Drone extends CarryingObjects {
     private int getMissionTime(){
       return getMoveTime()+getLoadTime()+getDeliverTime(); //+ load & deliver
     }
-    private boolean isOver(){return over;}
+    public boolean isOver(){return over;}
 
     public String toString(){
       return super.toString()+" timeLeft:"+timeLeft+" currentsMissions:"+currentsMissions+" over:"+over;

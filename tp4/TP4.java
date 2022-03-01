@@ -48,6 +48,7 @@ class TP4{
     public static Warehouse [] getWareHouseList(){
         return entrepots;
     }
+    /** create & launch the drones */
     public static void runTheDrone(int nbDrones, int nbTurns){
         Set<Drone> listDrone = new HashSet<Drone>();
         for (int i=0; i<nbDrones; i++) {
@@ -56,14 +57,20 @@ class TP4{
             listDrone.add(new Drone(x,y,nbTurns));
         }
         System.out.println(listDrone);
-        // TODO launch a mission for the drone that have the more time to use.
-        // while(listDrone.size()>0){
-        //     for (drone : listDrone) {
-        //         drone.doAMission();
-        //         if(drone.isOver()){
-        //           //TODO remove drone when it have not enoth time for an other mission.
-        //         }
-        //     }
-        // }
+        while(listDrone.size()>0){
+            //launch a mission for the drone that have the more time to use.
+            Drone droneWithMoreTime=null;
+            for (Drone drone : listDrone) {
+                //if drone have more time than droneWithMoreTime, update droneWithMoreTime.
+                // System.out.println(!drone.isOver() && (droneWithMoreTime==null || droneWithMoreTime.timeLeft < drone.timeLeft));
+                if(!drone.isOver() && (droneWithMoreTime==null || droneWithMoreTime.timeLeft < drone.timeLeft)){
+                    droneWithMoreTime=drone;
+                }
+            }
+            if(droneWithMoreTime==null){break;}// if all drone are over.
+            // System.out.println();
+            // System.out.println(droneWithMoreTime);
+            droneWithMoreTime.doAMission();
+        }
     }
 }

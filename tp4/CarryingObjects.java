@@ -2,6 +2,8 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class CarryingObjects{
+    private static int cptId=0;
+    private int id;
     public Point currentLocation;
     public HashMap<Integer, Integer> listOfObject;
     public double getX(){return currentLocation.getX();}
@@ -10,13 +12,14 @@ public class CarryingObjects{
     public CarryingObjects(int x, int y){
         currentLocation = new Point(x,y);
         listOfObject = new HashMap<>();
+        id=cptId++;
     }
     public CarryingObjects(Point p){
         this((int)p.getX(), (int)p.getY());
     }
 
     public String toString(){
-      return "("+(int)currentLocation.getX()+" "+(int)currentLocation.getY()+") "+listOfObject;
+      return id+": ("+(int)currentLocation.getX()+" "+(int)currentLocation.getY()+") "+listOfObject;
     }
 
     public void initializedObjects(int[] tab){
