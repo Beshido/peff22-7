@@ -53,9 +53,7 @@ public class Drone extends CarryingObjects {
                 distance = tmp ;
                 nearest = i;
             }
-
         }
-
         return nearest;
     }
 
@@ -78,6 +76,7 @@ public class Drone extends CarryingObjects {
         }
         return best;
      }
+     
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.
     public void doAMission(){
