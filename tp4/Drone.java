@@ -1,5 +1,6 @@
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.lang.Math;
 
@@ -100,11 +101,24 @@ public class Drone extends CarryingObjects {
     private void load(){
         //TODO TP4.getWareHouseOnLocation(currentLocation)
         // Warehouse warehouse=TP4.getWareHouseOnLocation(currentLocation);
+        Mission mission = currentsMissions.get(0);
+        this.currentLocation = mission.currentLocation;
         timeLeft-=getMoveTime();
         if(timeLeft>=0){
             //TODO charger les éléments en fonction de la mission choisi
+            int maxsize;
+            HashMap<Integer, Integer>  list = new HashMap<>();
+            do {
+                    int i = 0;
+                    int maxsize = TP4.getTabOfWeight().[i];
+                    list.put(i,mission.listOfObject.get(i));
+                    i++;
+                }
+            while(maxsize < maxWeigth);
+            this.listOfObject = list;
         }
     }
+
     // Function to deliver OK
     private void deliver(){
         if(currentsMissions.size()==0){
@@ -121,5 +135,7 @@ public class Drone extends CarryingObjects {
             currentLocation = currentsMissions.get(0).currentLocation;
         }
     }
+
+
 
 }
