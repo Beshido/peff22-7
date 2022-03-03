@@ -5,7 +5,7 @@ public class CarryingObjects{
     private static int cptId=0;
     private int id;
     public Point currentLocation;
-    public HashMap<Integer, Integer> listOfObject;
+    public HashMap<Integer, Integer> listOfObject; //<Id des object, nombres d'objet>
     public double getX(){return currentLocation.getX();}
     public double getY(){return currentLocation.getY();}
 
