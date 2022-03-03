@@ -59,13 +59,13 @@ public class Drone extends CarryingObjects {
     }
 
     //returns the nearest mission whose warehouse contains all the items
-    private Mission getBestMission(){ 
+    private Mission getBestMission(){
         Warehouse[] tab = TP4.getWareHouseList();
         int currentWH = nearestWarehouse(tab);
         List<Mission> allMissions = TP4.getMissions(); //TODO
-        Mission best;
+        Mission best=null;
         int bestTime = Integer.MAX_VALUE;
-     
+
         for(Mission mission: allMissions){
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
             if(tmp < bestTime){
@@ -77,7 +77,7 @@ public class Drone extends CarryingObjects {
         }
         return best;
      }
-     
+
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.
     public void doAMission(){
@@ -110,7 +110,7 @@ public class Drone extends CarryingObjects {
             HashMap<Integer, Integer>  list = new HashMap<>();
             do {
                     int i = 0;
-                    int maxsize = TP4.getTabOfWeight().[i];
+                    maxsize = TP4.objectsWeights[i];
                     list.put(i,mission.listOfObject.get(i));
                     i++;
                 }

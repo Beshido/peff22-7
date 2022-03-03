@@ -2,8 +2,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 class TP4{
+    public static int[] objectsWeights;
     public static Warehouse[] entrepots;
     public static void main(String[] args) {
         List<String> list = parsertp4.readFile(args[0]);
@@ -18,10 +21,10 @@ class TP4{
         int maxDroneWeigth = Integer.parseInt((list.get(0).split(" "))[4]);
         System.out.println("Payload max : "+ maxDroneWeigth);
         Drone.maxWeigth=maxDroneWeigth;
-        int[] ObjectsW = new int[Integer.parseInt(list.get(1))];
-        for(int i = 0;i< ObjectsW.length;i++){
-                ObjectsW[i] = Integer.parseInt((list.get(2).split(" "))[i]);
-                System.out.println("Object numero "+i+" poids : "+ObjectsW[i]+"u");
+        objectsWeights = new int[Integer.parseInt(list.get(1))];
+        for(int i = 0;i< objectsWeights.length;i++){
+                objectsWeights[i] = Integer.parseInt((list.get(2).split(" "))[i]);
+                System.out.println("Object numero "+i+" poids : "+objectsWeights[i]+"u");
         }
         entrepots = new Warehouse[Integer.parseInt(list.get(3))+1];
         int compteur = 0;
@@ -72,5 +75,8 @@ class TP4{
             // System.out.println(droneWithMoreTime);
             droneWithMoreTime.doAMission();
         }
+    }
+    public static List<Mission> getMissions(){
+      return new ArrayList<Mission>(); //TODO
     }
 }
