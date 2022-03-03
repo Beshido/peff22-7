@@ -2,12 +2,16 @@ import java.awt.Point;
 import java.util.Map.Entry;
 
 public class Mission extends CarryingObjects {
+    private static int cptId=0;
+    private int id;
 
     public Mission(int x, int y){
         super(x,y);
+        id=cptId++;
     }
     public Mission(Point p){
         super(p);
+        id=cptId++;
     }
 
     //checks that the warehouse has the objects of the mission

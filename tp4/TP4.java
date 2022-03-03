@@ -5,11 +5,13 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedList;
 
 public class TP4 {
     public static int[] objectsWeights;
     public static Warehouse[] entrepots;
-    public static Mission[] missions;
+    // public static Mission[] missions;
+    public static List<Mission> missions;
     public static void main(String[] args) {
         List<String> list = parsertp4.readFile(args[0]);
         int nbRow = Integer.parseInt((list.get(0).split(" "))[0]);
@@ -46,17 +48,19 @@ public class TP4 {
 
 
         int endLine = Integer.parseInt(list.get(3))*2+1+3;
-        missions = new Mission[Integer.parseInt(list.get(endLine))];
+        // missions = new Mission[Integer.parseInt(list.get(endLine))];
+        missions = new LinkedList<Mission>(); //car bcp d'incertion et de supression.
         compteur = 0;
         for(int i = endLine+1 ; i < Integer.parseInt(list.get(endLine))*3+endLine+1;i = i+3){
-            missions[compteur] = new Mission(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
+            Mission m = new Mission(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
             int[] objs = new int[Integer.parseInt(list.get(i+1))];
             //int[] objs = new int[list.get(i+2).split(" ").length];
             for(int j = 0 ; j< list.get(i+2).split(" ").length; j ++){
                 objs[j] = Integer.parseInt(list.get(i+2).split(" ")[j]);
             }
-            missions[compteur].initializedObjects(objs);
-            System.out.println(list.get(i));
+            m.initializedObjects(objs);
+            missions.add(m);
+            // System.out.println(list.get(i));
             compteur++;
         }
         runTheDrone(nbDrones, nbTurns);
@@ -90,6 +94,6 @@ public class TP4 {
     public static List<Mission> getMissions(){
       // System.out.println();
       // System.out.println(Arrays.asList(missions));
-      return Arrays.asList(missions);
+      return missions;
     }
 }

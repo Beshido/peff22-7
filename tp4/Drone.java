@@ -5,6 +5,8 @@ import java.util.List;
 import java.lang.Math;
 
 public class Drone extends CarryingObjects {
+    private static int cptId=0;
+    private int id;
     public int timeLeft;
     public static int maxWeigth;
     private List<Mission> currentsMissions;
@@ -14,6 +16,7 @@ public class Drone extends CarryingObjects {
         this.timeLeft=timeLeft;
         currentsMissions = new ArrayList<Mission>();
         over=false;
+        id=cptId++;
     }
 
     //Time fct -----------------------------------------------------------------
@@ -62,11 +65,12 @@ public class Drone extends CarryingObjects {
     private Mission getBestMission(){
         Warehouse[] tab = TP4.getWareHouseList();
         int currentWH = nearestWarehouse(tab);
-        List<Mission> allMissions = TP4.getMissions();
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
+        System.out.println("Choix d'une mission parmi "+TP4.getMissions().size());
 
-        for(Mission mission: allMissions){
+        for(Mission mission: TP4.getMissions()){
+          System.out.println(mission);
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
             if(tmp < bestTime){
                 if(mission.objectsInWarehouse(currentWH,tab)){
@@ -75,13 +79,21 @@ public class Drone extends CarryingObjects {
                 }
             }
         }
+        TP4.getMissions().remove(best);
+        // System.out.println(best);
+        // if(best==null){ //TODO que faire si les object ne sont pas a l'entrepots
+        //   best = new Mission(TP4.getWareHouseList().get(1));
+        // }
+        // System.out.println(best);
         return best;
      }
 
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.
     public void doAMission(){
-        currentsMissions.add(getBestMission()); //in the futur we can add severaly mission
+        Mission m = getBestMission();
+        if(m==null){over=true;return;}
+        currentsMissions.add(m); //in the futur we can add severaly mission
         while(currentsMissions.size()!=0){ //execute all mission without going back.
             load();
             move();
@@ -99,22 +111,25 @@ public class Drone extends CarryingObjects {
     }
     // Function to load DOING
     private void load(){
-        //TODO TP4.getWareHouseOnLocation(currentLocation)
-        // Warehouse warehouse=TP4.getWareHouseOnLocation(currentLocation);
+        int warehouseId = nearestWarehouse(TP4.getWareHouseList());
+
         Mission mission = currentsMissions.get(0);
         this.currentLocation = mission.currentLocation;
         timeLeft-=getMoveTime();
         if(timeLeft>=0){
-            //TODO charger les éléments en fonction de la mission choisi
+            //charger les éléments en fonction de la mission choisi
             int maxsize;
             HashMap<Integer, Integer>  list = new HashMap<>();
-            for (int i=0; i<mission.listOfObject.size(); i++) {
-            // do {
-                    // int i = 0;
-                    maxsize = TP4.objectsWeights[i];
-                    list.put(i,mission.listOfObject.get(i));
-                    i++;
-                }
+            // for (int i=0; i<mission.listOfObject.size(); i++) {
+            for(Integer objectId : mission.listOfObject.keySet()){
+              System.out.println("Voulu : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
+              //TODO use maxsize
+                // int i = 0;
+                // maxsize += TP4.objectsWeights[objectId];
+                list.put(objectId,mission.listOfObject.get(objectId));
+                sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
+                // i++;
+            }
             // while(maxsize < maxWeigth);
             this.listOfObject = list;
         }
@@ -122,11 +137,14 @@ public class Drone extends CarryingObjects {
 
     // Function to deliver OK
     private void deliver(){
-        if(currentsMissions.size()==0){
-          timeLeft-=getDeliverTime();
-          if(timeLeft>=0){
-              currentLocation = currentsMissions.get(0).currentLocation;
-          }
+        if(currentsMissions.size()!=0){
+            timeLeft-=getDeliverTime();
+            System.out.println(currentsMissions.get(0)+" done");
+            //TODO remove items
+            //TODO sendCommand("D "+missionId+" "+objectId+" "+mission.listOfObject.get(objectId));
+            if(timeLeft>=0){
+                currentLocation = currentsMissions.get(0).currentLocation;
+            }
         }
     }
     // Function to move OK
@@ -135,6 +153,9 @@ public class Drone extends CarryingObjects {
         if(timeLeft>=0){
             currentLocation = currentsMissions.get(0).currentLocation;
         }
+    }
+    private void sendCommand(String s){
+      System.out.println(id+" "+s);
     }
 
 
