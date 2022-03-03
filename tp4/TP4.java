@@ -26,7 +26,7 @@ class TP4{
                 objectsWeights[i] = Integer.parseInt((list.get(2).split(" "))[i]);
                 System.out.println("Object numero "+i+" poids : "+objectsWeights[i]+"u");
         }
-        entrepots = new Warehouse[Integer.parseInt(list.get(3))+1];
+        entrepots = new Warehouse[Integer.parseInt(list.get(3))];
         int compteur = 0;
         for(int i = 4; i< Integer.parseInt(list.get(3))*2+3;i = i+2){
             entrepots[compteur] = new Warehouse(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
@@ -41,9 +41,10 @@ class TP4{
         }
         int endLine = Integer.parseInt(list.get(3))*2+1+3;
         for(int i = endLine+1 ; i < Integer.parseInt(list.get(endLine))*3+endLine+1;i = i+3){
-           // System.out.println(list.get(i));
-           // System.out.println(list.get(i+1));
-           // System.out.println(list.get(i+2));
+            //TODO parse Mission.
+            // System.out.println(list.get(i));
+            // System.out.println(list.get(i+1));
+            // System.out.println(list.get(i+2));
 
         }
         runTheDrone(nbDrones, nbTurns);
