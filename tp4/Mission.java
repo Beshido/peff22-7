@@ -14,7 +14,7 @@ public class Mission extends CarryingObjects {
     public boolean objectsInWarehouse(int warehouseId, Warehouse[] tab ){
         for(Entry<Integer,Integer> missionEntry : listOfObject.entrySet()){
             if(!tab[warehouseId].listOfObject.containsKey(missionEntry.getKey()) ||
-                tab[warehouseId].listOfObject.get(missionEntry.getKey()) == 0){
+                tab[warehouseId].listOfObject.get(missionEntry.getValue()) == 0){
                     return false;
             }
         }

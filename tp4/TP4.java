@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class TP4{
+public class TP4 {
     public static int[] objectsWeights;
     public static Warehouse[] entrepots;
     public static Mission[] missions;
@@ -29,6 +29,7 @@ class TP4{
                 System.out.println("Object numero "+i+" poids : "+objectsWeights[i]+"u");
         }
         entrepots = new Warehouse[Integer.parseInt(list.get(3))];
+        // System.out.println("init entrepots "+entrepots);
         int compteur = 0;
         for(int i = 4; i< Integer.parseInt(list.get(3))*2+3;i = i+2){
             entrepots[compteur] = new Warehouse(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
@@ -49,7 +50,6 @@ class TP4{
         compteur = 0;
         for(int i = endLine+1 ; i < Integer.parseInt(list.get(endLine))*3+endLine+1;i = i+3){
             missions[compteur] = new Mission(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
-            //TODO parse Mission.
             int[] objs = new int[Integer.parseInt(list.get(i+1))];
             //int[] objs = new int[list.get(i+2).split(" ").length];
             for(int j = 0 ; j< list.get(i+2).split(" ").length; j ++){
@@ -84,12 +84,12 @@ class TP4{
                 }
             }
             if(droneWithMoreTime==null){break;}// if all drone are over.
-            // System.out.println();
-            // System.out.println(droneWithMoreTime);
             droneWithMoreTime.doAMission();
         }
     }
     public static List<Mission> getMissions(){
-      return Arrays.asList(missions); //TODO
+      // System.out.println();
+      // System.out.println(Arrays.asList(missions));
+      return Arrays.asList(missions);
     }
 }
