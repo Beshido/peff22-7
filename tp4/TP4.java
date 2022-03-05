@@ -6,12 +6,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
 
 public class TP4 {
     public static int[] objectsWeights;
     public static Warehouse[] entrepots;
     // public static Mission[] missions;
     public static List<Mission> missions;
+    public static String dronesCmds="";
+    public static int nbrOfDronesCmds=0;
+
     public static void main(String[] args) {
         List<String> list = parsertp4.readFile(args[0]);
         int nbRow = Integer.parseInt((list.get(0).split(" "))[0]);
@@ -55,15 +72,21 @@ public class TP4 {
             Mission m = new Mission(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
             int[] objs = new int[Integer.parseInt(list.get(i+1))];
             //int[] objs = new int[list.get(i+2).split(" ").length];
-            for(int j = 0 ; j< list.get(i+2).split(" ").length; j ++){
-                objs[j] = Integer.parseInt(list.get(i+2).split(" ")[j]);
+            String t [] = list.get(i+2).split(" ");
+            for(int j = 0 ; j< t.length; j ++){
+                // objs[j] = Integer.parseInt(list.get(i+2).split(" ")[j]);
+                int objectId = Integer.parseInt(t[j]);
+                m.addObject(objectId);
             }
-            m.initializedObjects(objs);
+            // m.initializedObjects(objs);
             missions.add(m);
             // System.out.println(list.get(i));
             compteur++;
         }
+        System.out.println(missions);
         runTheDrone(nbDrones, nbTurns);
+        dronesCmds=nbrOfDronesCmds+"\n"+dronesCmds;
+        writeFile(dronesCmds, args[0].substring(0, args[0].length()-3)+".out");
     }
     public static Warehouse [] getWareHouseList(){
         return entrepots;
@@ -95,5 +118,25 @@ public class TP4 {
       // System.out.println();
       // System.out.println(Arrays.asList(missions));
       return missions;
+    }
+
+    public static boolean writeFile(String content, String nomDuFichier) {
+      try {
+        BufferedWriter ecriteurAvecBuffer = null;
+        String ligne;
+        File f = new File(nomDuFichier);
+        f.createNewFile(); //it will be crate only if it haven't been yet.
+        try {
+          ecriteurAvecBuffer = new BufferedWriter(new FileWriter(nomDuFichier, StandardCharsets.UTF_8));
+        } catch(FileNotFoundException e) {
+          System.out.println("Le fichier n'as pas pu être créer. Le problème peut venir d'un caractère incorecte");
+          return false;
+        }
+        ecriteurAvecBuffer.write(content);
+        ecriteurAvecBuffer.close();
+      }catch (IOException e) {
+        return false;
+      }
+      return true;
     }
 }

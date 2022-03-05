@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class CarryingObjects{
     private static int cptId=0;
-    private int id;
+    protected int id;
     public Point currentLocation;
     public HashMap<Integer, Integer> listOfObject; //<Id des object, nombres d'objet>
     public double getX(){return currentLocation.getX();}
@@ -26,5 +26,31 @@ public class CarryingObjects{
         for(int i = 0; i< tab.length; i++){
             listOfObject.put(i,tab[i]);
         }
+    }
+    public void addObject(int objectId){
+      if(listOfObject.containsKey(objectId)){
+        listOfObject.put(objectId, listOfObject.get(objectId)+1);
+      }else{
+        listOfObject.put(objectId, 1);
+      }
+    }
+
+    public boolean transfereTo(CarryingObjects co, int objectId){
+      try {
+        System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
+      }catch (Exception e) {
+        System.out.print("Transfere: "+toString()+" to "+"null"+" of "+objectId);
+      }
+      if(listOfObject.containsKey(objectId) && listOfObject.get(objectId)>0){
+        listOfObject.put(objectId, listOfObject.get(objectId)-1);
+        if(co!=null){
+          co.addObject(objectId);
+        }
+        System.out.println(" DONE.");
+        return true;
+      }else{
+        System.out.println(" FAIL.");
+        return false;
+      }
     }
 }
