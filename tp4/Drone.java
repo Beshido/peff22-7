@@ -68,8 +68,7 @@ public class Drone extends CarryingObjects {
         Warehouse w = tab[currentWH];
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
-        System.out.println();
-        System.out.println("Choix d'une mission parmi "+TP4.getMissions().size());
+        System.out.println("\nChoix d'une mission parmi "+TP4.getMissions().size());
         if(TP4.getMissions().size()==0){return null;}
 
         for(Mission mission: TP4.getMissions()){
@@ -84,7 +83,11 @@ public class Drone extends CarryingObjects {
         System.out.println(best+" can be done with only item of "+w);
         TP4.getMissions().remove(best);
         // System.out.println(best);
-        // if(best==null){ //TODO que faire si les object ne sont pas a l'entrepots
+        //TODO que faire si les object ne sont pas a l'entrepots
+        //2 idées :
+        // soit on vas a un autre entrepots qui en a plus.
+        // soit on en charge une partie if (haveAtLease1Item()==true)
+        // if(best==null){
         //   best = new Mission(TP4.getWareHouseList().get(1));
         // }
         // System.out.println(best);
@@ -96,7 +99,7 @@ public class Drone extends CarryingObjects {
     public void doAMission(){
         Mission m = getBestMission();
         if(m==null){over=true;return;}
-        currentsMissions.add(m); //in the futur we can add severaly mission
+        currentsMissions.add(m); //in the futur we can add several mission
         while(currentsMissions.size()!=0){ //execute all mission without going back.
             load();
             move();
@@ -123,7 +126,7 @@ public class Drone extends CarryingObjects {
         if(timeLeft>=0){
             //charger les éléments en fonction de la mission choisi
             int maxsize;
-            HashMap<Integer, Integer>  list = new HashMap<>();
+            // HashMap<Integer, Integer>  list = new HashMap<>();
             // for (int i=0; i<mission.listOfObject.size(); i++) {
             for(Integer objectId : mission.listOfObject.keySet()){
                 // System.out.println("Voulu : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
@@ -133,12 +136,13 @@ public class Drone extends CarryingObjects {
                   if(w.transfereTo(this, objectId)){
                     sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
                   }else{
-                    load();
+                    System.out.println("unable to transfere "+objectId+" to "+this);
                   }
                 }
             }
+            System.out.println(this+" loaded");
             // while(maxsize < maxWeigth);
-            this.listOfObject = list;
+            // this.listOfObject = list;
         }
         if(timeLeft<1){
           over=true;
@@ -153,8 +157,12 @@ public class Drone extends CarryingObjects {
             for (int objectId : m.listOfObject.keySet()) {
               int nbrObject = m.listOfObject.get(objectId);
               for (int i=0; i<nbrObject; i++) {
-                if(this.transfereTo(null, objectId) && m.transfereTo(null, objectId)){
+                System.out.println("Transfere "+objectId+" from "+this+" & "+m);
+                if(this.transfereTo(null, objectId)){
                   sendCommand("D "+m.getId()+" "+objectId+" "+m.listOfObject.get(objectId));
+                  m.transfereTo(null, objectId);
+                }else{
+                  System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);
                 }
               }
             }

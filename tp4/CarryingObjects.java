@@ -38,11 +38,11 @@ public class CarryingObjects{
     }
 
     public boolean transfereTo(CarryingObjects co, int objectId){
-      try {
-        // System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
-      }catch (Exception e) {
-        // System.out.print("Transfere: "+toString()+" to "+"null"+" of "+objectId);
-      }
+      // try {
+      //   System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
+      // }catch (Exception e) {
+      //   System.out.print("Transfere: "+toString()+" to "+"null"+" of "+objectId);
+      // }
       if(listOfObject.containsKey(objectId) && listOfObject.get(objectId)>0){
         listOfObject.put(objectId, listOfObject.get(objectId)-1);
         if(co!=null){
