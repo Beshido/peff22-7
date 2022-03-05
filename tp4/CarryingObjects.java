@@ -38,6 +38,10 @@ public class CarryingObjects{
     }
 
     public boolean transfereTo(CarryingObjects co, int objectId){
+      if(co instanceof Drone){
+        //TODO checkout that Drone.maxWeigth < co.getFullWeigth()
+        //TODO co.getFullWeigth()
+      }
       // try {
       //   System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
       // }catch (Exception e) {
