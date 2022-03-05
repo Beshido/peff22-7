@@ -53,7 +53,7 @@ public class Drone extends CarryingObjects {
             int tmp = (int) Math.sqrt(
                 Math.pow(tab[i].currentLocation.getX()-currentLocation.getX(),2) +
                 Math.pow(tab[i].currentLocation.getY()-currentLocation.getY(),2));
-            if(tmp < distance ){
+            if(tmp < distance){ //  && tab[i].haveAtLease1Item(currentsMissions.get(0))
                 distance = tmp ;
                 nearest = i;
             }
@@ -65,21 +65,23 @@ public class Drone extends CarryingObjects {
     private Mission getBestMission(){
         Warehouse[] tab = TP4.getWareHouseList();
         int currentWH = nearestWarehouse(tab);
+        Warehouse w = tab[currentWH];
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
+        System.out.println();
         System.out.println("Choix d'une mission parmi "+TP4.getMissions().size());
         if(TP4.getMissions().size()==0){return null;}
 
         for(Mission mission: TP4.getMissions()){
-          System.out.println(mission);
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
             if(tmp < bestTime){
-                if(mission.objectsInWarehouse(currentWH,tab)){
+                if(w.haveAllItem(mission)){
                     bestTime = tmp;
                     best = mission;
                 }
             }
         }
+        System.out.println(best+" can be done with only item of "+w);
         TP4.getMissions().remove(best);
         // System.out.println(best);
         // if(best==null){ //TODO que faire si les object ne sont pas a l'entrepots
@@ -124,19 +126,16 @@ public class Drone extends CarryingObjects {
             HashMap<Integer, Integer>  list = new HashMap<>();
             // for (int i=0; i<mission.listOfObject.size(); i++) {
             for(Integer objectId : mission.listOfObject.keySet()){
-                System.out.println("Voulu : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
+                // System.out.println("Voulu : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
                 //TODO use maxsize
-                // int i = 0;
                 // maxsize += TP4.objectsWeights[objectId];
                 for (int i=0; i<mission.listOfObject.get(objectId); i++) {
                   if(w.transfereTo(this, objectId)){
                     sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
                   }else{
-
+                    load();
                   }
                 }
-                // list.put(objectId,mission.listOfObject.get(objectId));
-                // i++;
             }
             // while(maxsize < maxWeigth);
             this.listOfObject = list;

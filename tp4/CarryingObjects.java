@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map.Entry;
+
 
 public class CarryingObjects{
     private static int cptId=0;
@@ -37,20 +39,46 @@ public class CarryingObjects{
 
     public boolean transfereTo(CarryingObjects co, int objectId){
       try {
-        System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
+        // System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
       }catch (Exception e) {
-        System.out.print("Transfere: "+toString()+" to "+"null"+" of "+objectId);
+        // System.out.print("Transfere: "+toString()+" to "+"null"+" of "+objectId);
       }
       if(listOfObject.containsKey(objectId) && listOfObject.get(objectId)>0){
         listOfObject.put(objectId, listOfObject.get(objectId)-1);
         if(co!=null){
           co.addObject(objectId);
         }
-        System.out.println(" DONE.");
+        // System.out.println(" DONE.");
         return true;
       }else{
-        System.out.println(" FAIL.");
+        // System.out.println(" FAIL.");
         return false;
       }
     }
+    public boolean haveAtLease1Item(CarryingObjects co){
+      for (int objectId : co.listOfObject.keySet()) {
+        if(this.listOfObject.containsKey(objectId)){
+          return true;
+        }
+      }
+      return false;
+    }
+    //checks that this have all the objects of co
+    public boolean haveAllItem(CarryingObjects co){
+      // System.out.println(this +" have all item of "+co+" ???");
+      //   for(Entry<Integer,Integer> missionEntry : co.listOfObject.entrySet()){
+      //       if(!listOfObject.containsKey(missionEntry.getKey()) ||
+      //           listOfObject.get(missionEntry.getValue()) == 0){
+      //               return false;
+      //       }
+      //   }
+      //   return true;
+      for (int objectId : co.listOfObject.keySet()) {
+        int wantedQuantity = co.listOfObject.get(objectId);
+        if(!this.listOfObject.containsKey(objectId) || wantedQuantity > this.listOfObject.get(objectId)){
+          return false;
+        }
+      }
+      return true;
+   }
 }

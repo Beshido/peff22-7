@@ -1,5 +1,4 @@
 import java.awt.Point;
-import java.util.Map.Entry;
 
 public class Mission extends CarryingObjects {
     private static int cptId=0;
@@ -15,16 +14,11 @@ public class Mission extends CarryingObjects {
         id=cptId++;
     }
 
-    //checks that the warehouse has the objects of the mission
-    public boolean objectsInWarehouse(int warehouseId, Warehouse[] tab ){
-        for(Entry<Integer,Integer> missionEntry : listOfObject.entrySet()){
-            if(!tab[warehouseId].listOfObject.containsKey(missionEntry.getKey()) ||
-                tab[warehouseId].listOfObject.get(missionEntry.getValue()) == 0){
-                    return false;
-            }
-        }
-        return true;
-   }
+    @Override
+    public String toString(){
+      return "M"+super.toString();
+    }
+
    public boolean isDone(){
      return listOfObject.size()==0;
    }
