@@ -84,9 +84,10 @@ public class Drone extends CarryingObjects {
         TP4.getMissions().remove(best);
         // System.out.println(best);
         //TODO que faire si les object ne sont pas a l'entrepots
-        //2 idées :
+        // Des idées :
         // soit on vas a un autre entrepots qui en a plus.
         // soit on en charge une partie if (haveAtLease1Item()==true)
+        // soit on découpe la mission en 2 plus petite en fonction de ce que contient cet entrepot.
         // if(best==null){
         //   best = new Mission(TP4.getWareHouseList().get(1));
         // }
