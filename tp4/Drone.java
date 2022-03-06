@@ -103,6 +103,7 @@ public class Drone extends CarryingObjects {
         // soit on découpe la mission en 2 plus petite en fonction de ce que contient cet entrepot.
         if(best==null){
           //TODO appeller splitIn2Mission();
+            splitIn2Missions(w,this.currentsMissions.get(0));
         }
         if(best==null){
           //TODO aller a l'entrepot suivant
@@ -115,6 +116,33 @@ public class Drone extends CarryingObjects {
         TP4.getMissions().remove(best);
         return best;
      }
+     // SPLIT 2 MISSIONS
+    public void splitIn2Missions( Warehouse currentWH, Mission mission){
+        HashMap<Integer, Integer>  list1 = new HashMap<>();
+        HashMap<Integer, Integer>  list2 = new HashMap<>();
+        for(Integer objectId : mission.listOfObject.keySet()) {
+            int objectInW = (int) currentWH.listOfObject.get(objectId);
+            int objectInM = (int) mission.listOfObject.get(objectId);
+            if ((currentWH.listOfObject.containsKey(objectId))) {
+                if (objectInW >= objectInM) {
+                    list1.put(objectId, objectInM);
+                } else {
+                    list1.put(objectId, (objectInW));
+                    list2.put(objectId, (objectInM - objectInW));
+                }
+            } else{
+                list2.put(objectId, objectInM);
+            }
+        }
+        Mission mission1 = new Mission((int) mission.getX(), (int) mission.getY());
+        mission1.initializedObjectsHashmap(list1);
+        Mission mission2 = new Mission((int) mission.getX(),(int) mission.getY());
+        mission2.initializedObjectsHashmap(list2);
+        this.currentsMissions.remove(0);
+        this.currentsMissions.add(mission2);
+        this.currentsMissions.add(mission1);
+
+    }
 
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.

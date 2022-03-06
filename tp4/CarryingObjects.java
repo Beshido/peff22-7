@@ -29,6 +29,9 @@ public class CarryingObjects{
             listOfObject.put(i,tab[i]);
         }
     }
+    public void initializedObjectsHashmap(HashMap<Integer, Integer> h){
+        listOfObject = h;
+    }
     public void addObject(int objectId){
       if(listOfObject.containsKey(objectId)){
         listOfObject.put(objectId, listOfObject.get(objectId)+1);
