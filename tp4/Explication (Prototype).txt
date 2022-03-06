@@ -1,0 +1,24 @@
+Langage orienté objet :
+L'utilisation de java nous permet de créer des objets et des classes, afin de cadrer le problème.
+Nous avons donc une classe dite "Mère", CarryingObjects, composé d'un Id, d'un point (donc de coordonnées x y)
+et d'une hashmap notant les objets contenus dans ce dernier (avec le type et la quantité).
+De cette classe hérite 2 autres classes, les drones et les entrepôts.
+
+Parsing :
+Notre parsing est très important car il pose le terrain et envoie beaucoup d'informations aux différents constructeur, que ce soit
+d'entrepôts ou de drones. Grace a lui on récupère le nombre de tours  d'une partie ainsi que le "plateau de jeu" sur lequel se déroule la partie, 
+le poids max pouvant porter un drone, les types et les quantités d'objets. Le nombre et la position des entrepôts ainsi que leurs inventaires
+respectifs, le nombre de drones.
+
+Drone : Héritant de CarryingObjects, les drones possèdent également des coordonnées (ammenés a changer au fur et a mesure des missions)
+Un Id unique par drone permettant des les distinguer, ainsi que de nouvelles caractéristiques, un int static set au moment du parser indiquant
+le poids max pouvant être porté par ce dernier, une liste currentsMissions lui donnant une mémoire de ce qu'il a et ce qu'il lui reste a faire,
+un boolean qui est set a vrai au moment du tour de livraison, ce qui supprime également la mission en cours et passe a la suivante, et enfin un
+int lui indiquant le temps restant après la réalisation de toutes les missions présentes dans sa list de mission. En effet le temps nécessaire
+a la réalisation d'une mission est calculé avant qu'un drone y soit assigné, ainsi le drone est capable de déterminer si il aura le temps de 
+réaliser la dite mission, également cela permet d'estimer les missions dites "Intéressantes".
+
+Entrepôts: Les entrepôts, héritant également de CarryingObjects, ont des coordonnées (fixes cette fois et établis au moment du parsing), et une
+Hashmap qui est son inventaire, avec le nombre et le type de chaque objet entreposé.
+
+Algorithme :
