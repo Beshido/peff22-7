@@ -56,6 +56,7 @@ public class Drone extends CarryingObjects {
     //on retourne la WareHouse la plus proche, si currentWH est != -1
     // on retourne la plus proche differente de currentWH
     private int nearestWarehouse(Warehouse[] tab, int currentWH){
+      //TODO si mission.get(0)!=null trouvé un entrepot qui contienne l'objet.
         int nearest = -1;
         int distance = Integer.MAX_VALUE ;
         for(int i = 0; i < tab.length; i++ ){
