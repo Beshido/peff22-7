@@ -43,8 +43,6 @@ public class CarryingObjects{
         if(dr.getWeigth()+TP4.objectsWeights[objectId]>Drone.maxWeigth){
           return false;
         }
-        //TODO checkout that Drone.maxWeigth < co.getFullWeigth()
-        //TODO co.getFullWeigth()
       }
       // try {
       //   System.out.print("Transfere: "+toString()+" to "+co.toString()+" of "+objectId);
@@ -53,6 +51,9 @@ public class CarryingObjects{
       // }
       if(listOfObject.containsKey(objectId) && listOfObject.get(objectId)>0){
         listOfObject.put(objectId, listOfObject.get(objectId)-1);
+        if(listOfObject.get(objectId)<=0){
+          listOfObject.remove(objectId);
+        }
         if(co!=null){
           co.addObject(objectId);
         }
