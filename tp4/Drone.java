@@ -68,7 +68,7 @@ public class Drone extends CarryingObjects {
         Warehouse w = tab[currentWH];
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
-        System.out.println("\nChoix d'une mission parmi "+TP4.getMissions().size());
+        // System.out.println("\nChoix d'une mission parmi "+TP4.getMissions().size());//@z
         if(TP4.getMissions().size()==0){return null;}
 
         for(Mission mission: TP4.getMissions()){
@@ -80,7 +80,7 @@ public class Drone extends CarryingObjects {
                 }
             }
         }
-        System.out.println(best+" can be done with only item of "+w);
+        // System.out.println(best+" can be done with only item of "+w);//@z
         TP4.getMissions().remove(best);
         // System.out.println(best);
         //TODO que faire si les object ne sont pas a l'entrepots
@@ -137,11 +137,11 @@ public class Drone extends CarryingObjects {
                   if(w.transfereTo(this, objectId)){
                     sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
                   }else{
-                    System.out.println("unable to transfere "+objectId+" to "+this);
+                    // System.out.println("unable to transfere "+objectId+" to "+this);//@z
                   }
                 }
             }
-            System.out.println(this+" loaded");
+            // System.out.println(this+" loaded");//@z
             // while(maxsize < maxWeigth);
             // this.listOfObject = list;
         }
@@ -158,16 +158,16 @@ public class Drone extends CarryingObjects {
             for (int objectId : m.listOfObject.keySet()) {
               int nbrObject = m.listOfObject.get(objectId);
               for (int i=0; i<nbrObject; i++) {
-                System.out.println("Transfere "+objectId+" from "+this+" & "+m);
+                // System.out.println("Transfere "+objectId+" from "+this+" & "+m);//@z
                 if(this.transfereTo(null, objectId)){
                   sendCommand("D "+m.getId()+" "+objectId+" "+m.listOfObject.get(objectId));
                   m.transfereTo(null, objectId);
                 }else{
-                  System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);
+                  // System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);//@z
                 }
               }
             }
-            System.out.println(m+" done");
+            // System.out.println(m+" done");//@z
             if(timeLeft>=0){
                 currentLocation = m.currentLocation;
             }
