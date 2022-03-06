@@ -33,10 +33,21 @@ public class CarryingObjects{
         listOfObject = h;
     }
     public void addObject(int objectId){
+      if(this instanceof Drone){
+        Drone dr = (Drone)this;
+        if(dr.getWeigth()+TP4.objectsWeights[objectId]>Drone.maxWeigth){
+          return;
+        }
+      }
       if(listOfObject.containsKey(objectId)){
         listOfObject.put(objectId, listOfObject.get(objectId)+1);
       }else{
         listOfObject.put(objectId, 1);
+      }
+    }
+    public void addObject(int objectId, int quantity){
+      for (int i=0; i<quantity; i++) {
+        addObject(objectId);
       }
     }
 
@@ -69,7 +80,7 @@ public class CarryingObjects{
     }
     public boolean haveAtLease1Item(CarryingObjects co){
       for (int objectId : co.listOfObject.keySet()) {
-        if(this.listOfObject.containsKey(objectId)){
+        if(this.listOfObject.containsKey(objectId) && this.listOfObject.get(objectId)>0){
           return true;
         }
       }

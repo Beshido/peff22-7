@@ -6,7 +6,7 @@ Drone extends CarryingObject {
   maxWeigth;
   List<Point> targetLocation;
 }
-Warhouse extends CarryingObject {
+Warehouse extends CarryingObject {
 
 }
 Mission extends CarryingObject {

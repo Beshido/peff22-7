@@ -62,16 +62,17 @@ public class Drone extends CarryingObjects {
             int tmp = (int) Math.sqrt(
                 Math.pow(tab[i].currentLocation.getX()-currentLocation.getX(),2) +
                 Math.pow(tab[i].currentLocation.getY()-currentLocation.getY(),2));
-            if(currentWH == -1 || i != current){
+            if(currentWH == -1 || i != currentWH){
               if(tmp < distance){ //  && tab[i].haveAtLease1Item(currentsMissions.get(0))
                 distance = tmp ;
                 nearest = i;
               }
             }
-            
+
         }
         return nearest;
     }
+    private int nearestWarehouse(Warehouse tab[]){return nearestWarehouse(tab, -1);}
     //TODO chercher une mission ou une partie et dans l'entrepot
     //TODO couper en 2 mission
     //Allez a l'entrepot suivant (qui permet de commencer une mission)
@@ -80,7 +81,7 @@ public class Drone extends CarryingObjects {
     //Use w.haveAllItem(Mission.listOfObject)
 
     //returns the nearest mission whose warehouse contains all the items
-    private Mission getBestMission(int cwh){
+    private void addBestMission(int cwh){
         Warehouse[] tab = TP4.getWareHouseList();
         int currentWH;
         if(cwh == -1){
@@ -88,12 +89,12 @@ public class Drone extends CarryingObjects {
         }else{
           currentWH = cwh;
         }
-         
+
         Warehouse w = tab[currentWH];
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
         // System.out.println("\nChoix d'une mission parmi "+TP4.getMissions().size());//@z
-        if(TP4.getMissions().size()==0){return null;}
+        if(TP4.getMissions().size()==0){return;}
 
         for(Mission mission: TP4.getMissions()){
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
@@ -113,44 +114,71 @@ public class Drone extends CarryingObjects {
         // soit on en charge une partie if (haveAtLease1Item()==true)
         // soit on découpe la mission en 2 plus petite en fonction de ce que contient cet entrepot.
         if(best==null){
-          //TODO appeller splitIn2Mission();
-            splitIn2Missions(w,this.currentsMissions.get(0));
+            //TODO appeller splitIn2Mission();
+            for(Mission mission: TP4.getMissions()){
+                int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
+                if(tmp < bestTime){
+                    if(w.haveAtLease1Item(mission)){
+                      System.out.println(w+" haveAtLease1Item of "+mission);
+                        bestTime = tmp;
+                        best = mission;
+                    }
+                }
+            }
+            if(best!=null){
+              splitIn2Missions(w,best);
+              System.out.println(best+" splited in 2 mission because "+w+" don't have all");
+              System.out.println(this);
+              System.out.println(TP4.getMissions());
+              TP4.getMissions().remove(best);
+              return;
+            }
         }
         if(best==null){
           //TODO aller a l'entrepot suivant
+          System.out.println("--------------- Going to next Warehouse");
           int nextWH = nearestWarehouse(tab,currentWH);
-          Mission best = getBestMission(nextWH);
+          addBestMission(nextWH);
+          return;
         }
         if(best==null){
           System.out.println("Error in chosing mission");
         }
         // System.out.println(best);
+        if(best==null){over=true;return;}
         TP4.getMissions().remove(best);
-        return best;
+        currentsMissions.add(best); //in the futur we can add several mission
      }
      // SPLIT 2 MISSIONS
     public void splitIn2Missions( Warehouse currentWH, Mission mission){
-        HashMap<Integer, Integer>  list1 = new HashMap<>();
-        HashMap<Integer, Integer>  list2 = new HashMap<>();
+        // HashMap<Integer, Integer>  list1 = new HashMap<>();
+        // HashMap<Integer, Integer>  list2 = new HashMap<>();
+        Mission mission1 = new Mission((int) mission.getX(), (int) mission.getY());
+        Mission mission2 = new Mission((int) mission.getX(),(int) mission.getY());
+        //TODO les missions doivent conservé le même id pour le fichier de test.
         for(Integer objectId : mission.listOfObject.keySet()) {
-            int objectInW = (int) currentWH.listOfObject.get(objectId);
             int objectInM = (int) mission.listOfObject.get(objectId);
             if ((currentWH.listOfObject.containsKey(objectId))) {
+                int objectInW = (int) currentWH.listOfObject.get(objectId);
                 if (objectInW >= objectInM) {
-                    list1.put(objectId, objectInM);
+                    // list1.put(objectId, objectInM);
+                    mission1.addObject(objectId, objectInM);
                 } else {
-                    list1.put(objectId, (objectInW));
-                    list2.put(objectId, (objectInM - objectInW));
+                    // list1.put(objectId, (objectInW));
+                    // list2.put(objectId, (objectInM - objectInW));
+                    mission1.addObject(objectId, objectInW);
+                    mission2.addObject(objectId, objectInM - objectInW);
                 }
             } else{
-                list2.put(objectId, objectInM);
+                // list2.put(objectId, objectInM);
+                mission2.addObject(objectId, objectInM);
             }
         }
-        Mission mission1 = new Mission((int) mission.getX(), (int) mission.getY());
-        mission1.initializedObjectsHashmap(list1);
-        Mission mission2 = new Mission((int) mission.getX(),(int) mission.getY());
-        mission2.initializedObjectsHashmap(list2);
-        this.currentsMissions.remove(0);
+        // Mission mission1 = new Mission((int) mission.getX(), (int) mission.getY());
+        // mission1.initializedObjectsHashmap(list1);
+        // Mission mission2 = new Mission((int) mission.getX(),(int) mission.getY());
+        // mission2.initializedObjectsHashmap(list2);
+        // this.currentsMissions.remove(0);
         this.currentsMissions.add(mission1);
         TP4.getMissions().add(mission2);
 
@@ -159,9 +187,7 @@ public class Drone extends CarryingObjects {
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.
     public void doAMission(){
-        Mission m = getBestMission(-1);
-        if(m==null){over=true;return;}
-        currentsMissions.add(m); //in the futur we can add several mission
+        addBestMission(-1);
         while(currentsMissions.size()!=0){ //execute all mission without going back.
             load();
             move();

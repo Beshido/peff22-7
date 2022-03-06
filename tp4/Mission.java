@@ -4,6 +4,7 @@ public class Mission extends CarryingObjects {
     private static int cptId=0;
     // private int id;
     public int getId(){return id;}
+    // public int getIdOfficiel(){return id;}
 
     public Mission(int x, int y){
         super(x,y);
