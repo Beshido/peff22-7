@@ -54,7 +54,7 @@ public class Drone extends CarryingObjects {
     }
     //returns the number of the nearest warehouse
     private int nearestWarehouse(Warehouse[] tab){
-        int nearest =  -1;
+        int nearest = -1;
         int distance = Integer.MAX_VALUE ;
         for(int i = 0; i < tab.length; i++ ){
             int tmp = (int) Math.sqrt(
@@ -67,6 +67,12 @@ public class Drone extends CarryingObjects {
         }
         return nearest;
     }
+    //TODO chercher une mission ou une partie et dans l'entrepot
+    //TODO couper en 2 mission
+    //Allez a l'entrepot suivant (qui permet de commencer une mission)
+    //Warehouse.canDoAMission() for(Mission in TP4.getMissions()){if(this.haveAtLease1Item()){return true;}}
+    //splitIn2Mission(); //renvoie une mission faisable et TP4.getMissions().add(l'autre mission)
+    //Use w.haveAllItem(Mission.listOfObject)
 
     //returns the nearest mission whose warehouse contains all the items
     private Mission getBestMission(){
@@ -87,18 +93,19 @@ public class Drone extends CarryingObjects {
                 }
             }
         }
+        // currentsMissions.add(new Mission(TP4.getWareHouseList().get(1).curentLocation));
         // System.out.println(best+" can be done with only item of "+w);//@z
-        TP4.getMissions().remove(best);
         // System.out.println(best);
         //TODO que faire si les object ne sont pas a l'entrepots
         // Des idées :
         // soit on vas a un autre entrepots qui en a plus.
         // soit on en charge une partie if (haveAtLease1Item()==true)
         // soit on découpe la mission en 2 plus petite en fonction de ce que contient cet entrepot.
-        // if(best==null){
-        //   best = new Mission(TP4.getWareHouseList().get(1));
-        // }
+        if(best==null){
+          //TODO appeller splitIn2Mission();
+        }
         // System.out.println(best);
+        TP4.getMissions().remove(best);
         return best;
      }
 
@@ -137,7 +144,7 @@ public class Drone extends CarryingObjects {
             // HashMap<Integer, Integer>  list = new HashMap<>();
             // for (int i=0; i<mission.listOfObject.size(); i++) {
             for(Integer objectId : mission.listOfObject.keySet()){
-                // System.out.println("Voulu : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
+                System.out.println("Voulu a "+timeLeft+" : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
                 //TODO use maxsize
                 // maxsize += TP4.objectsWeights[objectId];
                 for (int i=0; i<mission.listOfObject.get(objectId); i++) {
