@@ -118,7 +118,7 @@ public class Drone extends CarryingObjects {
         }
         if(best==null){
           //TODO aller a l'entrepot suivant
-          int nextWH = nearestWarehouse(tab,current);
+          int nextWH = nearestWarehouse(tab,currentWH);
           Mission best = getBestMission(nextWH);
         }
         if(best==null){
