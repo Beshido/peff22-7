@@ -139,8 +139,8 @@ public class Drone extends CarryingObjects {
         Mission mission2 = new Mission((int) mission.getX(),(int) mission.getY());
         mission2.initializedObjectsHashmap(list2);
         this.currentsMissions.remove(0);
-        this.currentsMissions.add(mission2);
         this.currentsMissions.add(mission1);
+        TP4.getMissions().add(mission2);
 
     }
 
