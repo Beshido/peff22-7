@@ -53,17 +53,22 @@ public class Drone extends CarryingObjects {
       return x;
     }
     //returns the number of the nearest warehouse
-    private int nearestWarehouse(Warehouse[] tab){
+    //on retourne la WareHouse la plus proche, si currentWH est != -1
+    // on retourne la plus proche differente de currentWH
+    private int nearestWarehouse(Warehouse[] tab, int currentWH){
         int nearest = -1;
         int distance = Integer.MAX_VALUE ;
         for(int i = 0; i < tab.length; i++ ){
             int tmp = (int) Math.sqrt(
                 Math.pow(tab[i].currentLocation.getX()-currentLocation.getX(),2) +
                 Math.pow(tab[i].currentLocation.getY()-currentLocation.getY(),2));
-            if(tmp < distance){ //  && tab[i].haveAtLease1Item(currentsMissions.get(0))
+            if(currentWH == -1 || i != current){
+              if(tmp < distance){ //  && tab[i].haveAtLease1Item(currentsMissions.get(0))
                 distance = tmp ;
                 nearest = i;
+              }
             }
+            
         }
         return nearest;
     }
@@ -75,9 +80,15 @@ public class Drone extends CarryingObjects {
     //Use w.haveAllItem(Mission.listOfObject)
 
     //returns the nearest mission whose warehouse contains all the items
-    private Mission getBestMission(){
+    private Mission getBestMission(int cwh){
         Warehouse[] tab = TP4.getWareHouseList();
-        int currentWH = nearestWarehouse(tab);
+        int currentWH;
+        if(cwh == -1){
+           currentWH = nearestWarehouse(tab, -1);
+        }else{
+          currentWH = cwh;
+        }
+         
         Warehouse w = tab[currentWH];
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
@@ -107,7 +118,8 @@ public class Drone extends CarryingObjects {
         }
         if(best==null){
           //TODO aller a l'entrepot suivant
-          Mission best = getBestMission();
+          int nextWH = nearestWarehouse(tab,current);
+          Mission best = getBestMission(nextWH);
         }
         if(best==null){
           System.out.println("Error in chosing mission");
@@ -147,7 +159,7 @@ public class Drone extends CarryingObjects {
     //Actions functions --------------------------------------------------------
     //Do a mission, starting at the warehouse.
     public void doAMission(){
-        Mission m = getBestMission();
+        Mission m = getBestMission(-1);
         if(m==null){over=true;return;}
         currentsMissions.add(m); //in the futur we can add several mission
         while(currentsMissions.size()!=0){ //execute all mission without going back.
