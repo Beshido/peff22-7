@@ -39,6 +39,10 @@ public class CarryingObjects{
 
     public boolean transfereTo(CarryingObjects co, int objectId){
       if(co instanceof Drone){
+        Drone dr = (Drone)co;
+        if(dr.getWeigth()+TP4.objectsWeights[objectId]>Drone.maxWeigth){
+          return false;
+        }
         //TODO checkout that Drone.maxWeigth < co.getFullWeigth()
         //TODO co.getFullWeigth()
       }

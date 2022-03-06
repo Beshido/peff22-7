@@ -45,6 +45,13 @@ public class Drone extends CarryingObjects {
     }
 
     //Tools to choose what to do -----------------------------------------------
+    public int getWeigth(){
+      int x=0;
+      for (int objectId : currentsMissions.get(0).listOfObject.keySet()) {
+        x+=TP4.objectsWeights[objectId];
+      }
+      return x;
+    }
     //returns the number of the nearest warehouse
     private int nearestWarehouse(Warehouse[] tab){
         int nearest =  -1;
