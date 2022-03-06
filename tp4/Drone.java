@@ -104,6 +104,13 @@ public class Drone extends CarryingObjects {
         if(best==null){
           //TODO appeller splitIn2Mission();
         }
+        if(best==null){
+          //TODO aller a l'entrepot suivant
+          Mission best = getBestMission();
+        }
+        if(best==null){
+          System.out.println("Error in chosing mission");
+        }
         // System.out.println(best);
         TP4.getMissions().remove(best);
         return best;
