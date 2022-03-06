@@ -66,7 +66,7 @@ public class TP4 {
 
         int endLine = Integer.parseInt(list.get(3))*2+1+3;
         // missions = new Mission[Integer.parseInt(list.get(endLine))];
-        missions = new LinkedList<Mission>(); //car bcp d'incertion et de supression.
+        missions = new LinkedList<Mission>(); //car bcp d'insertion et de supression.
         compteur = 0;
         for(int i = endLine+1 ; i < Integer.parseInt(list.get(endLine))*3+endLine+1;i = i+3){
             Mission m = new Mission(Integer.parseInt(list.get(i).split(" ")[0]), Integer.parseInt(list.get(i).split(" ")[1]));
