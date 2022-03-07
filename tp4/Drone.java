@@ -115,7 +115,6 @@ public class Drone extends CarryingObjects {
         // soit on en charge une partie if (haveAtLease1Item()==true)
         // soit on découpe la mission en 2 plus petite en fonction de ce que contient cet entrepot.
         if(best==null){
-            //TODO appeller splitIn2Mission();
             for(Mission mission: TP4.getMissions()){
                 int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
                 if(tmp < bestTime){
@@ -180,6 +179,8 @@ public class Drone extends CarryingObjects {
         // Mission mission2 = new Mission((int) mission.getX(),(int) mission.getY());
         // mission2.initializedObjectsHashmap(list2);
         // this.currentsMissions.remove(0);
+        mission1.idM=mission.getIdM();
+        mission2.idM=mission.getIdM();
         this.currentsMissions.add(mission1);
         TP4.getMissions().add(mission2);
 
@@ -248,7 +249,7 @@ public class Drone extends CarryingObjects {
               for (int i=0; i<nbrObject; i++) {
                 // System.out.println("Transfere "+objectId+" from "+this+" & "+m);//@z
                 if(this.transfereTo(null, objectId)){
-                  sendCommand("D "+m.getId()+" "+objectId+" "+m.listOfObject.get(objectId));
+                  sendCommand("D "+m.getIdM()+" "+objectId+" "+m.listOfObject.get(objectId));
                   m.transfereTo(null, objectId);
                 }else{
                   // System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);//@z
