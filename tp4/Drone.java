@@ -289,7 +289,8 @@ public class Drone extends CarryingObjects {
               for (int i=0; i<nbrObject; i++) {
                 // System.out.println("Transfere "+objectId+" from "+this+" & "+m);//@z
                 if(this.transfereTo(null, objectId)){
-                  sendCommand("D "+m.getIdM()+" "+objectId+" "+Math.max(m.listOfObject.get(objectId),listOfObject.get(objectId)));
+                  // sendCommand("D "+m.getIdM()+" "+objectId+" "+Math.max(m.listOfObject.get(objectId),listOfObject.get(objectId)));
+                  sendCommand("D "+m.getIdM()+" "+objectId+" 1");
                   listToRemove.add(objectId);
                 }else{
                   // System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);//@z
