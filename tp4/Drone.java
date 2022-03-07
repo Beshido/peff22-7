@@ -9,7 +9,7 @@ public class Drone extends CarryingObjects {
     // private int id;
     public int timeLeft;
     public static int maxWeigth;
-    private List<Mission> currentsMissions;
+    public List<Mission> currentsMissions;
     private boolean over;
     public Drone(int x, int y, int timeLeft){
         super(x,y);
@@ -47,7 +47,7 @@ public class Drone extends CarryingObjects {
     //Tools to choose what to do -----------------------------------------------
     public int getWeigth(){
       int x=0;
-      for (int objectId : currentsMissions.get(0).listOfObject.keySet()) {
+      for (int objectId : listOfObject.keySet()) {
         x+=TP4.objectsWeights[objectId];
       }
       return x;
@@ -60,9 +60,13 @@ public class Drone extends CarryingObjects {
         int nearest = -1;
         int distance = Integer.MAX_VALUE ;
         for(int i = 0; i < tab.length; i++ ){
+            Warehouse w = tab[i];
+            if(w.isOver()){
+              System.out.println("OVER :"+w);
+              continue;}
             int tmp = (int) Math.sqrt(
-                Math.pow(tab[i].currentLocation.getX()-currentLocation.getX(),2) +
-                Math.pow(tab[i].currentLocation.getY()-currentLocation.getY(),2));
+                Math.pow(w.currentLocation.getX()-currentLocation.getX(),2) +
+                Math.pow(w.currentLocation.getY()-currentLocation.getY(),2));
             if(currentWH == -1 || i != currentWH){
               if(tmp < distance){ //  && tab[i].haveAtLease1Item(currentsMissions.get(0))
                 distance = tmp ;
@@ -71,9 +75,26 @@ public class Drone extends CarryingObjects {
             }
 
         }
+        System.out.println("FIND W"+nearest);
+        // try {
+        //   int z=0;
+        //   z=1/z;
+        // }catch (Exception e) {
+        //   e.printStackTrace();
+        // }
         return nearest;
     }
     private int nearestWarehouse(Warehouse tab[]){return nearestWarehouse(tab, -1);}
+
+    private void moveTo(Warehouse w){
+      System.out.println("MOVE "+this+" move to "+w+" "+(!w.currentLocation.equals(currentLocation)));
+      if(w.currentLocation.equals(currentLocation)){return;}
+      try {
+        if(haveAllItem(currentsMissions.get(0))){return;}
+      }catch (Exception e) {}
+      currentsMissions.add(0,new Mission(w.currentLocation));
+      move(); //allez a w.
+    }
     //TODO chercher une mission ou une partie et dans l'entrepot
     //TODO couper en 2 mission
     //Allez a l'entrepot suivant (qui permet de commencer une mission)
@@ -90,12 +111,13 @@ public class Drone extends CarryingObjects {
         }else{
           currentWH = cwh;
         }
-
+        if(currentWH==-1){over=true;return;}
         Warehouse w = tab[currentWH];
+        moveTo(w);
         Mission best=null;
         int bestTime = Integer.MAX_VALUE;
         // System.out.println("\nChoix d'une mission parmi "+TP4.getMissions().size());//@z
-        if(TP4.getMissions().size()==0){return;}
+        if(TP4.getMissions().size()==0){over=true;return;}
 
         for(Mission mission: TP4.getMissions()){
             int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
@@ -138,6 +160,7 @@ public class Drone extends CarryingObjects {
           //TODO aller a l'entrepot suivant
           System.out.println("--------------- Going to next Warehouse");
           int nextWH = nearestWarehouse(tab,currentWH);
+          moveTo(tab[nextWH]);
           addBestMission(nextWH);
           return;
         }
@@ -145,7 +168,10 @@ public class Drone extends CarryingObjects {
           System.out.println("Error in chosing mission");
         }
         // System.out.println(best);
-        if(best==null){over=true;return;}
+        if(best==null){
+          over=true;
+          return;
+        }
         TP4.getMissions().remove(best);
         currentsMissions.add(best); //in the futur we can add several mission
      }
@@ -190,29 +216,39 @@ public class Drone extends CarryingObjects {
     //Do a mission, starting at the warehouse.
     public void doAMission(){
         addBestMission(-1);
+        System.out.println("Mission ADD to "+this);
         while(currentsMissions.size()!=0){ //execute all mission without going back.
             load();
             move();
             deliver();
             if(isOver()){break;}
         }
-        //TODO TP4.getWareHouseList()
-        Warehouse[] tab = TP4.getWareHouseList();
-        int warehouseId = nearestWarehouse(tab);
-        currentsMissions.add(new Mission(tab[warehouseId].currentLocation)); //new mission with no load & deliver
-        move(); //return to the warehouse by doing the mission move.
-        if(timeLeft<1){
-          over=true;
-        }
+        // Warehouse[] tab = TP4.getWareHouseList();
+        // int warehouseId = nearestWarehouse(tab);
+        // moveTo(tab[warehouseId]);
+        // if(warehouseId<0){
+        //   over=true;
+        //   return;
+        // }
+        // currentsMissions.add(new Mission(tab[warehouseId].currentLocation)); //new mission with no load & deliver
+        // move(); //return to the warehouse by doing the mission move.
+        // if(timeLeft<1){
+        //   over=true;
+        // }
     }
     // Function to load DOING
     private void load(){
         int warehouseId = nearestWarehouse(TP4.getWareHouseList());
+        if(warehouseId<0){
+          over=true;
+          return;
+        }
         Warehouse w = TP4.entrepots[warehouseId];
+        moveTo(w);
 
         Mission mission = currentsMissions.get(0);
-        this.currentLocation = mission.currentLocation;
-        timeLeft-=getMoveTime();
+        // this.currentLocation = mission.currentLocation;
+        // timeLeft-=getMoveTime();
         if(timeLeft>=0){
             //charger les éléments en fonction de la mission choisi
             int maxsize;
@@ -226,7 +262,7 @@ public class Drone extends CarryingObjects {
                   if(w.transfereTo(this, objectId)){
                     sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
                   }else{
-                    // System.out.println("unable to transfere "+objectId+" to "+this);//@z
+                    System.out.println("unable to transfere "+objectId+" to "+this+" from "+w);//@z
                   }
                 }
             }

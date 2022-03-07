@@ -26,6 +26,7 @@ public class TP4 {
     public static Warehouse[] entrepots;
     // public static Mission[] missions;
     public static List<Mission> missions;
+    public static Set<Drone> listDrone;
     public static String dronesCmds="";
     public static int nbrOfDronesCmds=0;
 
@@ -93,7 +94,7 @@ public class TP4 {
     }
     /** create & launch the drones */
     public static void runTheDrone(int nbDrones, int nbTurns){
-        Set<Drone> listDrone = new HashSet<Drone>();
+        listDrone = new HashSet<Drone>();
         for (int i=0; i<nbDrones; i++) {
             int x = (int)entrepots[0].currentLocation.getX();
             int y = (int)entrepots[0].currentLocation.getY();
