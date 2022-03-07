@@ -15,6 +15,6 @@ Mission extends CarryingObject {
 
 fichier / scores du prof / nos scores / nos nouveaux scores:
 exemple.in 234 88 234
-busyday.in 99570 1000 10364
-redundancy.in 95013 200 7972
-mother_of_all_warehouses.in 74513 100 4390
+busy_day.in 99570 1000 18464
+redundancy.in 95013 200 31951
+mother_of_all_warehouses.in 74513 100 73543

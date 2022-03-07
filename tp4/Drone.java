@@ -263,7 +263,8 @@ public class Drone extends CarryingObjects {
                 // maxsize += TP4.objectsWeights[objectId];
                 for (int i=0; i<mission.listOfObject.get(objectId); i++) {
                   if(w.transfereTo(this, objectId)){
-                    sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
+                    sendCommand("L "+warehouseId+" "+objectId+" 1");
+                    // sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
                   }else{
                     // System.out.println("unable to transfere "+objectId+" to "+this+" from "+w);//@z
                   }
