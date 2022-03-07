@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.lang.Math;
+import java.util.LinkedList;
 
 public class Drone extends CarryingObjects {
     private static int cptId=0;
@@ -41,14 +42,16 @@ public class Drone extends CarryingObjects {
     public boolean isOver(){return over;}
 
     public String toString(){
-      return "D"+super.toString()+" timeLeft:"+timeLeft+" currentsMissions:"+currentsMissions+" over:"+over;
+      return "D"+super.toString()+" timeLeft:"+timeLeft+" currentsMissions:"+currentsMissions+" over:"+over+" weigth:"+getWeigth()+"/"+maxWeigth;
     }
 
     //Tools to choose what to do -----------------------------------------------
     public int getWeigth(){
       int x=0;
       for (int objectId : listOfObject.keySet()) {
-        x+=TP4.objectsWeights[objectId];
+        for (int i=0; i<listOfObject.get(objectId); i++) {
+          x+=TP4.objectsWeights[objectId];
+        }
       }
       return x;
     }
@@ -62,7 +65,7 @@ public class Drone extends CarryingObjects {
         for(int i = 0; i < tab.length; i++ ){
             Warehouse w = tab[i];
             if(w.isOver()){
-              System.out.println("OVER :"+w);
+              // System.out.println("OVER :"+w);
               continue;}
             int tmp = (int) Math.sqrt(
                 Math.pow(w.currentLocation.getX()-currentLocation.getX(),2) +
@@ -75,7 +78,7 @@ public class Drone extends CarryingObjects {
             }
 
         }
-        System.out.println("FIND W"+nearest);
+        // System.out.println("FIND W"+nearest);
         // try {
         //   int z=0;
         //   z=1/z;
@@ -87,7 +90,7 @@ public class Drone extends CarryingObjects {
     private int nearestWarehouse(Warehouse tab[]){return nearestWarehouse(tab, -1);}
 
     private void moveTo(Warehouse w){
-      System.out.println("MOVE "+this+" move to "+w+" "+(!w.currentLocation.equals(currentLocation)));
+      // System.out.println("MOVE "+this+" move to "+w+" "+(!w.currentLocation.equals(currentLocation)));
       if(w.currentLocation.equals(currentLocation)){return;}
       try {
         if(haveAllItem(currentsMissions.get(0))){return;}
@@ -141,7 +144,7 @@ public class Drone extends CarryingObjects {
                 int tmp = getMoveTime(mission)+getLoadTime()+getDeliverTime();
                 if(tmp < bestTime){
                     if(w.haveAtLease1Item(mission)){
-                      System.out.println(w+" haveAtLease1Item of "+mission);
+                      // System.out.println(w+" haveAtLease1Item of "+mission);
                         bestTime = tmp;
                         best = mission;
                     }
@@ -149,16 +152,16 @@ public class Drone extends CarryingObjects {
             }
             if(best!=null){
               splitIn2Missions(w,best);
-              System.out.println(best+" splited in 2 mission because "+w+" don't have all");
-              System.out.println(this);
-              System.out.println(TP4.getMissions());
+              // System.out.println(best+" splited in 2 mission because "+w+" don't have all");
+              // System.out.println(this);
+              // System.out.println(TP4.getMissions());
               TP4.getMissions().remove(best);
               return;
             }
         }
         if(best==null){
           //TODO aller a l'entrepot suivant
-          System.out.println("--------------- Going to next Warehouse");
+          // System.out.println("--------------- Going to next Warehouse");
           int nextWH = nearestWarehouse(tab,currentWH);
           moveTo(tab[nextWH]);
           addBestMission(nextWH);
@@ -216,7 +219,7 @@ public class Drone extends CarryingObjects {
     //Do a mission, starting at the warehouse.
     public void doAMission(){
         addBestMission(-1);
-        System.out.println("Mission ADD to "+this);
+        // System.out.println("Mission ADD to "+this);
         while(currentsMissions.size()!=0){ //execute all mission without going back.
             load();
             move();
@@ -255,14 +258,14 @@ public class Drone extends CarryingObjects {
             // HashMap<Integer, Integer>  list = new HashMap<>();
             // for (int i=0; i<mission.listOfObject.size(); i++) {
             for(Integer objectId : mission.listOfObject.keySet()){
-                System.out.println("Voulu a "+timeLeft+" : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
+                // System.out.println("Voulu a "+timeLeft+" : "+objectId+" en quantité "+mission.listOfObject.get(objectId)+" pour mission "+mission);
                 //TODO use maxsize
                 // maxsize += TP4.objectsWeights[objectId];
                 for (int i=0; i<mission.listOfObject.get(objectId); i++) {
                   if(w.transfereTo(this, objectId)){
                     sendCommand("L "+warehouseId+" "+objectId+" "+mission.listOfObject.get(objectId));
                   }else{
-                    System.out.println("unable to transfere "+objectId+" to "+this+" from "+w);//@z
+                    // System.out.println("unable to transfere "+objectId+" to "+this+" from "+w);//@z
                   }
                 }
             }
@@ -280,19 +283,22 @@ public class Drone extends CarryingObjects {
         if(currentsMissions.size()!=0){
             timeLeft-=getDeliverTime();
             Mission m = currentsMissions.get(0);
+            List<Integer> listToRemove = new LinkedList<Integer>();
             for (int objectId : m.listOfObject.keySet()) {
               int nbrObject = m.listOfObject.get(objectId);
               for (int i=0; i<nbrObject; i++) {
                 // System.out.println("Transfere "+objectId+" from "+this+" & "+m);//@z
                 if(this.transfereTo(null, objectId)){
                   sendCommand("D "+m.getIdM()+" "+objectId+" "+m.listOfObject.get(objectId));
-                  m.transfereTo(null, objectId);
+                  listToRemove.add(objectId);
                 }else{
                   // System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);//@z
                 }
               }
             }
-            // System.out.println(m+" done");//@z
+            for (int objectId : listToRemove) {
+              m.transfereTo(null, objectId);
+            }
             if(timeLeft>=0){
                 currentLocation = m.currentLocation;
             }

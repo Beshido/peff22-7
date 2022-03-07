@@ -44,9 +44,9 @@ public class TP4 {
         System.out.println("Payload max : "+ maxDroneWeigth);
         Drone.maxWeigth=maxDroneWeigth;
         objectsWeights = new int[Integer.parseInt(list.get(1))];
-        for(int i = 0;i< objectsWeights.length;i++){
+        for(int i = 0; i<objectsWeights.length;i++){
                 objectsWeights[i] = Integer.parseInt((list.get(2).split(" "))[i]);
-                System.out.println("Object numero "+i+" poids : "+objectsWeights[i]+"u");
+                // System.out.println("Object numero "+i+" poids : "+objectsWeights[i]+"u");
         }
         entrepots = new Warehouse[Integer.parseInt(list.get(3))];
         // System.out.println("init entrepots "+entrepots);
@@ -84,7 +84,7 @@ public class TP4 {
             // System.out.println(list.get(i));
             compteur++;
         }
-        System.out.println(missions);
+        // System.out.println(missions);
         runTheDrone(nbDrones, nbTurns);
         dronesCmds=nbrOfDronesCmds+"\n"+dronesCmds;
         writeFile(dronesCmds, args[0].substring(0, args[0].length()-3)+".out");
@@ -100,7 +100,7 @@ public class TP4 {
             int y = (int)entrepots[0].currentLocation.getY();
             listDrone.add(new Drone(x,y,nbTurns));
         }
-        System.out.println(listDrone);
+        // System.out.println(listDrone);
         while(listDrone.size()>0){
             //launch a mission for the drone that have the more time to use.
             Drone droneWithMoreTime=null;
