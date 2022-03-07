@@ -1,9 +1,9 @@
 import java.awt.Point;
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.lang.Math;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Drone extends CarryingObjects {
     private static int cptId=0;
@@ -289,7 +289,7 @@ public class Drone extends CarryingObjects {
               for (int i=0; i<nbrObject; i++) {
                 // System.out.println("Transfere "+objectId+" from "+this+" & "+m);//@z
                 if(this.transfereTo(null, objectId)){
-                  sendCommand("D "+m.getIdM()+" "+objectId+" "+m.listOfObject.get(objectId));
+                  sendCommand("D "+m.getIdM()+" "+objectId+" "+Math.max(m.listOfObject.get(objectId),listOfObject.get(objectId)));
                   listToRemove.add(objectId);
                 }else{
                   // System.out.println("fail to transfere "+objectId+" from "+this+" & "+m);//@z

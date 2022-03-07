@@ -13,8 +13,8 @@ Mission extends CarryingObject {
 
 }
 
-fichier / Score du prof / notre score:
-exemple.in 234 88
-busyday.in 99570 1000
-redundancy.in 95013 200
-mother_of_all_warehouses.in 74513 100
+fichier / scores du prof / nos scores / nos nouveaux scores:
+exemple.in 234 88 234
+busyday.in 99570 1000 1000
+redundancy.in 95013 200 0
+mother_of_all_warehouses.in 74513 100 1198

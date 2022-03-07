@@ -25,6 +25,7 @@ public class CarryingObjects{
     }
 
     public void initializedObjects(int[] tab){
+        if(this instanceof Drone){return;}
         for(int i = 0; i< tab.length; i++){
             listOfObject.put(i,tab[i]);
         }
@@ -35,8 +36,12 @@ public class CarryingObjects{
     public void addObject(int objectId){
       if(this instanceof Drone){
         Drone dr = (Drone)this;
-        if(dr.getWeigth()+TP4.objectsWeights[objectId]>Drone.maxWeigth){
-          return;
+        // if(dr.getWeigth()+TP4.objectsWeights[objectId]>=Drone.maxWeigth/2){
+        //   return;
+        // }
+        if(objectId==741){
+          System.out.println(this);
+          System.out.println(TP4.objectsWeights[objectId]);
         }
       }
       if(listOfObject.containsKey(objectId)){
@@ -54,7 +59,7 @@ public class CarryingObjects{
     public boolean transfereTo(CarryingObjects co, int objectId){
       if(co instanceof Drone){
         Drone dr = (Drone)co;
-        if(dr.getWeigth()+TP4.objectsWeights[objectId]>Drone.maxWeigth){
+        if(dr.getWeigth()+TP4.objectsWeights[objectId]>=Drone.maxWeigth-10){
           return false;
         }
       }
