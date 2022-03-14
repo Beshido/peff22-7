@@ -64,7 +64,7 @@ public class TP6{
             int poids = Integer.parseInt(vals[2]);
 
             sommets[nomPoint].fillHashMap(nomLie, poids);
-            System.out.println(sommets[nomPoint].voisin);
+            System.out.println(sommets[nomPoint].voisins);
 
         }
 
