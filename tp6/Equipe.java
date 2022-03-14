@@ -14,7 +14,7 @@ public class Equipe {
         costToGoToEveryMember=0;
     }
     private int getCostToAddInTeam(int playerId){
-        System.out.println(costToGoToEveryMember+" "+(equipeMember.size()*tToArbitre[playerId]));//@a
+        // System.out.println("cost="+costToGoToEveryMember+"+"+(equipeMember.size()*tToArbitre[playerId]));//@a
         int cost=costToGoToEveryMember;
         cost+=equipeMember.size()*tToArbitre[playerId];
         return cost;
@@ -46,7 +46,7 @@ public class Equipe {
     private static void addPlayerToBestEquipe(int playerId){
         Equipe eq = null;
         int score = Integer.MAX_VALUE;
-        System.out.println("Chosing between "+EQUIPES.size()+" Equipes");
+        // System.out.println("Chosing between "+EQUIPES.size()+" Equipes");
         for (Equipe equipe : EQUIPES) {
             int scoreTemp = equipe.getCostToAddInTeam(playerId);
             if(scoreTemp<score){
@@ -54,7 +54,7 @@ public class Equipe {
                 eq = equipe;
             }
         }
-        System.out.println("Choose "+eq+" with score "+score);
+        // System.out.println("Choose "+eq+" with score "+score);
         if(eq!=null){
             eq.addPlayer(playerId);
         }else{
