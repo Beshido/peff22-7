@@ -18,7 +18,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class TP6{
-    public static void main(String[] args) {
+    public static ArrayList<String> listeFichiers = new ArrayList<String>();
+    public static void getAllFiles(String sDir){
+        File[] faFiles = new File(sDir).listFiles();
+        for(File file : faFiles){
+            if(file.isDirectory()){
+                getAllFiles(file.getAbsolutePath());
+            }
+            if(file.getName().length()>1){
+                listeFichiers.add(file.getAbsolutePath());
+                //System.out.println(file.getName());
+            };
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        String currentPath = new java.io.File(".").getCanonicalPath();
+        getAllFiles(currentPath+"/in/");
+        java.util.Collections.sort(listeFichiers);
+        System.out.println(listeFichiers);
         List<String> list = parsertp6.readFile(args[0]);
 
         //System.out.println(list);
