@@ -86,9 +86,9 @@ public class TP6{
             //extraction du minimum dans la file de priorite
             Sommet u = listePrio.extraireMin();
             for(Sommet voisin : u.voisins.entrySet()){
-                if(distance[voisin.id]> distance[voisin.id]+ distance[u]){
+                if(distance[voisin.id]> distance[voisin.id]+ distance[u.id]){
                     
-                    distance[voisin.id] = distance[voisin.id]+ distance[u];
+                    distance[voisin.id] = distance[voisin.id]+ distance[u.id];
                     listePrio.insertion(voisin, distance[voisin.id]);
                 }
             }
