@@ -13,7 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 
-public class parsertp4 {
+public class parsertp6 {
   //tools
   public static List<String> readFile(String nomDuFichier) {
     List<String> gs = new ArrayList<String>();
