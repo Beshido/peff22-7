@@ -4,11 +4,12 @@ public class Sommet {
     public static Sommet ARBIBTRE;
     public boolean estJoueur;
     public int id;
-    public HashMap<Integer, Integer> voisin = new HashMap<>();
+    public HashMap<Integer, Integer> voisin;
 
     public Sommet(boolean b, int id){
         estJoueur = b;
         this.id = id;
+        voisin = new HashMap<>();
     }
 
     public void fillHashMap (int sommet, int poids){
