@@ -35,8 +35,9 @@ public class TP6{
         String currentPath = new java.io.File(".").getCanonicalPath();
         getAllFiles(currentPath+"/in/");
         java.util.Collections.sort(listeFichiers);
-        System.out.println(listeFichiers);
-        for(int iB =0; iB<listeFichiers.size();iB++){
+        // System.out.println(listeFichiers);
+        for(int iB =0; iB<1;iB++){
+        // for(int iB =0; iB<listeFichiers.size();iB++){
             List<String> list = parsertp6.readFile(listeFichiers.get(iB));
             //System.out.println(list);
             String a[] = list.get(0).split(" ");
@@ -55,7 +56,7 @@ public class TP6{
             }
             // sommets[nbjoueurs+1].estJoueur = true;
             Sommet.ARBITRE = sommets[nbjoueurs+1];
-            System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
+            // System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
             for(int i = 1; i < list.size();i++){
                 String vals[] = list.get(i).split(" ");
 
@@ -64,35 +65,38 @@ public class TP6{
                 int poids = Integer.parseInt(vals[2]);
 
                 sommets[nomPoint].fillHashMap(nomLie, poids);
-                System.out.println(sommets[nomPoint].voisins);
-
             }
+            for (int i=1; i<sommets.length; i++) {
+                System.out.println(i+" -> "+sommets[i].voisins);
+            }
+            int tToARbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
+            int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); //TODO path but in reverse arrow.
+            Equipe.addAllPlayer(tToARbitre, tToPlayer, nbjoueurs, nbequipes);
+        }
     }
 
-    }
-
-    public int [] dijkrsta(Sommet source, Sommet[] sommets,int nbSommets){
+    public static int [] dijkrsta(Sommet source, Sommet[] sommets, int nbSommets){
         FileDePriorite listePrio = new FileDePriorite();
         int distance [] = new int [nbSommets+1];
         for(int i = 1; i< distance.length ; i++ ){
             if(i == source.id){
-                distance[i] = 0;  
+                distance[i] = 0;
             }
             distance[i] = Integer.MAX_VALUE;
         }
         listePrio.insertion(source, 0);
-        
+
         while (!listePrio.estVide()) {
             //extraction du minimum dans la file de priorite
             Sommet u = listePrio.extraireMin();
             for(int voisin : u.voisins.keySet()){
                 if(distance[voisin]> distance[voisin]+ distance[u.id]){
-                    
+
                     distance[voisin] = distance[voisin]+ distance[u.id];
                     listePrio.insertion(sommets[voisin], distance[voisin]);
                 }
             }
         }
-        return distance ;
+        return distance;
     }
 }

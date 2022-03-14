@@ -22,21 +22,30 @@ public class Equipe {
         equipeMember.add(playerId);
         costToGoToEveryMember+=tToPlayer[playerId];
     }
+    @Override
+    public String toString(){
+        return equipeMember.toString();
+    }
 
     //static -------------------------------
     //Main function to split player in nbjoueurs different team.
-    public static void addAllPlayer(int tToARbitre[], int tToPlayer[], int nbjoueurs){
+    public static void addAllPlayer(int tToARbitre[], int tToPlayer[], int nbjoueurs, int nbequipes){
         Equipe.tToARbitre=tToARbitre;
         Equipe.tToPlayer=tToPlayer;
         EQUIPES = new HashSet<Equipe>();
+        for (int i=0; i<nbequipes; i++) {
+            EQUIPES.add(new Equipe());
+        }
         for (int i=1; i<nbjoueurs+1; i++) {
             addPlayerToBestEquipe(i);
         }
+        System.out.println(EQUIPES);
     }
 
     private static void addPlayerToBestEquipe(int playerId){
         Equipe eq = null;
         int score = Integer.MAX_VALUE;
+        System.out.println("Chosing between "+EQUIPES.size()+" Equipes");
         for (Equipe equipe : EQUIPES) {
             int scoreTemp = equipe.getCostToAddInTeam(playerId);
             if(scoreTemp<score){
@@ -44,7 +53,11 @@ public class Equipe {
                 eq = equipe;
             }
         }
-        eq.addPlayer(playerId);
+        if(eq!=null){
+            eq.addPlayer(playerId);
+        }else{
+            System.out.println("Error");
+        }
     }
     /**
     *@return The cost for 1 team
