@@ -69,8 +69,10 @@ public class TP6{
             for (int i=1; i<sommets.length; i++) {
                 System.out.println(i+" -> "+sommets[i].voisins);
             }
-            int tToArbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
-            int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); //TODO path but in reverse arrow.
+            // int tToArbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
+            // int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); //TODO path but in reverse arrow.
+            int tToArbitre[] = {0,1,2,3,4};
+            int tToPlayer[] = {0,4,2,3,9};
             for (int i=0; i<tToArbitre.length; i++) {
                 System.out.println(tToArbitre[i]+" "+tToPlayer[i]);
             }
