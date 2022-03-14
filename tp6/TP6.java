@@ -69,9 +69,9 @@ public class TP6{
             for (int i=1; i<sommets.length; i++) {
                 System.out.println(i+" -> "+sommets[i].voisins);
             }
-            // int tToArbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
-            // int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); //TODO path but in reverse arrow.
-            int tToArbitre[] = {0,1,2,3,4};
+            int tToArbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
+             //int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); //TODO path but in reverse arrow.
+           // int tToArbitre[] = {0,1,2,3,4};
             int tToPlayer[] = {0,4,2,3,9};
             for (int i=0; i<tToArbitre.length; i++) {
                 System.out.println(tToArbitre[i]+" "+tToPlayer[i]);
@@ -86,18 +86,18 @@ public class TP6{
         for(int i = 1; i< distance.length ; i++ ){
             if(i == source.id){
                 distance[i] = 0;
+            }else{
+                distance[i] = 23000;
             }
-            distance[i] = Integer.MAX_VALUE;
         }
         listePrio.insertion(source, 0);
 
         while (!listePrio.estVide()) {
             //extraction du minimum dans la file de priorite
             Sommet u = listePrio.extraireMin();
-            for(int voisin : u.voisins.keySet()){
-                if(distance[voisin]> distance[voisin]+ distance[u.id]){
-
-                    distance[voisin] = distance[voisin]+ distance[u.id];
+            for(Integer voisin : u.voisins.keySet()){
+                if(distance[voisin]>u.voisins.get(voisin)+ distance[u.id]){
+                    distance[voisin] = u.voisins.get(voisin)+ distance[u.id];
                     listePrio.insertion(sommets[voisin], distance[voisin]);
                 }
             }
