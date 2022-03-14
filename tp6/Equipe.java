@@ -5,7 +5,7 @@ public class Equipe {
 
     public static Set<Equipe> EQUIPES;
     public static int tToPlayer[];
-    public static int tToARbitre[];
+    public static int tToArbitre[];
     private Set<Integer> equipeMember;
     private int costToGoToEveryMember;
 
@@ -14,8 +14,9 @@ public class Equipe {
         costToGoToEveryMember=0;
     }
     private int getCostToAddInTeam(int playerId){
+        System.out.println(costToGoToEveryMember+" "+(equipeMember.size()*tToArbitre[playerId]));//@a
         int cost=costToGoToEveryMember;
-        cost+=equipeMember.size()*tToARbitre[playerId];
+        cost+=equipeMember.size()*tToArbitre[playerId];
         return cost;
     }
     private void addPlayer(int playerId){
@@ -29,8 +30,8 @@ public class Equipe {
 
     //static -------------------------------
     //Main function to split player in nbjoueurs different team.
-    public static void addAllPlayer(int tToARbitre[], int tToPlayer[], int nbjoueurs, int nbequipes){
-        Equipe.tToARbitre=tToARbitre;
+    public static void addAllPlayer(int tToArbitre[], int tToPlayer[], int nbjoueurs, int nbequipes){
+        Equipe.tToArbitre=tToArbitre;
         Equipe.tToPlayer=tToPlayer;
         EQUIPES = new HashSet<Equipe>();
         for (int i=0; i<nbequipes; i++) {
@@ -53,6 +54,7 @@ public class Equipe {
                 eq = equipe;
             }
         }
+        System.out.println("Choose "+eq+" with score "+score);
         if(eq!=null){
             eq.addPlayer(playerId);
         }else{
@@ -65,7 +67,7 @@ public class Equipe {
     public int getEquipeCost(){
         int cost = 0;
         for (Integer playerId : equipeMember) {
-            cost+=tToARbitre[playerId]*(equipeMember.size()-1); //GO to the ARBITRE n-1 times
+            cost+=tToArbitre[playerId]*(equipeMember.size()-1); //GO to the ARBITRE n-1 times
             cost+=costToGoToEveryMember-tToPlayer[playerId]; //Go to every other player.
         }
         return cost;
