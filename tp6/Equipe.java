@@ -46,15 +46,20 @@ public class Equipe {
         }
         eq.addPlayer(playerId);
     }
-    //get score to calculate score.
+    /**
+    *@return The cost for 1 team
+    */
     public int getEquipeCost(){
-        //TODO doit prendre en compte le cout de tout les membres vers tout les membres au sein de l'équipe.
-        int cost = costToGoToEveryMember;
+        int cost = 0;
         for (Integer playerId : equipeMember) {
-            cost+=tToARbitre[playerId]*equipeMember.size();
+            cost+=tToARbitre[playerId]*(equipeMember.size()-1); //GO to the ARBITRE n-1 times
+            cost+=costToGoToEveryMember-tToPlayer[playerId]; //Go to every other player.
         }
         return cost;
     }
+    /**
+    *@return The full cost for all the equipes.
+    */
     public static int getFullEquipeCost(){
         int cost=0;
         for (Equipe eq : EQUIPES) {
