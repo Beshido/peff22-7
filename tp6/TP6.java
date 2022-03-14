@@ -20,13 +20,33 @@ import java.util.Set;
 public class TP6{
     public static void main(String[] args) {
         List<String> list = parsertp6.readFile(args[0]);
+
         //System.out.println(list);
         String a[] = list.get(0).split(" ");
-        int sommets = Integer.parseInt(a[0]);
+        int nbsommets = Integer.parseInt(a[0]);
         int nbjoueurs = Integer.parseInt(a[1]);
+        Sommet sommets[] = new Sommet[nbjoueurs];
         int nbequipes = Integer.parseInt(a[2]);
         int nbarcs = Integer.parseInt(a[3]);
-        System.out.println("s : " +sommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
+        for(int i = 1; i<nbsommets;i++){
+            if(i>=nbjoueurs){
+                sommets[i] = new Sommet(false, i);
+            }
+            else{
+                sommets[i] = new Sommet(true, i);
+            }
+        }
+        sommets[nbjoueurs+1].estJoueur = true;
+        System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
+        for(int i = 1; i < list.size();i++){
+            String vals[] = list.get(0).split(" ");
+
+            int nomPoint = Integer.parseInt(vals[0]);
+            int nomLie = Integer.parseInt(vals[1]);
+            int poids = Integer.parseInt(vals[2]);
+            sommets[nomPoint].fillHashMap(nomLie, poids);
+
+        }
 
     }
 }
