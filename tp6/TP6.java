@@ -69,4 +69,29 @@ public class TP6{
         }
 
     }
+
+    public int [] dijkrsta(Sommet source, Sommet[] sommets,int nbSommets){
+        FileDePriorite listePrio = new FileDePriorite();
+        int distance [] = new int [nbSommets+1];
+        for(int i = 1; i< distance.length ; i++ ){
+            if(i == source.id){
+                distance[i] = 0;  
+            }
+            distance[i] = Integer.MAX_VALUE;
+        }
+        listePrio.insertion(source, 0);
+        
+        while (!listePrio.estVide()) {
+            //extraction du minimum dans la file de priorite
+            Sommet u = listePrio.extraireMin();
+            for(Sommet voisin : u.voisins){
+                if(distance[voisin.id]> distance[voisin.id]+ distance[u]){
+                    
+                    distance[voisin.id] = distance[voisin.id]+ distance[u];
+                    listePrio.insertion(voisin, distance[voisin.id]);
+                }
+            }
+        }
+        return distance ;
+    }
 }
