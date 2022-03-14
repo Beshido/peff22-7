@@ -87,7 +87,7 @@ public class TP6{
             if(i == source.id){
                 distance[i] = 0;
             }else{
-                distance[i] = 23000;
+                distance[i] = Integer.MAX_VALUE;
             }
         }
         listePrio.insertion(source, 0);
