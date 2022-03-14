@@ -36,37 +36,38 @@ public class TP6{
         getAllFiles(currentPath+"/in/");
         java.util.Collections.sort(listeFichiers);
         System.out.println(listeFichiers);
-        List<String> list = parsertp6.readFile(args[0]);
-
-        //System.out.println(list);
-        String a[] = list.get(0).split(" ");
-        int nbsommets = Integer.parseInt(a[0]);
-        int nbjoueurs = Integer.parseInt(a[1]);
-        Sommet sommets[] = new Sommet[nbsommets+1];
-        int nbequipes = Integer.parseInt(a[2]);
-        int nbarcs = Integer.parseInt(a[3]);
-        for(int i = 1; i<=nbsommets;i++){
-            if(i>=nbjoueurs){
-                sommets[i] = new Sommet(false, i);
+        for(int iB =0; iB<listeFichiers.size();iB++){
+            List<String> list = parsertp6.readFile(listeFichiers.get(iB));
+            //System.out.println(list);
+            String a[] = list.get(0).split(" ");
+            int nbsommets = Integer.parseInt(a[0]);
+            int nbjoueurs = Integer.parseInt(a[1]);
+            Sommet sommets[] = new Sommet[nbsommets+1];
+            int nbequipes = Integer.parseInt(a[2]);
+            int nbarcs = Integer.parseInt(a[3]);
+            for(int i = 1; i<=nbsommets;i++){
+                if(i>=nbjoueurs){
+                    sommets[i] = new Sommet(false, i);
+                }
+                else{
+                    sommets[i] = new Sommet(true, i);
+                }
             }
-            else{
-                sommets[i] = new Sommet(true, i);
+            // sommets[nbjoueurs+1].estJoueur = true;
+            Sommet.ARBITRE = sommets[nbjoueurs+1];
+            System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
+            for(int i = 1; i < list.size();i++){
+                String vals[] = list.get(i).split(" ");
+
+                int nomPoint = Integer.parseInt(vals[0]);
+                int nomLie = Integer.parseInt(vals[1]);
+                int poids = Integer.parseInt(vals[2]);
+
+                sommets[nomPoint].fillHashMap(nomLie, poids);
+                System.out.println(sommets[nomPoint].voisins);
+
             }
-        }
-        // sommets[nbjoueurs+1].estJoueur = true;
-        Sommet.ARBITRE = sommets[nbjoueurs+1];
-        System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
-        for(int i = 1; i < list.size();i++){
-            String vals[] = list.get(i).split(" ");
-
-            int nomPoint = Integer.parseInt(vals[0]);
-            int nomLie = Integer.parseInt(vals[1]);
-            int poids = Integer.parseInt(vals[2]);
-
-            sommets[nomPoint].fillHashMap(nomLie, poids);
-            System.out.println(sommets[nomPoint].voisins);
-
-        }
+    }
 
     }
 
