@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 public class Sommet {
+    public static Sommet ARBIBTRE;
     public boolean estJoueur;
     public int id;
     public HashMap<Integer, Integer> voisin = new HashMap<>();

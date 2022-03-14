@@ -36,7 +36,8 @@ public class TP6{
                 sommets[i] = new Sommet(true, i);
             }
         }
-        sommets[nbjoueurs+1].estJoueur = true;
+        // sommets[nbjoueurs+1].estJoueur = true;
+        Sommet.ARBIBTRE = sommets[nbjoueurs+1];
         System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
         for(int i = 1; i < list.size();i++){
             String vals[] = list.get(0).split(" ");
