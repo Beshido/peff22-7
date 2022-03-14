@@ -25,10 +25,10 @@ public class TP6{
         String a[] = list.get(0).split(" ");
         int nbsommets = Integer.parseInt(a[0]);
         int nbjoueurs = Integer.parseInt(a[1]);
-        Sommet sommets[] = new Sommet[nbjoueurs];
+        Sommet sommets[] = new Sommet[nbsommets+1];
         int nbequipes = Integer.parseInt(a[2]);
         int nbarcs = Integer.parseInt(a[3]);
-        for(int i = 1; i<nbsommets;i++){
+        for(int i = 1; i<=nbsommets;i++){
             if(i>=nbjoueurs){
                 sommets[i] = new Sommet(false, i);
             }
@@ -37,15 +37,17 @@ public class TP6{
             }
         }
         // sommets[nbjoueurs+1].estJoueur = true;
-        Sommet.ARBIBTRE = sommets[nbjoueurs+1];
+        Sommet.ARBITRE = sommets[nbjoueurs+1];
         System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
         for(int i = 1; i < list.size();i++){
-            String vals[] = list.get(0).split(" ");
+            String vals[] = list.get(i).split(" ");
 
             int nomPoint = Integer.parseInt(vals[0]);
             int nomLie = Integer.parseInt(vals[1]);
             int poids = Integer.parseInt(vals[2]);
+
             sommets[nomPoint].fillHashMap(nomLie, poids);
+            System.out.println(sommets[nomPoint].voisin);
 
         }
 
