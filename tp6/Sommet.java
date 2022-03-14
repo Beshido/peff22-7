@@ -9,10 +9,10 @@ public class Sommet {
     public Sommet(boolean b, int id){
         estJoueur = b;
         this.id = id;
-        voisin = new HashMap<>();
+        voisins = new HashMap<>();
     }
 
     public void fillHashMap (int sommet, int poids){
-        voisin.put(sommet,poids);
+        voisins.put(sommet,poids);
     }
 }
