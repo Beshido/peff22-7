@@ -121,9 +121,9 @@ public class TP6{
             //extraction of the minimum in the priority queue
                 Sommet u = listePrio.extraireMin();
 
-                //  if the vertex we extract is the arbiter,
+                //  if the vertex we extract is the referee,
                 //  we update the distance of the current vertex
-                //  and set the distance of the arbiter to max for the next vertex
+                //  and set the distance of the referee to max for the next vertex
                 if(u.id == Sommet.ARBITRE.id ){
                     distance[sommets[i].id] = distance[u.id];
                     distance[u.id] = Integer.MAX_VALUE;
