@@ -70,7 +70,7 @@ public class TP6{
                 System.out.println(i+" -> "+sommets[i].voisins);
             }
             int tToArbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
-            int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); //TODO path but in reverse arrow.
+            int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); 
             // int tToArbitre[] = {0,1,2,3,4};
             //int tToPlayer[] = {0,4,2,3,9};
             for (int i=0; i<tToArbitre.length; i++) {
@@ -93,11 +93,11 @@ public class TP6{
         listePrio.insertion(source, 0);
 
         while (!listePrio.estVide()) {
-            //extraction du minimum dans la file de priorite
+            //extraction of the minimum in the priority queue
             Sommet u = listePrio.extraireMin();
             for(Integer voisin : u.voisins.keySet()){
                 if(distance[voisin]>u.voisins.get(voisin)+ distance[u.id]){
-                    distance[voisin] = u.voisins.get(voisin)+ distance[u.id];//distance du sommet courant + val de l'arc
+                    distance[voisin] = u.voisins.get(voisin)+ distance[u.id];//distance from current vertex + arc value
                     listePrio.insertion(sommets[voisin], distance[voisin]);
                 }
             }
@@ -111,14 +111,19 @@ public class TP6{
         for(int i = 1; i< distance.length ; i++ ){
             distance[i] = Integer.MAX_VALUE;   
         }
+        //for each vertex we determine the distance to the referee 
         for(int i = 1; i<sommets.length; i++){
             FileDePriorite listePrio = new FileDePriorite();
             distance[sommets[i].id] = 0;
             listePrio.insertion(sommets[i], 0);
 
             while (!listePrio.estVide()) {
-            //extraction du minimum dans la file de priorite
+            //extraction of the minimum in the priority queue
                 Sommet u = listePrio.extraireMin();
+
+                //  if the vertex we extract is the arbiter,
+                //  we update the distance of the current vertex
+                //  and set the distance of the arbiter to max for the next vertex
                 if(u.id == Sommet.ARBITRE.id ){
                     distance[sommets[i].id] = distance[u.id];
                     distance[u.id] = Integer.MAX_VALUE;
@@ -126,13 +131,13 @@ public class TP6{
                 }
                 for(Integer voisin : u.voisins.keySet()){
                     if(distance[voisin]>u.voisins.get(voisin)+ distance[u.id]){
-                        distance[voisin] = u.voisins.get(voisin)+ distance[u.id];//distance du sommet courant + val de l'arc
+                        distance[voisin] = u.voisins.get(voisin)+ distance[u.id];
                         listePrio.insertion(sommets[voisin], distance[voisin]);
                     }
                 }
             }
         }
-        
+        //we reset the referee's distance to 0 before returning the distances 
        distance[Sommet.ARBITRE.id] = 0;
         
         return distance;
