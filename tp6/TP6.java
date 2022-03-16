@@ -104,4 +104,37 @@ public class TP6{
         }
         return distance;
     }
+
+     public static int [] dijkrstaBis(Sommet[] sommets, int nbSommets){
+        
+        int distance [] = new int [nbSommets+1];
+        for(int i = 1; i< distance.length ; i++ ){
+            distance[i] = Integer.MAX_VALUE;   
+        }
+        for(int i = 1; i<sommets.length; i++){
+            FileDePriorite listePrio = new FileDePriorite();
+            distance[sommets[i].id] = 0;
+            listePrio.insertion(sommets[i], 0);
+
+            while (!listePrio.estVide()) {
+            //extraction du minimum dans la file de priorite
+                Sommet u = listePrio.extraireMin();
+                if(u.id == Sommet.ARBITRE.id ){
+                    distance[sommets[i].id] = distance[u.id];
+                    distance[u.id] = Integer.MAX_VALUE;
+                    break;
+                }
+                for(Integer voisin : u.voisins.keySet()){
+                    if(distance[voisin]>u.voisins.get(voisin)+ distance[u.id]){
+                        distance[voisin] = u.voisins.get(voisin)+ distance[u.id];//distance du sommet courant + val de l'arc
+                        listePrio.insertion(sommets[voisin], distance[voisin]);
+                    }
+                }
+            }
+        }
+        
+       
+        
+        return distance;
+    }
 }
