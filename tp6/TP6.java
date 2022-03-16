@@ -133,7 +133,7 @@ public class TP6{
             }
         }
         
-       
+       distance[Sommet.ARBITRE.id] = 0;
         
         return distance;
     }
