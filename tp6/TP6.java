@@ -90,7 +90,7 @@ public class TP6{
     public static int [] dijkrsta(Sommet source, Sommet[] sommets, int nbSommets){
         FileDePriorite listePrio = new FileDePriorite();
         int distance [] = new int [nbSommets+1];
-        for(int i = 0; i< distance.length ; i++ ){
+        for(int i = 1; i< distance.length ; i++ ){
             if(i == source.id){
                 distance[i] = 0;
             }else{
