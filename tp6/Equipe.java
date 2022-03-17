@@ -64,8 +64,8 @@ public class Equipe {
     /**
     *@return The cost for 1 team
     */
-    public int getEquipeCost(){
-        int cost = 0;
+    public long getEquipeCost(){
+        long cost = 0;
         for (Integer playerId : equipeMember) {
             cost+=tToArbitre[playerId]*(equipeMember.size()-1); //GO to the ARBITRE n-1 times
             cost+=costToGoToEveryMember-tToPlayer[playerId]; //Go to every other player.
@@ -75,8 +75,8 @@ public class Equipe {
     /**
     *@return The full cost for all the equipes.
     */
-    public static int getFullEquipeCost(){
-        int cost=0;
+    public static long getFullEquipeCost(){
+        long cost=0;
         for (Equipe eq : EQUIPES) {
             cost+=eq.getEquipeCost();
         }

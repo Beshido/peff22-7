@@ -35,8 +35,8 @@ public class TP6{
         java.util.Collections.sort(listeFichiers);
         String sol="";
         // System.out.println(listeFichiers);
-        for(int iB =3; iB<4;iB++){
-        // for(int iB =0; iB<listeFichiers.size();iB++){
+        // for(int iB =3; iB<4;iB++){
+        for(int iB =0; iB<listeFichiers.size();iB++){
             List<String> list = parsertp6.readFile(listeFichiers.get(iB));
             //System.out.println(list);
             String a[] = list.get(0).split(" ");
