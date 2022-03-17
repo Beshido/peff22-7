@@ -37,10 +37,13 @@ public class Equipe {
         for (int i=0; i<nbequipes; i++) {
             EQUIPES.add(new Equipe());
         }
+        // addPlayerToBestEquipe(4);
+        // addPlayerToBestEquipe(3);
+        // addPlayerToBestEquipe(1);
+        // addPlayerToBestEquipe(2);
         for (int i=1; i<nbjoueurs+1; i++) {
             addPlayerToBestEquipe(i);
         }
-        // System.out.println(EQUIPES);
     }
 
     private static void addPlayerToBestEquipe(int playerId){
@@ -54,7 +57,7 @@ public class Equipe {
                 eq = equipe;
             }
         }
-        // System.out.println("Choose "+eq+" with score "+score);
+        // System.out.println("Choose "+eq+" with score "+score+" for player "+playerId);
         if(eq!=null){
             eq.addPlayer(playerId);
         }else{
