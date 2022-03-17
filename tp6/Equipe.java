@@ -1,5 +1,4 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Equipe {
 
@@ -8,6 +7,7 @@ public class Equipe {
     public static int tToArbitre[];
     private Set<Integer> equipeMember;
     private int costToGoToEveryMember;
+    private static Random r = new Random();
 
     private Equipe(){
         equipeMember= new HashSet<Integer>();
@@ -45,6 +45,40 @@ public class Equipe {
             addPlayerToBestEquipe(i);
         }
     }
+    public static void addAllPlayer2(int tToArbitre[], int tToPlayer[], int nbjoueurs, int nbequipes){
+        Set<Equipe> eqs=null;
+        for (int j=0; j<5; j++) {
+            Equipe.tToArbitre=tToArbitre;
+            Equipe.tToPlayer=tToPlayer;
+            EQUIPES = new HashSet<Equipe>();
+            for (int i=0; i<nbequipes; i++) {
+                EQUIPES.add(new Equipe());
+            }
+            List<Integer> listPlayerId = getRandomList(1,nbjoueurs+1);
+            // System.out.println(j+": "+listPlayerId);
+            for (int i :listPlayerId) {
+                addPlayerToBestEquipe(i);
+            }
+            if(eqs==null || getFullEquipeCost(EQUIPES)<getFullEquipeCost(eqs)){
+                eqs=EQUIPES;
+                // System.out.println("New full equipe cost "+getFullEquipeCost(eqs));
+            }
+        }
+        EQUIPES=eqs;
+    }
+    private static List<Integer> getRandomList(int min, int max){
+        List<Integer> l = new ArrayList<Integer>();
+        for (int i=min; i<max; i++) {
+            l.add(i);
+        }
+        List<Integer> lrand = new ArrayList<Integer>();
+        while (l.size()>0) {
+            int indice = r.nextInt(l.size());
+            lrand.add(l.get(indice));
+            l.remove(indice);
+        }
+        return lrand;
+    }
 
     private static void addPlayerToBestEquipe(int playerId){
         Equipe eq = null;
@@ -79,8 +113,11 @@ public class Equipe {
     *@return The full cost for all the equipes.
     */
     public static long getFullEquipeCost(){
+        return getFullEquipeCost(EQUIPES);
+    }
+    public static long getFullEquipeCost(Set<Equipe> set){
         long cost=0;
-        for (Equipe eq : EQUIPES) {
+        for (Equipe eq : set) {
             cost+=eq.getEquipeCost();
         }
         return cost;

@@ -79,7 +79,7 @@ public class TP6{
             //     System.out.println(i+":"+tToArbitre[i]+" "+tToPlayer[i]);
             // }
             // Split player in Equipe
-            Equipe.addAllPlayer(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
+            Equipe.addAllPlayer2(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
             // Calculate cost for comunicate between every Equipe.
             sol+=Equipe.getFullEquipeCost()+"\n";
             // System.out.println(Equipe.EQUIPES);
