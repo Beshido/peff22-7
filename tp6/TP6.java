@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.List;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,8 +33,9 @@ public class TP6{
         String currentPath = new java.io.File(".").getCanonicalPath();
         getAllFiles(currentPath+"/in/");
         java.util.Collections.sort(listeFichiers);
+        String sol="";
         // System.out.println(listeFichiers);
-        for(int iB =0; iB<1;iB++){
+        for(int iB =3; iB<4;iB++){
         // for(int iB =0; iB<listeFichiers.size();iB++){
             List<String> list = parsertp6.readFile(listeFichiers.get(iB));
             //System.out.println(list);
@@ -56,7 +55,7 @@ public class TP6{
             }
             // sommets[nbjoueurs+1].estJoueur = true;
             Sommet.ARBITRE = sommets[nbjoueurs+1];
-            // System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs );
+            // System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs +" ARBITRE : "+Sommet.ARBITRE.id);
             for(int i = 1; i < list.size();i++){
                 String vals[] = list.get(i).split(" ");
 
@@ -66,24 +65,32 @@ public class TP6{
 
                 sommets[nomPoint].fillHashMap(nomLie, poids);
             }
-            for (int i=1; i<sommets.length; i++) {
-                System.out.println(i+" -> "+sommets[i].voisins);
-            }
-            int tToArbitre[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
-            int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets); 
-            // int tToArbitre[] = {0,1,2,3,4};
-            //int tToPlayer[] = {0,4,2,3,9};
-            for (int i=0; i<tToArbitre.length; i++) {
-                System.out.println(tToArbitre[i]+" "+tToPlayer[i]);
-            }
-            Equipe.addAllPlayer(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
-        }
-    }
+            // for (int i=1; i<sommets.length; i++) {
+            //     System.out.println(i+" -> "+sommets[i].voisins);
+            // }
 
+            //END PARSER -------------------------------------------------------
+            //At this step every sommet is link to this neibor by "public HashMap<Integer, Integer> voisins".
+
+            // Calculate cost to go from player to ARBITRE & from ARBITRE to player.
+            int tToArbitre[] = dijkrstaBis(Sommet.ARBITRE, sommets, nbsommets);
+            int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
+            // for (int i=1; i<tToArbitre.length; i++) {
+            //     System.out.println(i+":"+tToArbitre[i]+" "+tToPlayer[i]);
+            // }
+            // Split player in Equipe
+            Equipe.addAllPlayer(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
+            // Calculate cost for comunicate between every Equipe.
+            sol+=Equipe.getFullEquipeCost()+"\n";
+        }
+        //Write final solution
+        parsertp6.writeFile(sol, "out");
+    }
+    /** Calculate time needed to go from everywere to source. */
     public static int [] dijkrsta(Sommet source, Sommet[] sommets, int nbSommets){
         FileDePriorite listePrio = new FileDePriorite();
         int distance [] = new int [nbSommets+1];
-        for(int i = 1; i< distance.length ; i++ ){
+        for(int i = 0; i< distance.length ; i++ ){
             if(i == source.id){
                 distance[i] = 0;
             }else{
@@ -100,18 +107,22 @@ public class TP6{
                     distance[voisin] = u.voisins.get(voisin)+ distance[u.id];//distance from current vertex + arc value
                     listePrio.insertion(sommets[voisin], distance[voisin]);
                 }
+                // for (int i : distance) {
+                //     System.out.print(i+" ");
+                // }System.out.println();
             }
         }
         return distance;
     }
 
-     public static int [] dijkrstaBis(Sommet[] sommets, int nbSommets){
-        
+        /** Calculate time needed to go everywere from source. */
+     public static int [] dijkrstaBis(Sommet source, Sommet[] sommets, int nbSommets){
+
         int distance [] = new int [nbSommets+1];
         for(int i = 1; i< distance.length ; i++ ){
-            distance[i] = Integer.MAX_VALUE;   
+            distance[i] = Integer.MAX_VALUE;
         }
-        //for each vertex we determine the distance to the referee 
+        //for each vertex we determine the distance to the referee
         for(int i = 1; i<sommets.length; i++){
             FileDePriorite listePrio = new FileDePriorite();
             distance[sommets[i].id] = 0;
@@ -124,7 +135,7 @@ public class TP6{
                 //  if the vertex we extract is the referee,
                 //  we update the distance of the current vertex
                 //  and set the distance of the referee to max for the next vertex
-                if(u.id == Sommet.ARBITRE.id ){
+                if(u.id == source.id ){
                     distance[sommets[i].id] = distance[u.id];
                     distance[u.id] = Integer.MAX_VALUE;
                     break;
@@ -137,9 +148,9 @@ public class TP6{
                 }
             }
         }
-        //we reset the referee's distance to 0 before returning the distances 
-       distance[Sommet.ARBITRE.id] = 0;
-        
+        //we reset the referee's distance to 0 before returning the distances
+       distance[source.id] = 0;
+
         return distance;
     }
 }

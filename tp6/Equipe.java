@@ -40,7 +40,7 @@ public class Equipe {
         for (int i=1; i<nbjoueurs+1; i++) {
             addPlayerToBestEquipe(i);
         }
-        System.out.println(EQUIPES);
+        // System.out.println(EQUIPES);
     }
 
     private static void addPlayerToBestEquipe(int playerId){
