@@ -37,7 +37,7 @@ public class parsertp6 {
     return gs;
   }
 
-  public static boolean writeFile(String content, int t0, String nomDuFichier) {
+  public static boolean writeFile(String content, String nomDuFichier) {
     // nomDuFichier = str.sToDirectoryName(nomDuFichier);
     try {
       BufferedWriter ecriteurAvecBuffer = null;
@@ -50,11 +50,7 @@ public class parsertp6 {
         System.out.println("Le fichier n'as pas pu être créer. Le problème peut venir d'un caractère incorecte");
         return false;
       }
-      String a = content.length() + "";
-      ecriteurAvecBuffer.write(a);
-      for (int i = 0; i < content.length(); i++) {
-        ecriteurAvecBuffer.write(content.charAt(i));
-      }
+      ecriteurAvecBuffer.write(content);
       ecriteurAvecBuffer.close();
     } catch (IOException e) {
       return false;
