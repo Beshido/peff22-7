@@ -39,4 +39,13 @@ public class TP7{
         int iterationTab[] = new int[nbNotes];
     }
 
+    public static double calculateValueInInterval(double fi, double n, double si){
+        double val = n*fi;
+        return si - val -1;
+    }
+    public static boolean isOk(double fi, double n, double si){
+        double valInInterval=calculateValueInInterval(fi, n, si);
+        return (valInInterval>0 && valInInterval<2);
+    }
+
 }
