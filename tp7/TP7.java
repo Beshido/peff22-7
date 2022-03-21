@@ -42,9 +42,12 @@ public class TP7{
         iterationTab = new int[nbNotes+1];
 
         n=0;
-        ajouteNb(iterationTab, fTab);
+
         while(isAllOk(iterationTab, fTab)){
-            ajouteNb(iterationTab, fTab);
+            if(updateIteration(iterationTab, fTab) == -1){
+                break;
+            }
+            n++;
         }
         System.out.println(n);
     }
@@ -71,8 +74,12 @@ public class TP7{
         return nb;
     }
 
-    public static void updateIteration (int i ){
-        iterationTab[i] =+ 1;
+    public static int updateIteration (int[] iterationTab, double[] fTab){
+        int n = ajouteNb(iterationTab, fTab);
+        if( n != -1) {
+            iterationTab[n] = +1;
+        }
+            return n;
     }
 
     public static double calculateValueInInterval(double fi, int n, double si){
