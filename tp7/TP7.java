@@ -14,6 +14,20 @@ import java.io.FileWriter;
 import java.io.File;
 public class TP7{
     public static void main(String[] args) {
-        List<String> list = parsertp4.readFile(args[0]);
+        List<String> list = parsertp7.readFile(args[0]);
+        int nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
+        int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
+        System.out.println(nbNotes + " " +longSeq);
+        int mEnt[] = new int[nbNotes];
+        for(int i = 0; i < nbNotes;i++){
+            mEnt[i] = Integer.parseInt((list.get(1).split(" "))[i]);
+            //System.out.println(mEnt[i]);
+        }
+        int seqInit[] = new int[longSeq];
+        for(int i = 0; i < longSeq;i++){
+            seqInit[i] = Integer.parseInt((list.get(2).split(" "))[i]);
+            //System.out.println(seqInit[i]);
+        }
+
     }
 }
