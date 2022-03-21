@@ -40,6 +40,9 @@ public class TP7{
             fTab[i] = mEnt[i]/sommeT;
         }
         iterationTab = new int[nbNotes+1];
+        for(int i : seqInit){
+            iterationTab[i] =+ 1;
+        }
 
         n=0;
 
@@ -58,7 +61,7 @@ public class TP7{
         boolean isChange = false;
         double min = calculateValueInInterval(fTab[1], n , iterationTab[1]);
         for(int i = 2; i<fTab.length - 1; i++) {
-             double tmp = calculateValueInInterval(fTab[i], n , iterationTab[i]);
+             double tmp = calculateValueInInterval(fTab[i], n, iterationTab[i]);
              if(tmp < min){
                  if(isOk(fTab[i], getN() , iterationTab[i])) {
                      min = tmp;
