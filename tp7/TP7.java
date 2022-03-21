@@ -45,7 +45,7 @@ public class TP7{
         }
 
         n=0;
-
+        updateIteration(iterationTab, fTab);
         while(isAllOk(iterationTab, fTab)){
             if(updateIteration(iterationTab, fTab) == -1){
                 break;
@@ -98,7 +98,7 @@ public class TP7{
     }
     public static boolean isAllOk(int [] iterationTab, double [] fTab){
         for (int i=1; i<nbNotes; i++) {
-            System.out.println("i:"+i+"  n: "+getN()+"  "+(getN()*fTab[i]-1)+" < "+iterationTab[i]+" < "+(getN()*fTab[i]+1));
+            System.out.println("i:"+i+"  n: "+n+"  "+(getN()*fTab[i]-1)+" < "+iterationTab[i]+" < "+(getN()*fTab[i]+1));
             if(!isOk(fTab[i],getN(),iterationTab[i])){
                 return false;
             }
