@@ -13,10 +13,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 public class TP7{
-    private static int iterationTab[];
+    public static int nbNotes;
+    public static int n;
     public static void main(String[] args) {
         List<String> list = parsertp7.readFile(args[0]);
-        int nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
+        nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
         int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
         System.out.println(nbNotes + " " +longSeq);
         int mEnt[] = new int[nbNotes+1];
@@ -37,10 +38,17 @@ public class TP7{
         for(int i = 1; i<nbNotes;i++){
             fTab[i] = mEnt[i]/sommeT;
         }
-        iterationTab = new int[nbNotes+1];
+        int iterationTab[] = new int[nbNotes+1];
+
+        n=0;
+        ajouteNb(iterationTab, fTab);
+        while(isAllOk(iterationTab, fTab)){
+            ajouteNb(iterationTab, fTab);
+        }
+        System.out.println(n);
     }
 
-    public int ajouteNb (int[] iterationTab, double[] fTab, int n){
+    public static int ajouteNb (int[] iterationTab, double[] fTab){
         int nb = -1;
         boolean isChange = false;
         double min = calculateValueInInterval(fTab[1], n , iterationTab[1]);
@@ -61,13 +69,21 @@ public class TP7{
         }
         return nb;
     }
-    public static double calculateValueInInterval(double fi, double n, double si){
+
+    public static double calculateValueInInterval(double fi, int n, double si){
         double val = n*fi;
         return si - val -1;
     }
-    public static boolean isOk(double fi, double n, double si){
+    public static boolean isOk(double fi, int n, double si){
         double valInInterval=calculateValueInInterval(fi, n, si);
+        if (!(valInInterval>0 && valInInterval<2)) {System.out.println(valInInterval+" < "+si+" < "+(valInInterval+2)+" Not ok");}
         return (valInInterval>0 && valInInterval<2);
+    }
+    public static boolean isAllOk(int [] iterationTab, double [] fTab){
+        for (int i=1; i<nbNotes; i++) {
+            if(!isOk(fTab[i],n,iterationTab[i])){return false;}
+        }
+        return true;
     }
 
 }
