@@ -36,6 +36,7 @@ public class TP7{
         for(int i = 0; i<nbNotes;i++){
             fTab[i] = mEnt[i]/sommeT;
         }
-
+        int iterationTab[] = new int[nbNotes];
     }
+
 }
