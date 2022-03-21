@@ -89,7 +89,7 @@ public class TP7{
     public static boolean isOk(double fi, int n, double si){
         double valInInterval=calculateValueInInterval(fi, n, si);
         // if (!(valInInterval>0 && valInInterval<2)) {System.out.println(valInInterval+" < "+si+" < "+(valInInterval+2)+" Not ok");}
-        // System.out.println((n*fi-1)+" < "+si+" < "+(n*fi+1)+"  "+(valInInterval>0 && valInInterval<2));
+        System.out.println((n*fi-1)+" < "+si+" < "+(n*fi+1)+"  "+(valInInterval>0 && valInInterval<2));
         return (valInInterval>0 && valInInterval<2);
     }
     public static boolean isAllOk(int [] iterationTab, double [] fTab){
