@@ -13,9 +13,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 public class TP7{
+    public static int nbNotes;
     public static void main(String[] args) {
         List<String> list = parsertp7.readFile(args[0]);
-        int nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
+        nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
         int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
         System.out.println(nbNotes + " " +longSeq);
         int mEnt[] = new int[nbNotes];
@@ -37,6 +38,8 @@ public class TP7{
             fTab[i] = mEnt[i]/sommeT;
         }
         int iterationTab[] = new int[nbNotes];
+
+
     }
 
     public static double calculateValueInInterval(double fi, double n, double si){
@@ -46,6 +49,13 @@ public class TP7{
     public static boolean isOk(double fi, double n, double si){
         double valInInterval=calculateValueInInterval(fi, n, si);
         return (valInInterval>0 && valInInterval<2);
+    }
+    public static boolean isAllOk(double [] fTab, double [] iterationTab){
+        int n=0;
+        for (int i=1; i<nbNotes; i++) {
+            if(!isOk(fTab[i],n,iterationTab[i])){return false;}
+        }
+        return true;
     }
 
 }
