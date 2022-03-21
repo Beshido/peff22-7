@@ -28,6 +28,18 @@ public class TP7{
             seqInit[i] = Integer.parseInt((list.get(2).split(" "))[i]);
             //System.out.println(seqInit[i]);
         }
+        int sommeT = 0;
+        for(int i = 0;i<nbNotes; i++){
+            sommeT+=mEnt[i];
+        }
+        int fTab[] = new int[nbNotes];
+        for(int i = 0; i<nbNotes;i++){
+            fTab[i] = mEnt[i]/sommeT;
+        }
+        }
+
+}
+
 
     }
 }
