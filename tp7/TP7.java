@@ -51,6 +51,7 @@ public class TP7{
         }
         System.out.println(n);
     }
+    public static int getN(){return n+nbNotes;}
 
     public static int ajouteNb (int[] iterationTab, double[] fTab){
         int nb = -1;
@@ -59,7 +60,7 @@ public class TP7{
         for(int i = 2; i<fTab.length - 1; i++) {
              double tmp = calculateValueInInterval(fTab[i], n , iterationTab[i]);
              if(tmp < min){
-                 if(isOk(fTab[i], n , iterationTab[i])) {
+                 if(isOk(fTab[i], getN() , iterationTab[i])) {
                      min = tmp;
                      isChange = true;
                      nb = i;
@@ -67,7 +68,7 @@ public class TP7{
              }
         }
         if(!isChange){
-            if(isOk(fTab[1], n , iterationTab[1])){
+            if(isOk(fTab[1], getN() , iterationTab[1])){
                 nb = 1;
             }
         }
@@ -89,12 +90,15 @@ public class TP7{
     public static boolean isOk(double fi, int n, double si){
         double valInInterval=calculateValueInInterval(fi, n, si);
         // if (!(valInInterval>0 && valInInterval<2)) {System.out.println(valInInterval+" < "+si+" < "+(valInInterval+2)+" Not ok");}
-        System.out.println((n*fi-1)+" < "+si+" < "+(n*fi+1)+"  "+(valInInterval>0 && valInInterval<2));
+        // System.out.println((n*fi-1)+" < "+si+" < "+(n*fi+1)+"  "+(valInInterval>0 && valInInterval<2));
         return (valInInterval>0 && valInInterval<2);
     }
     public static boolean isAllOk(int [] iterationTab, double [] fTab){
         for (int i=1; i<nbNotes; i++) {
-            if(!isOk(fTab[i],n,iterationTab[i])){return false;}
+            System.out.println("i:"+i+"  n: "+getN()+"  "+(getN()*fTab[i]-1)+" < "+iterationTab[i]+" < "+(getN()*fTab[i]+1));
+            if(!isOk(fTab[i],getN(),iterationTab[i])){
+                return false;
+            }
         }
         return true;
     }
