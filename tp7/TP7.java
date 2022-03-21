@@ -13,10 +13,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 public class TP7{
-    public static int nbNotes;
+    private static int iterationTab[];
     public static void main(String[] args) {
         List<String> list = parsertp7.readFile(args[0]);
-        nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
+        int nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
         int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
         System.out.println(nbNotes + " " +longSeq);
         int mEnt[] = new int[nbNotes+1];
@@ -37,17 +37,30 @@ public class TP7{
         for(int i = 1; i<nbNotes;i++){
             fTab[i] = mEnt[i]/sommeT;
         }
-        int iterationTab[] = new int[nbNotes+1];
+        iterationTab = new int[nbNotes+1];
     }
 
-    public void ajouteNb (int[] iterationTab, double[] fTab, int sommeT, int n){
+    public int ajouteNb (int[] iterationTab, double[] fTab, int n){
+        int nb = -1;
+        boolean isChange = false;
         double min = calculateValueInInterval(fTab[1], n , iterationTab[1]);
         for(int i = 2; i<fTab.length - 1; i++) {
              double tmp = calculateValueInInterval(fTab[i], n , iterationTab[i]);
-             if(tmp < min){}
+             if(tmp < min){
+                 if(isOk(fTab[i], n , iterationTab[i])) {
+                     min = tmp;
+                     isChange = true;
+                     nb = i;
+                 }
+             }
         }
+        if(!isChange){
+            if(isOk(fTab[1], n , iterationTab[1])){
+                nb = 1;
+            }
+        }
+        return nb;
     }
-
     public static double calculateValueInInterval(double fi, double n, double si){
         double val = n*fi;
         return si - val -1;
@@ -55,13 +68,6 @@ public class TP7{
     public static boolean isOk(double fi, double n, double si){
         double valInInterval=calculateValueInInterval(fi, n, si);
         return (valInInterval>0 && valInInterval<2);
-    }
-    public static boolean isAllOk(double [] fTab, double [] iterationTab){
-        int n=0;
-        for (int i=1; i<nbNotes; i++) {
-            if(!isOk(fTab[i],n,iterationTab[i])){return false;}
-        }
-        return true;
     }
 
 }
