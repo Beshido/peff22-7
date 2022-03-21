@@ -19,8 +19,8 @@ public class TP7{
         nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
         int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
         System.out.println(nbNotes + " " +longSeq);
-        int mEnt[] = new int[nbNotes];
-        for(int i = 0; i < nbNotes;i++){
+        int mEnt[] = new int[nbNotes+1];
+        for(int i = 1; i < nbNotes;i++){
             mEnt[i] = Integer.parseInt((list.get(1).split(" "))[i]);
             //System.out.println(mEnt[i]);
         }
@@ -33,13 +33,19 @@ public class TP7{
         for(int i = 0;i<nbNotes; i++){
             sommeT+=mEnt[i];
         }
-        double fTab[] = new double[nbNotes];
-        for(int i = 0; i<nbNotes;i++){
+        double fTab[] = new double[nbNotes+1];
+        for(int i = 1; i<nbNotes;i++){
             fTab[i] = mEnt[i]/sommeT;
         }
-        int iterationTab[] = new int[nbNotes];
+        int iterationTab[] = new int[nbNotes+1];
+    }
 
-
+    public void ajouteNb (int[] iterationTab, double[] fTab, int sommeT, int n){
+        double min = calculateValueInInterval(fTab[1], n , iterationTab[1]);
+        for(int i = 2; i<fTab.length - 1; i++) {
+             double tmp = calculateValueInInterval(fTab[i], n , iterationTab[i]);
+             if(tmp < min){}
+        }
     }
 
     public static double calculateValueInInterval(double fi, double n, double si){
