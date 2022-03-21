@@ -40,10 +40,10 @@ public class TP7{
     }
 
     public void ajouteNb (int[] iterationTab, double[] fTab, int sommeT, int n){
-        double min = emilien(fTab[1], n , iterationTab[1]);
+        double min = calculateValueInInterval(fTab[1], n , iterationTab[1]);
         for(int i = 2; i<fTab.length - 1; i++) {
-             double tmp = emilien(fTab[i], n , iterationTab[i]);
-             if()
+             double tmp = calculateValueInInterval(fTab[i], n , iterationTab[i]);
+             if(tmp < min){}
         }
     }
 
