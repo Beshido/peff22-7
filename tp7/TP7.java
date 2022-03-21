@@ -32,7 +32,7 @@ public class TP7{
         for(int i = 0;i<nbNotes; i++){
             sommeT+=mEnt[i];
         }
-        int fTab[] = new int[nbNotes];
+        double fTab[] = new double[nbNotes];
         for(int i = 0; i<nbNotes;i++){
             fTab[i] = mEnt[i]/sommeT;
         }
