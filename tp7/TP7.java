@@ -17,6 +17,7 @@ public class TP7{
     public static int n;
     public static int iterationTab[];
     public static void main(String[] args) {
+        Color.iniColor();
         List<String> list = parsertp7.readFile(args[0]);
         nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
         int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
@@ -37,7 +38,7 @@ public class TP7{
         }
         double fTab[] = new double[nbNotes+1];
         for(int i = 1; i<nbNotes;i++){
-            fTab[i] = mEnt[i]/sommeT;
+            fTab[i] = (double)(mEnt[i])/(double)(sommeT); // double !!! sinon ça donne 0 tout le temps par la division entière.
         }
         iterationTab = new int[nbNotes+1];
         for(int i : seqInit){
@@ -45,13 +46,26 @@ public class TP7{
         }
 
         n=0;
-        updateIteration(iterationTab, fTab);
-        while(isAllOk(iterationTab, fTab)){
+
+        // for (int i : iterationTab) {
+        //     System.out.print(i+" ");
+        // }System.out.println();
+        // updateIteration(iterationTab, fTab);
+        // for (int i : iterationTab) {
+        //     System.out.print(i+" ");
+        // }System.out.println();
+        isAllOk(iterationTab, fTab);
+        do{
             if(updateIteration(iterationTab, fTab) == -1){
+                System.out.println("out from while because of updateIteration");
                 break;
             }
             n++;
-        }
+            System.out.println(n+":  ");
+            for (int i : iterationTab) {
+                System.out.print(i+" ");
+            }System.out.println();
+        } while(isAllOk(iterationTab, fTab));
         System.out.println(n);
     }
     public static int getN(){return n+nbNotes;}
@@ -59,22 +73,23 @@ public class TP7{
     public static int ajouteNb (int[] iterationTab, double[] fTab){
         int nb = -1;
         boolean isChange = false;
-        double min = calculateValueInInterval(fTab[1], n , iterationTab[1]);
+        double min = calculateValueInInterval(fTab[1], n+1 , iterationTab[1]);
         for(int i = 2; i<fTab.length - 1; i++) {
-             double tmp = calculateValueInInterval(fTab[i], n, iterationTab[i]);
+             double tmp = calculateValueInInterval(fTab[i], n+1, iterationTab[i]);
              if(tmp < min){
-                 if(isOk(fTab[i], getN() , iterationTab[i])) {
+                 // if(isOk(fTab[i], getN() , iterationTab[i])) {
                      min = tmp;
                      isChange = true;
                      nb = i;
-                 }
+                 // }
              }
         }
         if(!isChange){
-            if(isOk(fTab[1], getN() , iterationTab[1])){
+            // if(isOk(fTab[1], getN() , iterationTab[1])){
                 nb = 1;
-            }
+            // }
         }
+        System.out.println("to add "+nb);
         return nb;
     }
 
@@ -83,7 +98,7 @@ public class TP7{
         if( n != -1) {
             iterationTab[n] = +1;
         }
-            return n;
+        return n;
     }
 
     public static double calculateValueInInterval(double fi, int n, double si){
@@ -98,7 +113,11 @@ public class TP7{
     }
     public static boolean isAllOk(int [] iterationTab, double [] fTab){
         for (int i=1; i<nbNotes; i++) {
-            System.out.println("i:"+i+"  n: "+n+"  "+(getN()*fTab[i]-1)+" < "+iterationTab[i]+" < "+(getN()*fTab[i]+1));
+            String col = Color.GREEN;
+            if(!isOk(fTab[i],getN(),iterationTab[i])){col=Color.RED;}
+            System.out.println(col+"i:"+i+"  n: "+n+"  "+(getN()*fTab[i]-1)+" < "+iterationTab[i]+" < "+(getN()*fTab[i]+1)+Color.NEUTRAL);
+        }
+        for (int i=1; i<nbNotes; i++) {
             if(!isOk(fTab[i],getN(),iterationTab[i])){
                 return false;
             }
