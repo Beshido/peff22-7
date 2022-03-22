@@ -14,21 +14,22 @@ import java.io.FileWriter;
 import java.io.File;
 public class TP7{
     public static int nbNotes;
+    public static int longueurSequenceInit;
     public static int n;
     public static int iterationTab[];
     public static void main(String[] args) {
         Color.iniColor();
         List<String> list = parsertp7.readFile(args[0]);
         nbNotes = Integer.parseInt((list.get(0).split(" "))[0]);
-        int longSeq = Integer.parseInt((list.get(0).split(" "))[1]);
-        System.out.println(nbNotes + " " +longSeq);
+        longueurSequenceInit = Integer.parseInt((list.get(0).split(" "))[1]);
+        System.out.println(nbNotes + " " +longueurSequenceInit);
         int mEnt[] = new int[nbNotes+1];
         for(int i = 1; i < nbNotes;i++){
             mEnt[i] = Integer.parseInt((list.get(1).split(" "))[i]);
             //System.out.println(mEnt[i]);
         }
-        int seqInit[] = new int[longSeq];
-        for(int i = 0; i < longSeq;i++){
+        int seqInit[] = new int[longueurSequenceInit];
+        for(int i = 0; i < longueurSequenceInit;i++){
             seqInit[i] = Integer.parseInt((list.get(2).split(" "))[i]);
             //System.out.println(seqInit[i]);
         }
@@ -42,7 +43,7 @@ public class TP7{
         }
         iterationTab = new int[nbNotes+1];
         for(int i : seqInit){
-            iterationTab[i] =+ 1;
+            iterationTab[i] += 1;
         }
 
         n=0;
@@ -60,22 +61,33 @@ public class TP7{
                 System.out.println("out from while because of updateIteration");
                 break;
             }
-            n++;
             System.out.println(n+":  ");
-            for (int i : iterationTab) {
-                System.out.print(i+" ");
-            }System.out.println();
-        } while(isAllOk(iterationTab, fTab));
-        System.out.println(n);
+            // for (int i : iterationTab) {
+            //     System.out.print(i+" ");
+            // }System.out.println();
+            n++;
+            if(!isAllOk(iterationTab, fTab)){
+            // isAllOk(iterationTab, fTab);
+            // if(n>4){
+                System.out.println("out from while because of isAllOk()==false");
+                break;
+            }
+        } while(n<1000);
+        if(n>=1000){
+            System.out.println("infini");
+        }else{
+            System.out.println(n); //TODO write sol in a file insted of print it.
+        }
     }
-    public static int getN(){return n+nbNotes;}
+    public static int getN(){return n+longueurSequenceInit;}
 
     public static int ajouteNb (int[] iterationTab, double[] fTab){
         int nb = -1;
         boolean isChange = false;
-        double min = calculateValueInInterval(fTab[1], n+1 , iterationTab[1]);
+        double min = calculateValueInInterval(fTab[1], getN(), iterationTab[1]);
         for(int i = 2; i<fTab.length - 1; i++) {
-             double tmp = calculateValueInInterval(fTab[i], n+1, iterationTab[i]);
+             double tmp = calculateValueInInterval(fTab[i], getN(), iterationTab[i]);
+             // System.out.println(tmp);
              if(tmp < min){
                  // if(isOk(fTab[i], getN() , iterationTab[i])) {
                      min = tmp;
@@ -89,14 +101,15 @@ public class TP7{
                 nb = 1;
             // }
         }
-        System.out.println("to add "+nb);
+        System.out.println("to add "+nb+ " because "+min);
         return nb;
     }
 
     public static int updateIteration (int[] iterationTab, double[] fTab){
         int n = ajouteNb(iterationTab, fTab);
         if( n != -1) {
-            iterationTab[n] = +1;
+            // iterationTab[n] = +1; // non !
+            iterationTab[n]+=1;
         }
         return n;
     }
@@ -109,7 +122,8 @@ public class TP7{
         double valInInterval=calculateValueInInterval(fi, n, si);
         // if (!(valInInterval>0 && valInInterval<2)) {System.out.println(valInInterval+" < "+si+" < "+(valInInterval+2)+" Not ok");}
         // System.out.println((n*fi-1)+" < "+si+" < "+(n*fi+1)+"  "+(valInInterval>0 && valInInterval<2));
-        return (valInInterval>0 && valInInterval<2);
+        return (valInInterval>0 && valInInterval<2); // Ce qui serait correcte de faire compte tenu de l'énnoncé.
+        // return (valInInterval>=0 && valInInterval<=2);
     }
     public static boolean isAllOk(int [] iterationTab, double [] fTab){
         for (int i=1; i<nbNotes; i++) {
