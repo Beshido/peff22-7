@@ -7,7 +7,6 @@ public class exo3{
         int bougieFille = Integer.parseInt(list.get(1));
         int bougieGarcon = Integer.parseInt(list.get(2));
         int res = calculFinal(ecart, bougieFille, bougieGarcon);
-        System.out.println(res);
     }
 
     public static int realBougie(int age, int j){
@@ -32,19 +31,17 @@ public class exo3{
 
     public static int calculFinal(int ecart, int bougieFille, int bougieGarcon) {
         int res = 0;
-        int ageMaxFille = calculAgeMax(bougieFille); // == 7
-        System.out.println("fille :"+ ageMaxFille);
-        int ageGarcon = ageMaxFille - ecart; // == 5
-        int realBougieFille = realBougie(ageMaxFille, 4); // == 22
-        int realBougieGarcon = realBougie(ageGarcon, 3); // == 12
-        res = bougieFille - realBougieFille; // == 4
+        int ageMaxFille = calculAgeMax(bougieFille);
+        int ageGarcon = ageMaxFille - ecart;
+        int realBougieFille = realBougie(ageMaxFille, 4);
+        int realBougieGarcon = realBougie(ageGarcon, 3);
+        res = bougieFille - realBougieFille;
         if ((bougieFille == realBougieFille + res) && (bougieGarcon == realBougieGarcon - res)) {
             return res;
         } else {
             do {
                 res = 0;
                 ageMaxFille = ageMaxFille - 1;
-                System.out.println("do : " +ageMaxFille);
                 ageGarcon = ageMaxFille - ecart;
                 realBougieFille = realBougie(ageMaxFille, 4);
                 realBougieGarcon = realBougie(ageGarcon, 3);
