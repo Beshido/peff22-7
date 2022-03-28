@@ -37,3 +37,9 @@ c-1 < qq < c+1
 
 
 sommeT = 2+1+6+3+5+3=20
+
+A FIX :
+
+- isAllOk qui ne fonctionne pas comme prévu
+- Ecriteur
+
