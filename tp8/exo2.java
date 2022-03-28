@@ -6,7 +6,7 @@ public class exo2{
         int ecart = Integer.parseInt(list.get(0));
         int bougieFille = Integer.parseInt(list.get(1));
         int bougieGarcon = Integer.parseInt(list.get(2));
-
+        
         
     }
 }
