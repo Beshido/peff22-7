@@ -1,28 +1,38 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class exo4{
 
-    public static int[] EquartSorted(int[] Entree, int[]Sortie){
-        int[]tab= new int [Entree.length];
+    public static List<Integer> EquartSorted(int[] Entree, int[]Sortie){
+        List<Integer> a = new ArrayList<Integer>();
         for(int i=0;i<Entree.length;i++){
-            tab[i]=(Sortie[i]-Entree[i]);
+            if (Sortie[i]>Entree[i]){
+            a.add(Sortie[i]-Entree[i]);
         }
-        java.util.Arrays.sort(tab);
-        return tab;
+    }
+        a.sort((Integer x, Integer y) -> y-x);
+        return a;
 
     }
-    public static int calculEquart(int[]tabEquart){
+    public static int calculEquart(List<Integer>tabEquart){
         int max = 0;
         int count = 0;
-        for (int i = 0; i < tabEquart.length; i++) {
-            int num = tabEquart[i];
-        if (num == max) {
-            count++;
-        } else if (num > max) {
-        max = num;
-        count = 1;
+        int val =tabEquart.get(0);
+        int trucARetenir=0;
+        
+        for(int i=0;i<tabEquart.size();i++){
+            if(val!=tabEquart.get(i)){
+            val = tabEquart.get(i);
+            count = 1;
+            }
+            if(max< count){
+            max=count;
+            trucARetenir=tabEquart.get(i);
+            }
+            else count++;   
+            
         }
-    }return max;
+    return trucARetenir;
 }
 
     public static void main(String[] args) {
@@ -41,7 +51,7 @@ public class exo4{
         for(int i = 0;i<M;i++){
             MtempsTab[i] = Integer.parseInt(Mtemps.split(" ")[i]);
         }
-
         
+        System.out.println(calculEquart(EquartSorted(NtempsTab, MtempsTab)));  
     }
 }
