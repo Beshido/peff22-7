@@ -33,10 +33,13 @@ public class exo2{
         res[1]=0;
         res[2]=0;
         calculateSurface();
+        String sol="";
         for (long i : res) {
-            System.out.print(i+" ");
+            sol+=i+" ";
         }
-        System.out.println();
+        sol=sol.substring(0,sol.length()-1)+'\n';
+        System.out.print(sol);
+        parser.writeFile(sol, args[0].replaceFirst("[.][^.]+$", ".out"));
     }
     public static void calculateSurface(){
         for (int j=0; j<blen; j++) {
