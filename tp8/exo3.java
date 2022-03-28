@@ -30,12 +30,11 @@ public class exo3{
 
 
     public static int calculFinal(int ecart, int bougieFille, int bougieGarcon) {
-        int res = 0;
         int ageMaxFille = calculAgeMax(bougieFille);
         int ageGarcon = ageMaxFille - ecart;
         int realBougieFille = realBougie(ageMaxFille, 4);
         int realBougieGarcon = realBougie(ageGarcon, 3);
-        res = bougieFille - realBougieFille;
+        int res = bougieFille - realBougieFille;
         if ((bougieFille == realBougieFille + res) && (bougieGarcon == realBougieGarcon - res)) {
             return res;
         } else {
