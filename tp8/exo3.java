@@ -5,15 +5,17 @@ import java.util.List;
 
 public class exo3{
     public static void main(String[] args) throws IOException {
+        for(int fnum = 0; fnum < args.length;fnum++){
 
-        List<String> list = parser.readFile(args[0]);
-        String filename = args[0];
-        filename = filename.substring(0, filename.lastIndexOf('.'));
-        int ecart = Integer.parseInt(list.get(0));
-        int bougieFille = Integer.parseInt(list.get(1));
-        int bougieGarcon = Integer.parseInt(list.get(2));
-        Integer res = calculFinal(ecart, bougieFille, bougieGarcon);
-        outWrite(filename,res.toString());
+            List<String> list = parser.readFile(args[fnum]);
+            String filename = args[0];
+            filename = filename.substring(0, filename.lastIndexOf('.'));
+            int ecart = Integer.parseInt(list.get(0));
+            int bougieFille = Integer.parseInt(list.get(1));
+            int bougieGarcon = Integer.parseInt(list.get(2));
+            Integer res = calculFinal(ecart, bougieFille, bougieGarcon);
+            outWrite(filename,res.toString());
+        }
     }
 
     public static int realBougie(int age, int j){
