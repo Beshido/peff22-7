@@ -21,7 +21,7 @@ public class exo1{
         Integer a = sommeglo/largeur;
         String k = a.toString();
         outWrite(filename,k);
-        System.out.println(sommeglo/largeur);
+        //System.out.println(sommeglo/largeur);
         //        write in out file the solution
         
         
