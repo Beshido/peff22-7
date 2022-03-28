@@ -10,10 +10,9 @@ public class exo3{
         System.out.println(res);
     }
 
-    public static int realBougie(int age){
+    public static int realBougie(int age, int j){
         int i = 0;
-        int j = 4;
-        while (j < age){
+        while (j <= age){
             i = i+j;
             j++;
         }
@@ -22,35 +21,35 @@ public class exo3{
 
     public static int calculAgeMax(int bougieFille){
         int ageMax = 4;
-        int i = 0;
+        int i = 4;
         while( i < bougieFille){
-                i=+ageMax;
+                i = i +ageMax;
                 ageMax++;
         }
-        return ageMax;
+        return ageMax-1;
     }
 
 
     public static int calculFinal(int ecart, int bougieFille, int bougieGarcon) {
         int res = 0;
-        int ageMaxFille = calculAgeMax(bougieFille);
-        int ageGarcon = ageMaxFille - ecart;
-        int realBougieFille = realBougie(bougieFille);
-        int realBougieGarcon = realBougie(bougieGarcon + ageGarcon);
-        int bougieEcart = realBougieFille - realBougieGarcon;
-        res = bougieEcart / 2;
+        int ageMaxFille = calculAgeMax(bougieFille); // == 7
+        System.out.println("fille :"+ ageMaxFille);
+        int ageGarcon = ageMaxFille - ecart; // == 5
+        int realBougieFille = realBougie(ageMaxFille, 4); // == 22
+        int realBougieGarcon = realBougie(ageGarcon, 3); // == 12
+        res = bougieFille - realBougieFille; // == 4
         if ((bougieFille == realBougieFille + res) && (bougieGarcon == realBougieGarcon - res)) {
             return res;
         } else {
             do {
                 res = 0;
                 ageMaxFille = ageMaxFille - 1;
+                System.out.println("do : " +ageMaxFille);
                 ageGarcon = ageMaxFille - ecart;
-                realBougieFille = realBougie(bougieFille);
-                realBougieGarcon = realBougie(bougieGarcon + ageGarcon);
-                bougieEcart = realBougieFille - realBougieGarcon;
-                res = bougieEcart / 2;
-            } while ((bougieFille != realBougieFille + res) && (bougieGarcon != realBougieGarcon - res));
+                realBougieFille = realBougie(ageMaxFille, 4);
+                realBougieGarcon = realBougie(ageGarcon, 3);
+                res = bougieFille - realBougieFille;
+            } while ((bougieFille != realBougieFille + res) || (bougieGarcon != realBougieGarcon - res));
         }
         return res;
     }
