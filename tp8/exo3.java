@@ -1,12 +1,19 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class exo3{
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         List<String> list = parser.readFile(args[0]);
+        String filename = args[0];
+        filename = filename.substring(0, filename.lastIndexOf('.'));
         int ecart = Integer.parseInt(list.get(0));
         int bougieFille = Integer.parseInt(list.get(1));
         int bougieGarcon = Integer.parseInt(list.get(2));
-        int res = calculFinal(ecart, bougieFille, bougieGarcon);
+        Integer res = calculFinal(ecart, bougieFille, bougieGarcon);
+        outWrite(filename,res.toString());
     }
 
     public static int realBougie(int age, int j){
@@ -48,5 +55,11 @@ public class exo3{
             } while ((bougieFille != realBougieFille + res) || (bougieGarcon != realBougieGarcon - res));
         }
         return res;
+    }
+
+    public static void outWrite(String str1, String str2) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(str1+".out"));
+        writer.write(str2);
+        writer.close();
     }
 }
