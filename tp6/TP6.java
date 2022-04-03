@@ -1,19 +1,7 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class TP6{
     public static ArrayList<String> listeFichiers = new ArrayList<String>();
@@ -25,7 +13,6 @@ public class TP6{
             }
             if(file.getName().length()>1){
                 listeFichiers.add(file.getAbsolutePath());
-                //System.out.println(file.getName());
             };
         }
     }
@@ -34,11 +21,9 @@ public class TP6{
         getAllFiles(currentPath+"/in/");
         java.util.Collections.sort(listeFichiers);
         String sol="";
-        // System.out.println(listeFichiers);
-        // for(int iB =listeFichiers.size()-1; iB<listeFichiers.size();iB++){
+        // get information from files 
         for(int iB =0; iB<listeFichiers.size();iB++){
             List<String> list = parsertp6.readFile(listeFichiers.get(iB));
-            //System.out.println(list);
             String a[] = list.get(0).split(" ");
             int nbsommets = Integer.parseInt(a[0]);
             int nbjoueurs = Integer.parseInt(a[1]);
@@ -53,9 +38,8 @@ public class TP6{
                     sommets[i] = new Sommet(true, i);
                 }
             }
-            // sommets[nbjoueurs+1].estJoueur = true;
             Sommet.ARBITRE = sommets[nbjoueurs+1];
-            // System.out.println("s : " +nbsommets+" Joueurs : "+ nbjoueurs+" Equipes : "+ nbequipes+ " Arcs : "+ nbarcs +" ARBITRE : "+Sommet.ARBITRE.id);
+            
             for(int i = 1; i < list.size();i++){
                 String vals[] = list.get(i).split(" ");
 
@@ -65,24 +49,18 @@ public class TP6{
 
                 sommets[nomPoint].fillHashMap(nomLie, poids);
             }
-            // for (int i=1; i<sommets.length; i++) {
-            //     System.out.println(i+" -> "+sommets[i].voisins);
-            // }
-
+        
             //END PARSER -------------------------------------------------------
             //At this step every sommet is link to this neibor by "public HashMap<Integer, Integer> voisins".
 
             // Calculate cost to go from player to ARBITRE & from ARBITRE to player.
             int tToArbitre[] = dijkrstaBis(Sommet.ARBITRE, sommets, nbsommets);
             int tToPlayer[] = dijkrsta(Sommet.ARBITRE, sommets, nbsommets);
-            // for (int i=1; i<tToArbitre.length; i++) {
-            //     System.out.println(i+":"+tToArbitre[i]+" "+tToPlayer[i]);
-            // }
+           
             // Split player in Equipe
-            Equipe.addAllPlayer2(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
+            Equipe.addAllPlayer(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
             // Calculate cost for comunicate between every Equipe.
             sol+=Equipe.getFullEquipeCost()+"\n";
-            // System.out.println(Equipe.EQUIPES);
         }
         //Write final solution
         parsertp6.writeFile(sol, "out");
@@ -108,9 +86,6 @@ public class TP6{
                     distance[voisin] = u.voisins.get(voisin)+ distance[u.id];//distance from current vertex + arc value
                     listePrio.insertion(sommets[voisin], distance[voisin]);
                 }
-                // for (int i : distance) {
-                //     System.out.print(i+" ");
-                // }System.out.println();
             }
         }
         return distance;
