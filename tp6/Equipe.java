@@ -37,16 +37,14 @@ public class Equipe {
         for (int i=0; i<nbequipes; i++) {
             EQUIPES.add(new Equipe());
         }
-        // addPlayerToBestEquipe(4);
-        // addPlayerToBestEquipe(3);
-        // addPlayerToBestEquipe(1);
-        // addPlayerToBestEquipe(2);
         for (int i=1; i<nbjoueurs+1; i++) {
             addPlayerToBestEquipe(i);
         }
     }
     public static void addAllPlayer2(int tToArbitre[], int tToPlayer[], int nbjoueurs, int nbequipes){
-        Set<Equipe> eqs=null;
+        addAllPlayer(tToArbitre, tToPlayer, nbjoueurs, nbequipes);
+        Set<Equipe> eqs=EQUIPES;
+        EQUIPES=null;
         for (int j=0; j<5; j++) {
             Equipe.tToArbitre=tToArbitre;
             Equipe.tToPlayer=tToPlayer;
