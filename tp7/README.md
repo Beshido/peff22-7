@@ -1,3 +1,9 @@
+#To use
+
+javac *.java; java TP7 in/06.in
+
+#exemple
+
 m=6 k=5
 2 1 6 3 5 3
 1 2 5 3 5
@@ -42,4 +48,3 @@ A FIX :
 
 - isAllOk qui ne fonctionne pas comme prévu
 - Ecriteur
-
