@@ -33,7 +33,7 @@ public class TP9{
 
     public static int[][] solutionAlban (List <Domino> liste, int maxL) {
         int[][] resultat = new int[maxL][liste.size()];
-        // fill resultat with val 3000
+        // fill resultat with val -10
         for(int i = 0; i < maxL; i++){
             for(int j = 0; j < liste.size(); j++){
                 resultat[i][j] = -10;
