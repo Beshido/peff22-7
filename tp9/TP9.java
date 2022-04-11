@@ -46,8 +46,8 @@ public class TP9{
         int incrementer = 0;
         for(int i =1;i<liste.size();i++){
             if (liste.get(i).haut == domino.bas){
-                resultat [incrementer][incrementer] = domino.id;
-                resultat [incrementer][incrementer+1] = liste.get(i).id;
+                resultat [incrementer][incrementer] = liste.get(i).id;
+                resultat [incrementer][incrementer+1] = domino.id;
                 incrementer=incrementer+2;
                 resultat[incrementer-1][0] = -1;
                 liste.remove(i);
@@ -56,8 +56,8 @@ public class TP9{
 
             }
             else if (liste.get(i).bas == domino.haut){
-                resultat [incrementer][incrementer] = liste.get(i).id;
-                resultat [incrementer][incrementer+1] = domino.id;
+                resultat [incrementer][incrementer] = domino.id;
+                resultat [incrementer][incrementer+1] = liste.get(i).id;
                 incrementer=incrementer+2;
                 resultat[incrementer-1][0] = -1;
                 liste.remove(i);
