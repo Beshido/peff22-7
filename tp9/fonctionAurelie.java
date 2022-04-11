@@ -27,14 +27,7 @@ public class fonctionAurelie {
             i--;
             j++;
         }
-        int[][] res2 = new int[l][dominos.size()];
-        for(int k = 0; k< res.length; k++){
-            for(int f = 0; f < res[k].length; f++){
-                if(res[k][f] != null){
-                    res2[k][f]=res[k][f].id;
-                }
-            }
-        }
+        int[][] res2 = TP9.toDominoId(res);
         return res2;
     }
 
