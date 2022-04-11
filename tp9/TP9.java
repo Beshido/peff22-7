@@ -21,7 +21,7 @@ public class TP9{
         // System.out.println(dominoes);
         System.out.println(colorInfo(dominoes));
         System.out.println(numberInfo(dominoes));
-        int[][] resultat = oneDomManyCol(dominoes, maxL);
+        int[][] resultat = permutationbis(dominoes, maxL);
         // print resultat
         for(int i = 0; i < maxL; i++){
             for(int j = 0; j < nbDominos; j++){
@@ -170,4 +170,56 @@ public class TP9{
         int[][] res2 = TP9.toDominoId(res);
         return res2;
     }
+
+    public static int[][] permutationbis(List<Domino> dominos,int l){
+        Domino [][] grille = new Domino [l][dominos.size()];
+        int i = l-1;
+        int j = 0;
+        while(!dominos.isEmpty() && i>=0){
+            if(i == l-1){
+                grille[i][j] = dominos.remove(0);
+                  
+            }else{
+                for(Domino domino : dominos){
+                    if(grille[i+1][j]!= null){
+
+                    
+                        if(grille[i+1][j].haut == domino.bas){
+                            grille[i][j] = domino;
+                            dominos.remove(domino);
+                            break;
+                            
+                         }
+                    }
+                    
+                }
+            }
+
+            if(grille[i][j] !=null){
+                for(int k = 0; k < dominos.size();k++){
+                
+                    if(grille[i][j].droite == dominos.get(k).gauche){
+                
+                        if(i == l-1||(i != l-1 && grille[i+1][j].haut == dominos.get(k).bas)){
+                                grille[i][j+1] = dominos.get(k);
+                                dominos.remove(dominos.get(k));
+                                j++;
+                                //break;
+                            }
+                            
+
+                        }
+                    if(j == grille[i].length-1){
+                        i = i-1;
+                        j=0;
+                        break;
+                    }
+                }   
+            }
+
+        }
+        int  [][] res = TP9.toDominoId(grille);
+        return res;
+    }
+
 }
