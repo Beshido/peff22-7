@@ -15,7 +15,7 @@ public class Domino {
         this.id = id;
     }
     public int [] getSide(){
-        int t = new int[4];
+        int t [] = new int[4];
         t[0]=haut;
         t[1]=bas;
         t[2]=gauche;
