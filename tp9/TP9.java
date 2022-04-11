@@ -195,7 +195,7 @@ public class TP9{
                 }
             }
 
-            if(grille[i][j] !=null){
+            // if(grille[i][j] !=null){
                 for(int k = 0; k < dominos.size();k++){
                 
                     if(grille[i][j].droite == dominos.get(k).gauche){
@@ -204,7 +204,7 @@ public class TP9{
                                 grille[i][j+1] = dominos.get(k);
                                 dominos.remove(dominos.get(k));
                                 j++;
-                                //break;
+                                
                             }
                             
 
@@ -215,7 +215,7 @@ public class TP9{
                         break;
                     }
                 }   
-            }
+            // }
 
         }
         int  [][] res = TP9.toDominoId(grille);
