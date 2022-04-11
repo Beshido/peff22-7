@@ -21,12 +21,14 @@ public class TP9{
         // print resultat
         for(int i = 0; i < maxL; i++){
             for(int j = 0; j < nbDominos; j++){
-                System.out.print(resultat[i][j] + " ");
+                if(resultat[i][j]!=0){
+                    System.out.print(resultat[i][j] + " ");
+                }
             }
             System.out.println();
         }
 
-        
+
     }
 
     public static int[][] solutionAlban (List <Domino> liste, int maxL) {
@@ -60,7 +62,7 @@ public class TP9{
         }
 
         return resultat;
-        }
+    }
     public static Map<Integer, Integer> colorInfo(List<Domino> dominos){
         Map<Integer, Integer> colors = new HashMap<Integer, Integer>();
         for (Domino d : dominos) {
