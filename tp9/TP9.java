@@ -102,7 +102,9 @@ public class TP9{
         int [][] ti = new int[len1][len2];
         for(int i = 0; i < len1; i++){
             for(int j = 0; j < len2; j++){
-                ti[i][j]=td[i][j].id;
+                if(td[i][j]!=null){
+                    ti[i][j]=td[i][j].id;
+                }
             }
         }
         return ti;
