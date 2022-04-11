@@ -6,7 +6,7 @@ public class Domino {
     public int couleur;
     public int id;
     
-    public Domino(int haut, int bas, int gauche, int droite, int couleur,int id) {
+    public Domino( int couleur,int haut, int droite, int bas, int gauche,int id) {
         this.haut = haut;
         this.bas = bas;
         this.gauche = gauche;
