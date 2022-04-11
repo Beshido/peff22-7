@@ -22,4 +22,7 @@ public class Domino {
         t[3]=droite;
         return t;
     }
+    public String toString(){
+        return id+" col: "+col+" "+haut+" "+droite+" "+bas+" "+gauche;
+    }
 }
