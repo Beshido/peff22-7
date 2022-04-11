@@ -21,7 +21,7 @@ public class TP9{
         // System.out.println(dominoes);
         System.out.println(colorInfo(dominoes));
         System.out.println(numberInfo(dominoes));
-        int[][] resultat = permutationbis(dominoes, maxL);
+        int[][] resultat = permutation(dominoes, maxL);
         // print resultat
         for(int i = 0; i < maxL; i++){
             for(int j = 0; j < nbDominos; j++){
@@ -171,7 +171,7 @@ public class TP9{
         return res2;
     }
 
-    public static int[][] permutationbis(List<Domino> dominos,int l){
+    public static int[][] permutation(List<Domino> dominos,int l){
         Domino [][] grille = new Domino [l][dominos.size()];
         int i = l-1;
         int j = 0;
@@ -195,7 +195,7 @@ public class TP9{
                 }
             }
 
-            // if(grille[i][j] !=null){
+             if(grille[i][j] !=null){
                 for(int k = 0; k < dominos.size();k++){
                 
                     if(grille[i][j].droite == dominos.get(k).gauche){
@@ -215,7 +215,7 @@ public class TP9{
                         break;
                     }
                 }   
-            // }
+             }
 
         }
         int  [][] res = TP9.toDominoId(grille);
