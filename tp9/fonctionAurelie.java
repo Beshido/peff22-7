@@ -27,6 +27,7 @@ public class fonctionAurelie {
             i--;
             j++;
         }
+        return res;
     }
 
     public static void main(String[] args) {
