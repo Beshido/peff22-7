@@ -49,7 +49,6 @@ public class TP9{
                 resultat [incrementer][incrementer+1] = domino.id;
                 resultat [incrementer][incrementer] = liste.get(i).id;
                 incrementer=incrementer+2;
-                resultat[incrementer-1][0] = -1;
                 liste.remove(i);
                 liste.remove(0);
                 domino = liste.get(0);
@@ -59,7 +58,6 @@ public class TP9{
                 resultat [incrementer][incrementer+1] = liste.get(i).id;
                 resultat [incrementer][incrementer] = domino.id;
                 incrementer=incrementer+2;
-                resultat[incrementer-1][0] = -1;
                 liste.remove(i);
                 liste.remove(0);
                 domino = liste.get(0);
@@ -67,6 +65,9 @@ public class TP9{
             }
             if(incrementer == maxL){
                 break;
+            }
+            if(incrementer>0 && (i<liste.size()-1 || incrementer == maxL)){
+                resultat[incrementer-1][0] = -1;
             }
         }
 
