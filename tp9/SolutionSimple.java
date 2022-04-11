@@ -8,7 +8,7 @@ public class SolutionSimple {
         Domino domino = liste.get(0);
         int incrementer = 0;
         for(int i =1;i<liste.size();i++){
-            if (liste.get(i).Haut() == domino.Bas()){
+            if (liste.get(i).haut == domino.bas){
                 resultat [incrementer][incrementer] = domino.id;
                 resultat [incrementer][incrementer+1] = liste.get(i).id;
                 incrementer=incrementer+2;
@@ -16,19 +16,19 @@ public class SolutionSimple {
                 liste.remove(i);
                 liste.remove(0);
 
+            }
+            else if (liste.get(i).bas == domino.haut){
+                resultat [incrementer][incrementer] = liste.get(i).id;
+                resultat [incrementer][incrementer+1] = domino.id;
+                incrementer=incrementer+2;
+                resultat[incrementer-1][0] = -1;
+                liste.remove(i);
+                liste.remove(0);
+            }
+            if(incrementer == maxL){
+                break;
+            }
         }
-        if (liste.get(i).Bas() == domino.haut()){
-            resultat [incrementer][incrementer] = liste.get(i).id;
-            resultat [incrementer][incrementer+1] = domino.id;
-            incrementer=incrementer+2;
-            resultat[incrementer-1][0] = -1;
-            liste.remove(i);
-            liste.remove(0);
-
-     }if(incrementer == maxL){
-         break;
-     }
-}
 
         return resultat;
         }

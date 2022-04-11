@@ -17,9 +17,50 @@ public class TP9{
             Domino d = new Domino(Integer.parseInt(tab[0]), Integer.parseInt(tab[1]), Integer.parseInt(tab[2]), Integer.parseInt(tab[3]), Integer.parseInt(tab[4]), i);
             dominoes.add(d);
         }
+        int[][] resultat = solutionAlban(dominoes, maxL);
+        // print resultat
+        for(int i = 0; i < maxL; i++){
+            for(int j = 0; j < nbDominos; j++){
+                System.out.print(resultat[i][j] + " ");
+            }
+            System.out.println();
+        }
 
-
+        
     }
+
+    public static int[][] solutionAlban (List <Domino> liste, int maxL) {
+        int[][] resultat = new int[maxL][liste.size()];
+        Domino domino = liste.get(0);
+        int incrementer = 0;
+        for(int i =1;i<liste.size();i++){
+            if (liste.get(i).haut == domino.bas){
+                resultat [incrementer][incrementer] = domino.id;
+                resultat [incrementer][incrementer+1] = liste.get(i).id;
+                incrementer=incrementer+2;
+                resultat[incrementer-1][0] = -1;
+                liste.remove(i);
+                liste.remove(0);
+                domino = liste.get(0);
+
+            }
+            else if (liste.get(i).bas == domino.haut){
+                resultat [incrementer][incrementer] = liste.get(i).id;
+                resultat [incrementer][incrementer+1] = domino.id;
+                incrementer=incrementer+2;
+                resultat[incrementer-1][0] = -1;
+                liste.remove(i);
+                liste.remove(0);
+                domino = liste.get(0);
+
+            }
+            if(incrementer == maxL){
+                break;
+            }
+        }
+
+        return resultat;
+        }
     public static Map<Integer, Integer> colorInfo(List<Domino> dominos){
         Map<Integer, Integer> colors = new HashMap<Integer, Integer>();
         for (Domino d : dominos) {

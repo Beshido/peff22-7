@@ -23,6 +23,6 @@ public class Domino {
         return t;
     }
     public String toString(){
-        return id+" col: "+col+" "+haut+" "+droite+" "+bas+" "+gauche;
+        return id+" col: "+couleur+" "+haut+" "+droite+" "+bas+" "+gauche;
     }
 }
