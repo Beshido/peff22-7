@@ -74,6 +74,9 @@ public class TP9{
             if(incrementer == maxL){
                 break;
             }
+            if(incrementer>0 && (i<liste.size()-1 || incrementer == maxL)){
+                resultat[incrementer-1][0] = -1;
+            }
         }
 
         return resultat;
