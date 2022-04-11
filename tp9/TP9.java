@@ -12,6 +12,7 @@ public class TP9{
         int valeurMax = Integer.parseInt(tab[1]);
         int maxL =  Integer.parseInt(tab[2]);
         int nbDominos = Integer.parseInt(tab[3]);
+        System.out.println("maxL "+maxL+" nbDominos "+nbDominos);
         for(int i = 0; i < nbDominos; i++){
             tab = list.get(i+1).split(" ");
             Domino d = new Domino(Integer.parseInt(tab[0]), Integer.parseInt(tab[1]), Integer.parseInt(tab[2]), Integer.parseInt(tab[3]), Integer.parseInt(tab[4]), i);
@@ -20,7 +21,7 @@ public class TP9{
         // System.out.println(dominoes);
         System.out.println(colorInfo(dominoes));
         System.out.println(numberInfo(dominoes));
-        int[][] resultat = solutionAlban(dominoes, maxL);
+        int[][] resultat = oneDomManyCol(dominoes, maxL);
         // print resultat
         for(int i = 0; i < maxL; i++){
             for(int j = 0; j < nbDominos; j++){
@@ -124,20 +125,44 @@ public class TP9{
         return false;
     }
 
-    public static int[][] oneDomManyCol (List<Domino> dominos, int l){
-        Domino[][] res = new Domino[l][dominos.size()];
-        int i = l-1;
+    public static int[][] oneDomManyCol (List<Domino> dominos, int maxL){
+        Domino[][] res = new Domino[maxL][dominos.size()];
+        int i = res.length-1;
         int j = 0;
-        while((!dominos.isEmpty()) && i>0 ){
+        while((!dominos.isEmpty()) && i>=0){
+            boolean haveBeenRemove=false;
             for(Domino domino : dominos){
                 if(!colorInLine(res[i],domino.couleur)){
                     res[i][j] = domino;
                     dominos.remove(domino);
+                    haveBeenRemove=true;
                     break;
                 }
             }
-            if(j == dominos.size()) {
+            if(j == res[i].length-1) {
                 i--;
+                System.out.println("next lines");
+                j=0;
+            }else {
+                j++;
+            }
+        }
+        i = res.length-1;
+        j = 0;
+        while((!dominos.isEmpty()) && i>=0){
+            if(res[i][j]==null){
+              boolean haveBeenRemove=false;
+              for(Domino domino : dominos){
+                  res[i][j] = domino;
+                  dominos.remove(domino);
+                  haveBeenRemove=true;
+                  break;
+              }
+            }
+            if(j == res[i].length-1) {
+                i--;
+                System.out.println("next lines");
+                j=0;
             }else {
                 j++;
             }
