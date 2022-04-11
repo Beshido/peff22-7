@@ -104,6 +104,8 @@ public class TP9{
             for(int j = 0; j < len2; j++){
                 if(td[i][j]!=null){
                     ti[i][j]=td[i][j].id;
+                }else{
+                    ti[i][j]=-10;
                 }
             }
         }
