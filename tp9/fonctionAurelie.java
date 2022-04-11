@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.*;
 
 public class fonctionAurelie {
     public static boolean colorInLine (Domino[] dominos, int color){
@@ -12,7 +12,7 @@ public class fonctionAurelie {
         return true;
     }
 
-    public static Domino[][] oneDomManyCol (LinkedList<Domino> dominos, int l){
+    public static int[][] oneDomManyCol (List<Domino> dominos, int l){
         Domino[][] res = new Domino[l][dominos.size()];
         int i = l-1;
         int j = 0;
@@ -27,8 +27,10 @@ public class fonctionAurelie {
             i--;
             j++;
         }
-        return res;
+        int[][] res2 = TP9.toDominoId(res);
+        return res2;
     }
+
 
     public static void main(String[] args) {
 
