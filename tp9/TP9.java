@@ -17,6 +17,9 @@ public class TP9{
             Domino d = new Domino(Integer.parseInt(tab[0]), Integer.parseInt(tab[1]), Integer.parseInt(tab[2]), Integer.parseInt(tab[3]), Integer.parseInt(tab[4]), i);
             dominoes.add(d);
         }
+        // System.out.println(dominoes);
+        System.out.println(colorInfo(dominoes));
+        System.out.println(numberInfo(dominoes));
         int[][] resultat = solutionAlban(dominoes, maxL);
         // print resultat
         for(int i = 0; i < maxL; i++){
@@ -86,5 +89,16 @@ public class TP9{
             }
         }
         return numbers;
+    }
+    public static int [][] toDominoId(Domino [][] td){
+        int len1=td.length;
+        int len2=td[0].length;
+        int [][] ti = new int[len1][len2];
+        for(int i = 0; i < len1; i++){
+            for(int j = 0; j < len2; j++){
+                ti[i][j]=td[i][j].id;
+            }
+        }
+        return ti;
     }
 }
