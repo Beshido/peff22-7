@@ -171,15 +171,19 @@ public class TP9{
         return res2;
     }
 
+
     public static int[][] permutation(List<Domino> dominos,int l){
         Domino [][] grille = new Domino [l][dominos.size()];
         int i = l-1;
         int j = 0;
+        //tant que l'on peut rajouter des dominos et que l'on a pas atteint le haut de la grille 
         while(!dominos.isEmpty() && i>=0){
+            //si on est sur la ligne du bas on met le premier dominos de la liste 
             if(i == l-1){
                 grille[i][j] = dominos.remove(0);
                   
             }else{
+                // sinon on prend un domino qui peut etre mis au dessus de celui de la ligne du dessous
                 for(Domino domino : dominos){
                     if(grille[i+1][j]!= null){
 
@@ -194,7 +198,9 @@ public class TP9{
                     
                 }
             }
-
+            
+            //si le domino courant n'est pas null on pioche un domino dans la liste et on voit si on peut le mettre dans 
+            //la case à coté
              if(grille[i][j] !=null){
                 for(int k = 0; k < dominos.size();k++){
                 
@@ -209,6 +215,8 @@ public class TP9{
                             
 
                         }
+
+                     //lorsque on atteint le bout de la ligne on passe à la ligne du dessus    
                     if(j == grille[i].length-1){
                         i = i-1;
                         j=0;
